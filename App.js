@@ -285,7 +285,7 @@ const AppDrawerNavigator = createDrawerNavigator({
     navigationOptions:{
       drawerLabel: () => null
  },
-    screen:cartStackPages,
+    screen:Cart,
     
   },
   

@@ -179,7 +179,9 @@ class Login extends Component {
             </Button>
             <View style={{marginTop: 22}}>
         <Modal
-          style={styles.hehe}
+        style={{transitionDelay:"2s"}}
+          //style={styles.hehe}
+          
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
@@ -250,7 +252,8 @@ const styles = StyleSheet.create({
       paddingLeft: 20
   },
   hehe:{
-    color:'green',backgroundColor:'red' 
+    color:'green',backgroundColor:'red' ,
+  
   }
 
 

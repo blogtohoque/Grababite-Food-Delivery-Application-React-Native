@@ -18,6 +18,8 @@ import {
   Thumbnail,
   View,Icon
 } from "native-base";
+import Icons from 'react-native-vector-icons/Ionicons';
+
  class Cart extends Component {
   onPlaceOrderClick = () => {
     Alert.alert(
@@ -37,6 +39,18 @@ import {
   render() {
     return (
       <Container style={{ width: "100%" }}>
+        <View style={{backgroundColor:"#1c313a", height:50, flexDirection:"row",paddingTop:10 }}>
+        <Icons 
+                                    style={{paddingLeft:10}} 
+                                    onPress={()=>{this.props.navigation.goBack()}}
+                                    name="md-arrow-back" 
+                                    size={30}
+                                    color="white"
+                            /> 
+     <Text style={{paddingLeft:40, color:'white'}}>GRAB A BITE </Text>
+
+     
+     </View>
         <Content padder>
           <List>
             

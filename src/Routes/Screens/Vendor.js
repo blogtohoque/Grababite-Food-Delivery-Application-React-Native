@@ -39,7 +39,7 @@ class Vendor extends Component {
   };
   componentDidMount=()=>{
    
-    fetch('http://192.168.1.28:8000/city')
+    fetch('http://192.168.10.7:8000/city')
     .then(res=> res.json())
     .then(gotdata=>this.setState({gotdata}));
    
@@ -67,7 +67,7 @@ class Vendor extends Component {
      <FIcon
       name="cart-plus" style={{ paddingLeft:370,color:'white'}} 
       size={30} 
-      onPress={()=>{navigation.navigate('TripleJugarNavigation')}}
+      onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
         />
      </View>
         <Content padder>
