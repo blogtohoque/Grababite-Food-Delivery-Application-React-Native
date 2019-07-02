@@ -179,8 +179,8 @@ class Login extends Component {
             </Button>
             <View style={{marginTop: 22}}>
         <Modal
-        style={{transitionDelay:"2s"}}
-          //style={styles.hehe}
+     //   style={{transitionDelay:"2s"}}
+          style={styles.hehe}
           
           animationType="slide"
           transparent={false}

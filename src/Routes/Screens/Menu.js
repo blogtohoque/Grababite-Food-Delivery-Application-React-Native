@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Alert, Image } from "react-native";
+import { Alert, Image, StyleSheet,TouchableOpacity,TextInput } from "react-native";
 import {connect} from 'react-redux';
 import {addItem} from '../../Store/actions/index';
 import {
@@ -21,11 +21,13 @@ import {
   Icon,
   Input,
   Card,
-  CardItem
+  CardItem,
+  CheckBox
 } from "native-base";
 
 import Icons from 'react-native-vector-icons/Ionicons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
+import Modal from "react-native-modal";
 class Menu extends Component {
   static navigationOptions = {
     header:null
@@ -49,8 +51,142 @@ class Menu extends Component {
   };
   state={
     gotdata:[],
-    gotmenu:[]
+    gotmenu:[],
+    visibleModalId: null,
+    name:"",price:"",description:"",_id:"",vendorName:"",
+    cOn:true,
+    vOn:false,
+    bottle:""
+
+  };
+
+  customerCheck=()=>{
+    var v=this.state.vOn   //false
+    var c=this.state.cOn   //true
+
+  this.setState(
+    {
+      cOn:v,
+      vOn:c
+    }
+  )
+  if(this.state.cOn==true)
+  {
+    this.setState(
+      {
+        bottle:"Coca Cola"
+      }
+    )
   }
+  else{
+    this.setState(
+      {
+        bottle:"Sprite"
+      }
+    )
+
+  }      
+}
+
+  renderModalContent = (namefood,pricefood,descriptionfood,_idfood,vendorNamefood) => (
+    <View style={styles.content}>
+      <View style={{backgroundColor:"#1c313a", height:40}}>
+                  <View style={{
+                    flexDirection:"row", justifyContent:"space-between",marginRight:275 ,fontSize:30,
+                    paddingTop:5
+                    
+                    }}>
+                    
+                      
+                        <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
+                        <Text style={{color:"white",fontFamily:"century-gothic"}}>  Cancel </Text>
+                        </TouchableOpacity>
+                    
+                      
+                      
+                      
+                    
+                    
+                    
+                    <Text style={{color:"white",fontFamily:"century-gothic"}}>Menu Item</Text>
+                  
+                  
+                  </View>
+
+
+                    
+
+
+      </View>
+      <View style={{flexDirection:"column"}}>
+       <Text style={{color:"black",fontWeight:"500",fontSize:20,fontFamily:"century-gothic",paddingLeft:10}}>{this.state.name}</Text>
+       <Text style={{color:"black",fontWeight:"300",fontSize:15,fontFamily:"century-gothic",paddingLeft:10}}>PKR{this.state.price}</Text>
+       <Text style={{color:"black",fontWeight:"100",fontSize:15,fontFamily:"century-gothic",paddingLeft:10}}>{this.state.description}</Text>
+                 
+                    <Text  style={{color:"black",fontWeight:"100",fontSize:15,fontFamily:"century-gothic",paddingLeft:10}}>Choose Your Drink</Text>
+                    <List>
+                          <ListItem>
+                                  <CheckBox checked={this.state.cOn} onPress={this.customerCheck} />
+                                  <Body>
+                                  <Text>Coca Cola</Text>
+                                  </Body>
+                          </ListItem>
+                          <ListItem>
+                                <CheckBox  checked={this.state.vOn}  onPress={this.customerCheck}/>
+                                <Body>
+                                <Text>Sprite</Text>
+                                </Body>
+                          </ListItem>
+                          
+                    </List>
+                    <Text style={{color:"black",fontWeight:"100",fontSize:15,fontFamily:"century-gothic",paddingLeft:10}}>Special Instruction</Text>
+                    <TextInput
+                      editable = {true}
+                      maxLength = {80}
+                      spellCheck={true}
+                      placeholder={"Add Instruction here..."}
+                      placeholderTextColor={"grey"}
+                    />
+      </View>
+        
+       
+    </View>
+  );
+  plusClickHandler=(name,price,description,_id,vendorName)=>{
+    this.setState({
+      
+      visibleModal: 'fancy',
+      name:name,
+      price:price,
+      description:description,
+      _id:_id,
+      vendorName:vendorName
+    
+    })
+  };
+  handleOnScroll = event => {
+    this.setState({
+      scrollOffset: event.nativeEvent.contentOffset.y,
+    });
+  };
+
+  handleScrollTo = p => {
+    if (this.scrollViewRef) {
+      this.scrollViewRef.scrollTo(p);
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
   onCheckoutClick = () => {
    // this.props.navigator.push({
   //    screen: "awesome-places.Cart",
@@ -121,6 +257,11 @@ class Menu extends Component {
         </Header>
         <Content padder>
           
+        <Button
+          onPress={() => this.setState({ visibleModal: 'fancy' })}
+          >
+            <Text> Fancy</Text>
+        </Button>
 
 
           <View>
@@ -154,12 +295,14 @@ class Menu extends Component {
                                   </Left>
                                   <Right>
                                   <Button transparent>
-                                          <Icons  name="ios-add-circle-outline" size={30} style={{color:"white"}} onPress={()=>{this.Alertme(abc.name,abc.price,abc.description,abc._id,this.props.vendorName),this.props.onPlusClick(abc.name,abc.price,abc.description,abc._id,this.props.vendorName)}} /> 
-                                          
+                                          <Icons  name="ios-add-circle-outline" size={30} style={{color:"white"}} onPress={()=>{this.plusClickHandler(abc.name,abc.price,abc.description,abc._id,this.props.vendorName),this.props.onPlusClick(abc.name,abc.price,abc.description,abc._id,this.props.vendorName)}} /> 
+                                          {/*this.Alertme(abc.name,abc.price,abc.description,abc._id,this.props.vendorName), */}
                                           </Button>
 
                                   </Right>
                                 </CardItem>
+
+                                
                     
 
 
@@ -216,10 +359,25 @@ class Menu extends Component {
           </View>    
 
 
+          
 
 
 
 
+          <Modal
+                                      isVisible={this.state.visibleModal === 'fancy'}
+                                      backdropColor="#B4B3DB"
+                                      backdropOpacity={0.8}
+                                      animationIn="zoomInDown"
+                                      animationOut="zoomOutUp"
+                                      animationInTiming={600}
+                                      animationOutTiming={600}
+                                      backdropTransitionInTiming={600}
+                                      backdropTransitionOutTiming={600}
+                                      style={{padding:40}}
+                                    >
+                                      {this.renderModalContent()}
+        </Modal>
 
 
 
@@ -251,6 +409,7 @@ class Menu extends Component {
 mapStateToProps=(state)=>{
   return{
     vendorName:state.Main.vendor,
+    hex:state.Main.cart
     
   };
 }
@@ -260,4 +419,63 @@ mapDispatchToProps=(dispatch)=>{
   };
 }
 
+
+
+
 export default connect(mapStateToProps,mapDispatchToProps)(Menu);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  content: {
+    backgroundColor: 'white',
+    justifyContent:"space-around",
+   
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  contentTitle: {
+    fontSize: 20,
+    marginBottom: 12,
+  },
+  bottomModal: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  scrollableModal: {
+    height: 300,
+  },
+  scrollableModalContent1: {
+    height: 200,
+    backgroundColor: '#87BBE0',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scrollableModalText1: {
+    fontSize: 20,
+    color: 'white',
+  },
+  scrollableModalContent2: {
+    height: 200,
+    backgroundColor: '#A9DCD3',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scrollableModalText2: {
+    fontSize: 20,
+    color: 'white',
+  },
+  customBackdrop: {
+    flex: 1,
+    backgroundColor: '#87BBE0',
+    alignItems: 'center',
+  },
+  customBackdropText: {
+    marginTop: 10,
+    fontSize: 17,
+  },
+});
