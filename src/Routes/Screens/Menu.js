@@ -22,12 +22,14 @@ import {
   Input,
   Card,
   CardItem,
-  CheckBox
+  CheckBox,
+  Badge
 } from "native-base";
 
 import Icons from 'react-native-vector-icons/Ionicons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import Modal from "react-native-modal";
+import NumericInput from 'react-native-numeric-input';
 class Menu extends Component {
   static navigationOptions = {
     header:null
@@ -56,10 +58,15 @@ class Menu extends Component {
     name:"",price:"",description:"",_id:"",vendorName:"",
     cOn:true,
     vOn:false,
-    bottle:""
+    bottle:"",
+    amount: 0,
+    v8: 0,
+    value:0, v9:0
 
   };
-
+  changeAmount(text) {
+    this.amount = text
+  }
   customerCheck=()=>{
     var v=this.state.vOn   //false
     var c=this.state.cOn   //true
@@ -87,13 +94,18 @@ class Menu extends Component {
 
   }      
 }
+closeModal=()=>{
+
+  this.setState({ visibleModal: null });
+
+}
 
   renderModalContent = (namefood,pricefood,descriptionfood,_idfood,vendorNamefood) => (
     <View style={styles.content}>
       <View style={{backgroundColor:"#1c313a", height:40}}>
                   <View style={{
-                    flexDirection:"row", justifyContent:"space-between",marginRight:275 ,fontSize:30,
-                    paddingTop:5
+                    flexDirection:"row", justifyContent:"space-between",marginRight:210 ,fontSize:30,
+                    paddingTop:5, paddingVertical:10
                     
                     }}>
                     
@@ -119,11 +131,11 @@ class Menu extends Component {
 
       </View>
       <View style={{flexDirection:"column"}}>
-       <Text style={{color:"black",fontWeight:"500",fontSize:20,fontFamily:"century-gothic",paddingLeft:10}}>{this.state.name}</Text>
-       <Text style={{color:"black",fontWeight:"300",fontSize:15,fontFamily:"century-gothic",paddingLeft:10}}>PKR{this.state.price}</Text>
-       <Text style={{color:"black",fontWeight:"100",fontSize:15,fontFamily:"century-gothic",paddingLeft:10}}>{this.state.description}</Text>
+       <Text style={{color:"black",fontWeight:"500",fontSize:20,fontFamily:"century-gothic",paddingLeft:10,paddingVertical:7}}>{this.state.name}</Text>
+       <Text style={{color:"black",fontWeight:"300",fontSize:15,fontFamily:"century-gothic",paddingLeft:10,paddingVertical:7}}>PKR{this.state.price}</Text>
+       <Text style={{color:"black",fontWeight:"100",fontSize:15,fontFamily:"century-gothic",paddingLeft:10,paddingVertical:7}}>{this.state.description}</Text>
                  
-                    <Text  style={{color:"black",fontWeight:"100",fontSize:15,fontFamily:"century-gothic",paddingLeft:10}}>Choose Your Drink</Text>
+                    <Text  style={{color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic",paddingLeft:10,paddingVertical:15}}>Choose Your Drink</Text>
                     <List>
                           <ListItem>
                                   <CheckBox checked={this.state.cOn} onPress={this.customerCheck} />
@@ -139,7 +151,7 @@ class Menu extends Component {
                           </ListItem>
                           
                     </List>
-                    <Text style={{color:"black",fontWeight:"100",fontSize:15,fontFamily:"century-gothic",paddingLeft:10}}>Special Instruction</Text>
+                    <Text style={{color:"black",fontWeight:"100",fontSize:15,fontFamily:"century-gothic",paddingLeft:10,paddingVertical:15}}>Special Instruction</Text>
                     <TextInput
                       editable = {true}
                       maxLength = {80}
@@ -147,6 +159,60 @@ class Menu extends Component {
                       placeholder={"Add Instruction here..."}
                       placeholderTextColor={"grey"}
                     />
+
+                      
+                    <View style={{paddingHorizontal:10,paddingVertical:10, flexDirection:"row", justifyContent:"space-between" }}>
+
+                                    <NumericInput
+                                    initValue={this.state.v8}
+                                    value={this.state.v8}
+                                    onChange={
+                                      (v8) => { 
+                                                    if(v8>0)
+                                                    {
+                                         /*                
+                                                      if(v8>this.state.v8)
+                                                      {
+                                                          this.props.onPlusClick(this.state.id,this.state.price);
+                                                        this.setState({ 
+                                                          v8:v8                                                    
+                                                        })
+                                                      }
+                                                      else {
+                                                        this.props.onMinusQuantityClick(this.state.id,this.state.price);  
+                                                        this.setState({ 
+                                                          v8:v8                                                    
+                                                        })
+                                                      }
+                                                 */     
+                                                      this.setState({ 
+                                                        v8:v8                                                    
+                                                      })
+                                                    
+                                                    }
+                                              }
+                                    
+                                    } 
+                                    totalWidth={80}
+                                    totalHeight={40}
+                                    textColor='black' 
+                                    iconStyle={{ color: 'white' }}
+                                    rightButtonBackgroundColor='#1c313a'
+                                    leftButtonBackgroundColor='#1c313a' />
+
+                                    <Button onPress={()=>{
+                                      this.closeModal(),
+                                      this.props.onPlusClick(this.state.name,this.state.price,this.state.description,this.state._id,this.props.vendorName)
+
+                                    
+                                    }} style={{backgroundColor:"#1c313a"}}><Text style={{color:"white",fontWeight:"300",fontSize:15,fontFamily:"century-gothic"}}>ADD TO BASKET</Text></Button>
+                                    {/*this.props.onPlusClick(this.state.name,this.state.price,this.state.description,this.state._id,this.props.vendorName,this.state.v8) */}
+                </View> 
+
+
+
+
+
       </View>
         
        
@@ -160,7 +226,8 @@ class Menu extends Component {
       price:price,
       description:description,
       _id:_id,
-      vendorName:vendorName
+      vendorName:vendorName,
+      v8:1
     
     })
   };
@@ -225,6 +292,23 @@ class Menu extends Component {
     );
   };
   render() {
+    const itemexist = this.props.count;
+    let button;
+
+    if (itemexist!="0" || itemexist!=0) {
+      button = (
+                <Badge style={{backgroundColor:"#1c313a"}}>
+                <Text>{this.props.count}</Text>
+                </Badge>
+      );
+    } 
+    else {
+      
+    }
+
+
+
+
     return (
       <Container style={{ width: "100%" }}>
         <View style={{backgroundColor:"#1c313a", height:50, flexDirection:"row",paddingTop:10 }}>
@@ -241,7 +325,24 @@ class Menu extends Component {
       name="cart-plus" style={{ paddingLeft:370,color:'white'}} 
       size={30} 
       onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
+        
+        
         />
+       
+          {button}
+
+
+    
+         
+         
+         
+       
+          
+ 
+
+
+
+        
      </View>
           <Header searchBar rounded style={{backgroundColor: '#1c313a'}}>
           <Item>
@@ -295,8 +396,8 @@ class Menu extends Component {
                                   </Left>
                                   <Right>
                                   <Button transparent>
-                                          <Icons  name="ios-add-circle-outline" size={30} style={{color:"white"}} onPress={()=>{this.plusClickHandler(abc.name,abc.price,abc.description,abc._id,this.props.vendorName),this.props.onPlusClick(abc.name,abc.price,abc.description,abc._id,this.props.vendorName)}} /> 
-                                          {/*this.Alertme(abc.name,abc.price,abc.description,abc._id,this.props.vendorName), */}
+                                          <Icons  name="ios-add-circle-outline" size={30} style={{color:"white"}} onPress={()=>{this.plusClickHandler(abc.name,abc.price,abc.description,abc._id,this.props.vendorName)}} /> 
+                                          {/*this.Alertme(abc.name,abc.price,abc.description,abc._id,this.props.vendorName),this.props.onPlusClick(abc.name,abc.price,abc.description,abc._id,this.props.vendorName) */}
                                           </Button>
 
                                   </Right>
@@ -397,7 +498,7 @@ class Menu extends Component {
           <FooterTab>
             <Button full>
               <Text onPress={this.onCheckoutClick}>Checkout</Text>
-              <Text>Vendor name is {this.props.vendorName}</Text>
+              <Text>Vendor name is {this.props.vendorName} and {this.state.v9}</Text>
             </Button>
           </FooterTab>
         </Footer>
@@ -409,13 +510,16 @@ class Menu extends Component {
 mapStateToProps=(state)=>{
   return{
     vendorName:state.Main.vendor,
-    hex:state.Main.cart
+    hex:state.Main.cart,
+    count: state.Main.count
     
   };
 }
 mapDispatchToProps=(dispatch)=>{
   return{
-    onPlusClick:(name,price,description,_id,vendorName)=>dispatch(addItem(name,price,description,_id,vendorName))
+    onPlusClick:(name,price,description,_id,vendorName)=>dispatch(addItem(name,price,description,_id,vendorName)),
+    onMinusQuantityClick: (id,price)=>dispatch(decreaseQuantity(id,price)),
+    onPlusQuantityClick:(id,price)=>dispatch(addQuantity(id,price)),
   };
 }
 

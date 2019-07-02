@@ -8,7 +8,8 @@ const initialState={
     deliveryFees:100,
     total:0,
 
-    userName:""
+    userName:"",
+    count:0
 
 };
 
@@ -29,8 +30,10 @@ const reducer =(state= initialState, action)=>
         case ADD_ITEM:
         if(state.cart.length === 0)
         {
-            var x=parseInt(state.subTotal)+parseInt(action.payload.price)
+            
+            var x=  ( parseInt(state.subTotal)+parseInt(action.payload.price) );
             var totalp=parseInt(x)+parseInt(state.deliveryFees);
+            
             return{
                 ...state,               
               //  foodName: action.name,
@@ -41,11 +44,14 @@ const reducer =(state= initialState, action)=>
                 //var res = str1.concat(str2);
                 subTotal:x,
                 total:totalp,
+                count:state.cart.length+1
                 
             };
         }
         else if(!state.cart.find(c => c.name === action.payload.name)){
-            var x1=parseInt(state.subTotal)+parseInt(action.payload.price)
+
+            var quan=parseInt(action.payload.quantity);
+            var x1= ( parseInt(state.subTotal)+parseInt(action.payload.price) ); 
             var totalp1=parseInt(x1)+parseInt(state.deliveryFees);
             return{
                 ...state,               
@@ -57,12 +63,15 @@ const reducer =(state= initialState, action)=>
                 total:totalp1,
                 //+action.name  
                 //var res = str1.concat(str2);
+                count:state.cart.length+1
             };
 
         }
         else if(state.cart.find(c => c.name === action.payload.name)){
+         //   var quan=parseInt(action.payload.quantity);
             let item = state.cart.find(c => c.id === action.payload.id);
-            var x2=parseInt(state.subTotal)+parseInt(action.payload.price)
+
+            var x2=  parseInt(state.subTotal)+parseInt(action.payload.price); 
             var totalp2=parseInt(x2)+parseInt(state.deliveryFees);
             item.quantity++; 
             return{
@@ -71,6 +80,7 @@ const reducer =(state= initialState, action)=>
                 total:totalp2,
                 
             };  
+            
 
         }
         case ADD_QUANTITY:
@@ -105,11 +115,13 @@ const reducer =(state= initialState, action)=>
                     const updatedArray=state.cart.filter(result=>result.id !==action.ID);
                     var minus=action.quantity*action.price;
                     
+                    
                     return{
                         ...state,
                         cart: updatedArray,
                         subTotal:state.subTotal-minus,
-                        total:state.total-minus
+                        total:state.total-minus,
+                        count:state.cart.length-1
                     };
         case SAVE_USERNAME:
       //      console.log('SAVE USERNAME')

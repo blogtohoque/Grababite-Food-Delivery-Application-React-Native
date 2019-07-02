@@ -36,6 +36,18 @@ import Icons from 'react-native-vector-icons/Ionicons';
       { cancelable: false }
     );
   };
+  minusclick=(id,price,quantity)=>{
+
+    if(quantity==1)
+    {
+      this.props.onDeleteClick(id,price,quantity)
+    }
+    else{
+      this.props.onMinusQuantityClick(id,price);
+    }
+    
+
+  }
   render() {
     return (
       <Container style={{ width: "100%" }}>
@@ -73,7 +85,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
                                               
                               {/*     <button onClick={this.props.onMinusQuantityClick}>-</button>{this.props.quantity}<button onClick={this.props.onPlusQuantityClick} >+</button> x &nbsp;{this.props.name}&nbsp;{this.props.price} Rs
                               */}
-                                     <TouchableHighlight onPress={()=>this.props.onMinusQuantityClick(strResult.id,strResult.price)}>
+                                     <TouchableHighlight onPress={()=>this.minusclick(strResult.id,strResult.price,strResult.quantity)}>
                                         <Text>-  </Text>
                                      </TouchableHighlight>
                                       
@@ -116,6 +128,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
               <Right>
                 <Button transparent>
                   <Text>Rs {this.props.stotal}</Text>
+                  <Text>Count is {this.props.count}</Text>
                 </Button>
               </Right>
             </ListItem>
@@ -200,7 +213,8 @@ mapStateToProps=state=>{
     stotal:state.Main.subTotal,
     dfees:state.Main.deliveryFees,
     totall:state.Main.total,
-    VendorName:state.Main.vendor
+    VendorName:state.Main.vendor,
+    count: state.Main.count
   };
 }
 mapDispatchToProps=dispatch=>{
