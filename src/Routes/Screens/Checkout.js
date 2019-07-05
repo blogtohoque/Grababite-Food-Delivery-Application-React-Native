@@ -20,7 +20,7 @@ import {
 } from "native-base";
 import Icons from 'react-native-vector-icons/Ionicons';
 
- class Cart extends Component {
+ class Checkout extends Component {
   state={
     v8: 0,
   };
@@ -63,7 +63,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
                                     size={30}
                                     color="white"
                             /> 
-     <Text style={{paddingLeft:40, color:'white',fontFamily:"500"}}>BASKET </Text>
+     <Text style={{paddingLeft:40, color:'white',fontFamily:"500"}}>Checkout Page </Text>
 
      
      </View>
@@ -216,10 +216,9 @@ import Icons from 'react-native-vector-icons/Ionicons';
                     </View>                        
           </View>            
       <View style={{paddingTop:15}}>                                         
-          <Button full style={{backgroundColor:"#1c313a"}}>
-            <Text onPress={()=>{this.props.navigation.navigate('CheckoutPage')}} style={{color:"white",fontFamily:"century-gothic",fontWeight:"300", fontSize:25}}>GO TO CHECKOUT</Text>
-         </Button>
-          
+          <Button full style={{backgroundColor:"#1c313a" , }}>
+            <Text onPress={this.onPlaceOrderClick} style={{color:"white",fontFamily:"century-gothic",fontWeight:"300", fontSize:25}}>GO TO CHECKOUT</Text>
+          </Button>
       </View>
         </Content>
         <Text>{this.props.VendorName} Cart</Text>
@@ -253,4 +252,4 @@ mapDispatchToProps=dispatch=>{
   };
 
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Cart);
+export default connect(mapStateToProps,mapDispatchToProps)(Checkout);

@@ -265,11 +265,11 @@ closeModal=()=>{
   };
   componentDidMount=()=>{
         
-    fetch('http://192.168.10.7:8000/food')
+    fetch('http://192.168.10.5:8000/food')
     .then(res=> res.json())
     .then(gotdata=>this.setState({gotdata}));
  
-    fetch('http://192.168.10.7:8000/menu')
+    fetch('http://192.168.10.5:8000/menu')
     .then(res=> res.json())
     .then(gotmenu=>this.setState({gotmenu}));    
     
@@ -297,9 +297,9 @@ closeModal=()=>{
     const itemexist = this.props.count;
     let button;
 
-    if (itemexist!="0" || itemexist!=0) {
+    if (itemexist!="0") {
       button = (
-                <Badge style={{backgroundColor:"#1c313a",opacity:0.6}}>
+                <Badge style={{backgroundColor:"orange",width:25,height:25}}>
                 <Text>{this.props.count}</Text>
                 </Badge>
       );

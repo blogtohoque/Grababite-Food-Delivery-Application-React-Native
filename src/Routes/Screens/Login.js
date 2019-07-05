@@ -62,7 +62,7 @@ class Login extends Component {
     
     var x=this.state.name;
     var y=this.state.password;
-    axios.post('http://192.168.10.14:8000/getuser',
+    axios.post('http://192.168.10.5:8000/getuser',
     {
             name:x,
             password:y

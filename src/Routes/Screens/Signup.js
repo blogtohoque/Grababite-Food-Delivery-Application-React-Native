@@ -112,7 +112,7 @@ export default class Signup extends Component {
         var h = this.state.Address;
         var i = this.state.Date;
         if(c===d){
-          axios.post("http://192.168.10.7:8000/signup",
+          axios.post("http://192.168.10.5:8000/signup",
             {
                  firstname:a,
                  lastname:b,

@@ -27,7 +27,8 @@ import Cart from './src/Routes/Screens/Cart';
 import {createSwitchNavigator, createAppContainer ,createDrawerNavigator, createBottomTabNavigator, createStackNavigator, DrawerItems} from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
-
+import CheckoutPage from './src/Routes/Screens/Checkout';
+  
 import AsyncStorage from '@react-native-community/async-storage';
 
 
@@ -331,7 +332,14 @@ const AppDrawerNavigator = createDrawerNavigator({
     screen:Cart,
     
   },
-  
+  CheckoutPage:{
+    navigationOptions:{
+      drawerLabel: () => null
+ },
+    screen:CheckoutPage,
+    
+  },
+ 
 
 },{
   initialRouteName:'Dashboard',
