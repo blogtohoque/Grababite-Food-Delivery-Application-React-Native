@@ -7,12 +7,12 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,Button,Image,alert} from 'react-native';
+import {Platform, StyleSheet, Text, View,Button,Image,alert,TouchableOpacity} from 'react-native';
 import {
   Container,
   Header,
  Body,
- Content
+ Content,
 } from "native-base";
 import MainPage from './src/Routes/Screens/MainPage';
 import LOGIN from './src/Routes/Screens/Login';
@@ -28,12 +28,15 @@ import {createSwitchNavigator, createAppContainer ,createDrawerNavigator, create
 import Icon from 'react-native-vector-icons/Ionicons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
+
 import {Provider} from 'react-redux';
 import configureStore from './src/Store/configureStore'
 
 
 const store =configureStore();
-
+ const c="Login";
 
 class App extends Component {
   render() {
@@ -65,6 +68,45 @@ const DashboardTabNavigator = createBottomTabNavigator({
   }
 });
 */}
+{/* 
+userlogin=()=>{
+                  const c="Login";
+                  const full_name = AsyncStorage.getItem('fullName');
+                  let button;
+
+                  if (full_name=="") {
+
+                    c="Login";
+
+                    button = (
+                                          <TouchableOpacity onPress={()=>{navigation.navigate('Login')}}><Text >{c}</Text></TouchableOpacity>
+                              
+                              
+                                          );
+                  } 
+                  else {
+                  //  const full_name = await AsyncStorage.getItem('fullName');
+                        c="Logout";
+                  button = (
+                              <Button 
+                              onPress={ async ()=>{
+                              await AsyncStorage.removeItem('fullName');
+                              this.props.navigation.navigate('Dashboard');
+                          //     this.props.onLoginClick("");
+                          //    this.props.navigator.push({
+                          //     screen: "awesome-places.AuthScreen",
+                          //     title: "Authentication"
+                          //      });
+                              }}>
+                              <Text>Logout</Text></Button>
+                  )
+                  }
+}
+
+
+*/}
+
+
 const cartStackPages= createStackNavigator({
   DashboardTabNavigator:Cart,
  // LoginPage:  LOGIN,
@@ -249,7 +291,8 @@ const AppDrawerNavigator = createDrawerNavigator({
     screen:Notifications
   },
   Login:{
-    navigationOptions: {
+    
+    navigationOptions: { 
       drawerIcon: ({ tintColor }) => (
           <FIcon name="lock" style={{ color: "#1c313a" }} 
           size={35} 
@@ -259,7 +302,7 @@ const AppDrawerNavigator = createDrawerNavigator({
           
           />
       ),
-      drawerLabel: "Login"
+      drawerLabel: c
     },
     screen:LOGIN
   },
@@ -326,3 +369,6 @@ const styles = StyleSheet.create({
   },
  
 });
+            // const itemexist = this.props.count;
+            
+    

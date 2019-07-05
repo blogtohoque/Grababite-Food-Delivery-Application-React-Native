@@ -103,6 +103,7 @@ closeModal=()=>{
   renderModalContent = (namefood,pricefood,descriptionfood,_idfood,vendorNamefood) => (
     <View style={styles.content}>
       <View style={{backgroundColor:"#1c313a", height:40}}>
+       
                   <View style={{
                     flexDirection:"row", justifyContent:"space-between",marginRight:210 ,fontSize:30,
                     paddingTop:5, paddingVertical:10
@@ -111,7 +112,9 @@ closeModal=()=>{
                     
                       
                         <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
-                        <Text style={{color:"white",fontFamily:"century-gothic"}}>  Cancel </Text>
+                                        <Text style={{color:"white",fontFamily:"century-gothic"}}> 
+                                        Cancel
+                                          </Text>
                         </TouchableOpacity>
                     
                       
@@ -127,8 +130,7 @@ closeModal=()=>{
 
 
                     
-
-
+                    
       </View>
       <View style={{flexDirection:"column"}}>
        <Text style={{color:"black",fontWeight:"500",fontSize:20,fontFamily:"century-gothic",paddingLeft:10,paddingVertical:7}}>{this.state.name}</Text>
@@ -297,7 +299,7 @@ closeModal=()=>{
 
     if (itemexist!="0" || itemexist!=0) {
       button = (
-                <Badge style={{backgroundColor:"#1c313a"}}>
+                <Badge style={{backgroundColor:"#1c313a",opacity:0.6}}>
                 <Text>{this.props.count}</Text>
                 </Badge>
       );

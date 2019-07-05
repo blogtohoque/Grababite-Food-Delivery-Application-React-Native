@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 
 import {addQuantity,decreaseQuantity,deleteItem} from '../../Store/actions/index';
-import {Alert,  StyleSheet, TouchableHighlight } from "react-native";
+import {Alert,  StyleSheet, TouchableHighlight,TouchableOpacity } from "react-native";
 import {
   Container,
   Content,
@@ -63,7 +63,105 @@ import Icons from 'react-native-vector-icons/Ionicons';
 
      
      </View>
+     <View style={{backgroundColor:"#1c313a", height:40, opacity:0.6}}>
+       
+       <View style={{
+         flexDirection:"row", fontSize:30,
+         
+         
+         }}>
+         
+           
+             <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
+                             <Text style={{color:"black",fontFamily:"century-gothic",fontWeight:"500", fontSize:20, paddingLeft:13,paddingTop:3 }}> 
+                             Food
+                               </Text>
+             </TouchableOpacity>
+         
+           
+           
+           
+         
+         
+         
+       
+       </View>
+
+
+         
+         
+</View>
+
+
+
+
+
+
+
+
+
+
         <Content padder>
+        
+
+         <View style={{flexDirection:"column"}}>
+          <Text style={{color:"black",fontFamily:"century-gothic",fontWeight:"500", fontSize:20 }}>
+          {this.props.VendorName}
+          </Text>
+         <Text>Estimated Delivery Time: 30 Minutes</Text>
+         </View>
+
+
+         <View style={{flexDirection:"column"}}>
+            <Text style={{color:"#1c313a",  opacity:0.6}}>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</Text>
+            
+            <View>
+          
+            {this.props.hex.map(strResult=>(
+              <View style={{flexDirection:"row"}} key={strResult.id} >
+              
+              <TouchableHighlight onPress={()=>this.minusclick(strResult.id,strResult.price,strResult.quantity)}>
+                                        <Text>-  </Text>
+                                     </TouchableHighlight>
+                                      
+                                       <Text>  {strResult.quantity}</Text>
+                                     <TouchableHighlight onPress={()=>this.props.onPlusQuantityClick(strResult.id,strResult.price)}>
+                                      <Text >  +</Text>
+                                      </TouchableHighlight>
+                                      <Text>  x</Text>
+                                      <Text>  {strResult.name} ( {strResult.vendorName} )</Text>
+                                      <TouchableHighlight onPress={()=>this.props.onDeleteClick(strResult.id,strResult.price,strResult.quantity)}>
+                                      <Text >  Delete</Text>
+                                      </TouchableHighlight>
+
+
+
+              </View>
+            ))}
+
+
+
+
+            </View>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <Text style={{color:"#1c313a",  opacity:0.6}}>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</Text>
+
+
+         </View>
+
+
+
+
           <List>
             
 
@@ -73,7 +171,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
                       <Left>
                         <Thumbnail
                           square
-                          source={{ url: "/Users/arkhitech/Desktop/Biriyani.png" }}
+                          source={require('../../assets/images/logo.png')}
                         />
                       </Left>
                       <Body >
