@@ -39,7 +39,7 @@ class Vendor extends Component {
   };
   componentDidMount=()=>{
    
-    fetch('http://192.168.10.5:8000/city')
+    fetch('http://192.168.10.8:8000/city')
     .then(res=> res.json())
     .then(gotdata=>this.setState({gotdata}));
    
@@ -54,18 +54,18 @@ class Vendor extends Component {
   render() {
     return (
       <Container style={{ width: "100%" }}>
-        <View style={{backgroundColor:"#1c313a", height:50, flexDirection:"row",paddingTop:10 }}>
+        <View style={{backgroundColor:"#1c313a", height:57, flexDirection:"row",paddingTop:10 }}>
         <Icons 
-                                    style={{paddingLeft:10}} 
+                                    style={{paddingLeft:10,paddingTop:5}} 
                                     onPress={()=>{this.props.navigation.openDrawer()}}
                                     name="md-menu" 
                                     size={30}
                                     color="white"
                             /> 
-     <Text style={{paddingLeft:40, color:'white'}}>GRAB A BITE </Text>
+     <Text style={{paddingLeft:220,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>{this.props.cityname} </Text>
 
      <FIcon
-      name="cart-plus" style={{ paddingLeft:370,color:'white'}} 
+      name="cart-plus" style={{ paddingLeft:180,color:'white',paddingTop:3}} 
       size={30} 
       onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
         />
@@ -131,7 +131,7 @@ class Vendor extends Component {
             
           
         </Content>
-        <Text>Vendors of {this.props.cityname}</Text>
+        
       </Container>
     );
   }

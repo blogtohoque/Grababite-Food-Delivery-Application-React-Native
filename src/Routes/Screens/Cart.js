@@ -63,7 +63,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
                                     size={30}
                                     color="white"
                             /> 
-     <Text style={{paddingLeft:40, color:'white',fontFamily:"500"}}>BASKET </Text>
+     <Text style={{paddingLeft:220,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>BASKET </Text>
 
      
      </View>

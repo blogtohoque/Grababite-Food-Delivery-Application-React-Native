@@ -28,6 +28,7 @@ import {
 
 import Icons from 'react-native-vector-icons/Ionicons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
+import IC from 'react-native-vector-icons/FontAwesome5';
 import Modal from "react-native-modal";
 import NumericInput from 'react-native-numeric-input';
 class Menu extends Component {
@@ -265,11 +266,11 @@ closeModal=()=>{
   };
   componentDidMount=()=>{
         
-    fetch('http://192.168.10.5:8000/food')
+    fetch('http://192.168.10.8:8000/food')
     .then(res=> res.json())
     .then(gotdata=>this.setState({gotdata}));
  
-    fetch('http://192.168.10.5:8000/menu')
+    fetch('http://192.168.10.8:8000/menu')
     .then(res=> res.json())
     .then(gotmenu=>this.setState({gotmenu}));    
     
@@ -321,14 +322,12 @@ closeModal=()=>{
                                     size={30}
                                     color="white"
                             /> 
-     <Text style={{paddingLeft:40, color:'white'}}>GRAB A BITE </Text>
+     <Text style={{paddingLeft:180,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>{this.props.vendorName}</Text>
 
      <FIcon
-      name="cart-plus" style={{ paddingLeft:370,color:'white'}} 
+      name="cart-plus" style={{ paddingLeft:230,color:'white',paddingTop:3}} 
       size={30} 
       onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
-        
-        
         />
        
           {button}
@@ -350,9 +349,8 @@ closeModal=()=>{
           <Item>
             <Icon name="ios-search" />
             <Input placeholder="Search Food" />
-            <Icon name="ios-people" />
+            <IC name="utensils" size={20} style={{paddingRight:15}}/>
         
-
           </Item>
           <Button transparent>
             <Text>Search</Text>
@@ -496,14 +494,7 @@ closeModal=()=>{
 
 
         </Content>
-        <Footer>
-          <FooterTab>
-            <Button full>
-              <Text onPress={this.onCheckoutClick}>Checkout</Text>
-              <Text>Vendor name is {this.props.vendorName} and {this.state.v9}</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
+        
         
       </Container>
     );

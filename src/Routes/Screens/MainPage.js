@@ -51,7 +51,7 @@ class MainPage extends Component {
 
   componentDidMount= async ()=>{
    // this.setState({loader:false});  
-    fetch('http://192.168.10.5:8000/city')
+    fetch('http://192.168.10.8:8000/city')
         .then(res=> res.json())
         .then(gotdata=>this.setState({gotdata}))
         .catch(error=>{

@@ -122,8 +122,14 @@ const cartStackPages= createStackNavigator({
 
     headerTitle: 'GRAB A BITE', 
     headerTintColor: 'white',
+    headerTitleStyle:{
+      paddingLeft:500
+
+    },
+    Header:"s",
     headerStyle: {
-      backgroundColor: '#1c313a'
+      backgroundColor: '#1c313a',
+      
       
       
     }, 
@@ -167,9 +173,12 @@ const DashboardStackNavigator= createStackNavigator({
 
     headerTitle: 'GRAB A BITE', 
     headerTintColor: 'white',
-    
+    headerTitleStyle:{
+      paddingLeft:180, color:'white',fontFamily:"century-gothic",fontWeight:"500"
+    },
     headerStyle: {
-      backgroundColor: '#1c313a'
+      backgroundColor: '#1c313a',
+      
       
       
     }, 

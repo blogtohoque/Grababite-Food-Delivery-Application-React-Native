@@ -27,10 +27,39 @@ import Modal from "react-native-modal";
   state={
     v8: 0,
     visibleModalId: null,
-    value:0,amount: 0
+    value:0,amount: 0,
+    cOn:true,
+    vOn:false,
+    role:"Cash on Delivery",
   };
 
+  cashCheck=()=>{
+    var v=this.state.vOn   //false
+    var c=this.state.cOn   //true
 
+  this.setState(
+    {
+      cOn:v,
+      vOn:c
+    }
+  )
+  if(this.state.cOn==true)
+  {
+    this.setState(
+      {
+        role:"Pay by Credit Card"
+      }
+    )
+  }
+  else{
+    this.setState(
+      {
+        role:"Cash on Delivery"
+      }
+    )
+
+  }      
+}
 
 
   closeModal=()=>{
@@ -177,7 +206,7 @@ import Modal from "react-native-modal";
                                     size={30}
                                     color="white"
                             /> 
-     <Text style={{paddingLeft:40, color:'white',fontFamily:"500"}}>REVIEW ORDER</Text>
+     <Text style={{paddingLeft:220,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>REVIEW ORDER</Text>
 
      
      </View>
@@ -258,7 +287,7 @@ import Modal from "react-native-modal";
 
 
 
-      <View style={{backgroundColor:"#1c313a", height:40, opacity:0.6}}>
+      <View style={{backgroundColor:"#1c313a", height:40, opacity:0.6,marginTop:10}}>
        
        <View style={{
          flexDirection:"row", fontSize:30,
@@ -278,35 +307,62 @@ import Modal from "react-native-modal";
       </View>
       <View>
 
-      <ListItem selected={false} >
-            <Left>
-              <Text>Cash on Delivery</Text>
-            </Left>
-            <Right>
-              <Radio
-                color={"#f0ad4e"}
-                selectedColor={"#5cb85c"}
-                selected={false}
-              />
-            </Right>
+
+
+          <ListItem>
+            <CheckBox checked={this.state.cOn} onPress={this.cashCheck} />
+            <Body>
+              <Text style={{fontFamily:"century-gothic",fontWeight:"300"}}>Cash on Delivery</Text>
+            </Body>
           </ListItem>
-          <ListItem selected={true}>
-            <Left>
-              <Text>Pay by Credit Card</Text>
-            </Left>
-            <Right>
-              <Radio
-                color={"#f0ad4e"}
-                selectedColor={"#5cb85c"}
-                selected={true}
-              />
-            </Right>
+          <ListItem>
+            <CheckBox  checked={this.state.vOn}  onPress={this.cashCheck}/>
+            <Body>
+              <Text style={{fontFamily:"century-gothic",fontWeight:"300"}}>Pay by Credit Card</Text>
+            </Body>
           </ListItem>
+
+
 
       </View>
 
 
+      <View style={{backgroundColor:"#1c313a", height:40, opacity:0.6, marginTop:10}}>
+       
+       <View style={{
+         flexDirection:"row", fontSize:30,
          
+         
+         }}>
+         
+           
+                        <TouchableOpacity >
+                                        <Text style={{color:"black",fontFamily:"century-gothic",fontWeight:"500", fontSize:20, paddingLeft:13,paddingTop:3 }}> 
+                                        PROMO CODE
+                                          </Text>
+                        </TouchableOpacity>
+                    
+                  
+       </View>         
+      </View>
+      <View>
+
+                      <Item regular style={{width:580,height:40,marginTop:15,borderRadius:10,marginLeft:10}}>
+                                    <Input placeholder="Enter Code  "/>
+                      </Item>
+
+
+      </View>
+
+
+         <View>
+
+                      
+                      <Button warning style={{width:580,height:40,marginTop:15,borderRadius:10,marginLeft:10,backgroundColor:"#1c313a",paddingLeft:185}}>
+                        <Text style={{fontFamily:"century-gothic"}}>PLACE MY ORDER</Text>
+                      </Button>
+
+      </View>
 
 
 

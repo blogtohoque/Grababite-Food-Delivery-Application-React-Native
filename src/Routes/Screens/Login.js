@@ -62,7 +62,7 @@ class Login extends Component {
     
     var x=this.state.name;
     var y=this.state.password;
-    axios.post('http://192.168.10.5:8000/getuser',
+    axios.post('http://192.168.10.8:8000/getuser',
     {
             name:x,
             password:y
@@ -112,7 +112,7 @@ class Login extends Component {
         try{  
           await AsyncStorage.setItem('fullName',x);
           
-          const full_name = await AsyncStorage.getItem('fullName');
+          var full_name = await AsyncStorage.getItem('fullName');
           this.props.onLoginClick(full_name);
         
         // var full_name = AsyncStorage.getItem('fullName');
