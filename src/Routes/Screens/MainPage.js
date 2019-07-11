@@ -120,6 +120,9 @@ class MainPage extends Component {
     );
 };
   render() {
+    
+
+
     return (
       <Container style={{width:"100%", backgroundColor:'white'}}>
 {/*     

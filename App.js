@@ -39,6 +39,7 @@ import configureStore from './src/Store/configureStore'
 const store =configureStore();
  const c="Login";
 
+ //state.Main.count 
 class App extends Component {
   render() {
     return (
@@ -194,7 +195,7 @@ const DashboardStackNavigator= createStackNavigator({
         <FIcon name="cart-plus" style={{ paddingRight:30}} size={30} color="white"
         onPress={()=>{navigation.navigate('TripleJugarNavigation')}}
         />
- 
+         
 
       )
       

@@ -13,7 +13,8 @@ import {
  
   Thumbnail,
   View,
-  Card,Icon,CardItem
+  Card,Icon,CardItem,
+  Badge
 } from "native-base";
 
 
@@ -52,6 +53,21 @@ class Vendor extends Component {
 
 
   render() {
+    const itemexist = this.props.count;
+    let button;
+
+    if (itemexist!="0") {
+      button = (
+                <Badge style={{backgroundColor:"orange",width:25,height:25}}>
+                <Text>{this.props.count}</Text>
+                </Badge>
+      );
+    } 
+    else {
+      
+    }
+
+
     return (
       <Container style={{ width: "100%" }}>
         <View style={{backgroundColor:"#1c313a", height:57, flexDirection:"row",paddingTop:10 }}>
@@ -69,6 +85,10 @@ class Vendor extends Component {
       size={30} 
       onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
         />
+        {button}
+
+
+
      </View>
         <Content padder>
           
@@ -139,7 +159,8 @@ class Vendor extends Component {
 
 const mapStateToProps=state=>{
   return {
-    cityname:state.Main.city
+    cityname:state.Main.city,
+    count: state.Main.count
  
   };
 };
