@@ -1,19 +1,23 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import {View,StyleSheet,Image, TextInput} from 'react-native';
+import {connect} from 'react-redux';
 import {
   Container,
   Content,
   Button,
-  
+  Badge,
   Text,
   Form,
   Item,
   Input,
   Label,
 } from "native-base";
-import Icon from 'react-native-vector-icons/Ionicons';
 
-export default class Profile extends Component {
+import Icons from 'react-native-vector-icons/Ionicons';
+import FIcon from 'react-native-vector-icons/FontAwesome';
+
+class Profile extends Component {
   static navigationOptions = {
     title:"Hello",
   }; 
@@ -118,7 +122,7 @@ export default class Profile extends Component {
              )
         }
         else{
-            alert("password does not matches with confirm password")
+            alert("password does not matches with confirm password");
         }
 
 
@@ -127,22 +131,56 @@ export default class Profile extends Component {
 
 
   render() {
+    const itemexist = this.props.count;
+    let button;
+
+    if (itemexist!="0") {
+      button = (
+                <Badge style={{backgroundColor:"orange",width:25,height:25}}>
+                <Text>{this.props.count}</Text>
+                </Badge>
+      );
+    } 
+    else {
+      
+    }
     return (
       <Container style={{ width: "100%" }}>
-       <Icon 
-                                    style={{paddingLeft:10}} 
-                                    onPress={()=>{this.props.navigation.openDrawer()}}
-                                    name="md-menu" 
-                                    size={30}
-                            />
-       
-       
+
+      <View style={{backgroundColor:"#1c313a", height:57, flexDirection:"row",paddingTop:10 }}>
+              <Icons 
+                                          style={{paddingLeft:10,paddingTop:5}} 
+                                          onPress={()=>{this.props.navigation.openDrawer()}}
+                                          name="md-menu" 
+                                          size={30}
+                                          color="white"
+                                  /> 
+          <Text style={{paddingLeft:220,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>Profile </Text>
+
+          <FIcon
+            name="cart-plus" style={{ paddingLeft:190,color:'white',paddingTop:3}} 
+            size={30} 
+            onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
+              />
+              {button}
+      </View>
+
         <Content padder>
+        <View style={styles.container2}>
+              <Image
+              style={{width: 50, height: 50,borderRadius:25}}
+              source={require('../../assets/images/logo.png')}
+              />
+              <Text style={styles.logoText}>Grab A Bite</Text>	
+        </View>
           <Form>
-            <Item floatingLabel>
-              <Label>First Name</Label>
-              <Input onChangeText={this.fnChange} />
-            </Item>
+          <TextInput style={styles.inputBox} 
+              underlineColorAndroid='rgba(0,0,0,0)' 
+              placeholder="First Name"
+              placeholderTextColor = "#ffffff"
+              selectionColor="#fff"
+              keyboardType="email-address"
+         />
             <Item floatingLabel last>
               <Label>Last Name</Label>
               <Input onChangeText={this.lnChange}/>
@@ -189,3 +227,102 @@ export default class Profile extends Component {
     );
   }
 }
+
+
+const mapStateToProps=state=>{
+  return {
+    count: state.Main.count
+ 
+  };
+};
+export default connect(mapStateToProps,null)(Profile);;
+
+const styles = StyleSheet.create({
+container2: {
+  flexGrow: 1,
+  justifyContent:'flex-end',
+  alignItems: 'center'
+},
+inputBox: {
+  width:300,
+  backgroundColor:'rgba(255, 255,255,0.2)',
+  borderRadius: 25,
+  paddingHorizontal:16,
+  fontSize:16,
+  color:'#ffffff',
+  marginVertical: 5,
+  
+  
+},
+
+
+});
+
+
+{/*
+
+
+
+
+<View style={styles.container2}>
+<Image
+style={{width: 50, height: 50,borderRadius:25}}
+source={require('../img/GrabLogo.png')}
+/>
+<Text style={styles.logoText}>Grab A Bite</Text>	
+</View>
+
+<TextInput style={styles.inputBox} 
+underlineColorAndroid='rgba(0,0,0,0)' 
+placeholder="First Name"
+placeholderTextColor = "#ffffff"
+selectionColor="#fff"
+keyboardType="email-address"
+/>
+
+<TextInput style={styles.inputBox} 
+underlineColorAndroid='rgba(0,0,0,0)' 
+placeholder="Last Name"
+placeholderTextColor = "#ffffff"
+
+/>  
+
+<TextInput style={styles.inputBox} 
+underlineColorAndroid='rgba(0,0,0,0)' 
+placeholder="Email"
+placeholderTextColor = "#ffffff"
+
+/>  
+
+<TextInput style={styles.inputBox} 
+underlineColorAndroid='rgba(0,0,0,0)' 
+placeholder="Mobile"
+placeholderTextColor = "#ffffff"
+keyboardType = 'decimal-pad'
+
+/>  
+<TextInput style={styles.inputBox} 
+underlineColorAndroid='rgba(0,0,0,0)' 
+placeholder="Current Password"
+placeholderTextColor = "#ffffff"
+secureTextEntry = {true}
+/> 
+<TextInput style={styles.inputBox} 
+underlineColorAndroid='rgba(0,0,0,0)' 
+placeholder="New Password"
+placeholderTextColor = "#ffffff"
+secureTextEntry = {true}
+/> 
+<TextInput style={styles.inputBox} 
+underlineColorAndroid='rgba(0,0,0,0)' 
+placeholder="Address"
+placeholderTextColor = "#ffffff"
+
+/> 
+
+<TouchableOpacity style={styles.button}>
+<Text style={styles.buttonText}>Update</Text>
+</TouchableOpacity>  
+
+
+*/}
