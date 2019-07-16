@@ -51,7 +51,7 @@ class MainPage extends Component {
 
   componentDidMount= async ()=>{
    // this.setState({loader:false});  
-    fetch('http://192.168.10.8:8000/city')
+    fetch('http://192.168.10.4:8000/city')
         .then(res=> res.json())
         .then(gotdata=>this.setState({gotdata}))
         .catch(error=>{
@@ -120,6 +120,9 @@ class MainPage extends Component {
     );
 };
   render() {
+
+      console.log('Main Page props')
+    console.log(this.props)
     
 
 
@@ -203,6 +206,15 @@ class MainPage extends Component {
            <Icon size={30} name="ios-trash" color="red"/>
           </TouchableOpacity>
           <Text>Grab A Bite  Logged in user is {this.props.userName}</Text>
+          {this.props.Hello ? this.props.Hello.map(strResult=>(
+            <View>
+            <Text>  {strResult.email} OR {strResult.firstName} </Text>
+            </View>
+          )
+          
+          ):null
+          
+          }
           
         </Content>
         
@@ -213,8 +225,8 @@ class MainPage extends Component {
 const mapStateToProps=state=>{
   return {
     cityname:state.Main.city,
-    userName:state.Main.userName
- 
+    userName:state.Main.userName,
+    Hello: state.Main.userDetail
   };
 };
 const mapDispatchToProps = dispatch=>{

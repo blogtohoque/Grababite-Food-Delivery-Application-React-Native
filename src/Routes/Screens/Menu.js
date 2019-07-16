@@ -266,7 +266,7 @@ closeModal=()=>{
   };
   componentDidMount=()=>{
         
-    fetch('http://192.168.10.8:8000/food')
+    fetch('http://192.168.10.4:8000/food')
     .then(res=> res.json())
     .then(gotdata=>this.setState({gotdata}));
  

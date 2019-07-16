@@ -84,7 +84,7 @@ class Profile extends Component {
         var h = this.state.Address;
         var i = this.state.Date;
         if(c===d){
-          axios.post("http://192.168.10.14:8000/signup",
+          axios.post("http://192.168.10.4:8000/signup",
             {
                  firstname:a,
                  lastname:b,
@@ -145,7 +145,7 @@ class Profile extends Component {
       
     }
     return (
-      <Container style={{ width: "100%" }}>
+      <Container style={{ width: "100%",backgroundColor:"#455a64"}}>
 
       <View style={{backgroundColor:"#1c313a", height:57, flexDirection:"row",paddingTop:10 }}>
               <Icons 
@@ -158,7 +158,7 @@ class Profile extends Component {
           <Text style={{paddingLeft:220,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>Profile </Text>
 
           <FIcon
-            name="cart-plus" style={{ paddingLeft:190,color:'white',paddingTop:3}} 
+            name="cart-plus" style={{ paddingLeft:220,color:'white',paddingTop:3}} 
             size={30} 
             onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
               />
@@ -166,46 +166,37 @@ class Profile extends Component {
       </View>
 
         <Content padder>
-        <View style={styles.container2}>
-              <Image
-              style={{width: 50, height: 50,borderRadius:25}}
-              source={require('../../assets/images/logo.png')}
-              />
-              <Text style={styles.logoText}>Grab A Bite</Text>	
-        </View>
+   
           <Form>
-          <TextInput style={styles.inputBox} 
-              underlineColorAndroid='rgba(0,0,0,0)' 
-              placeholder="First Name"
-              placeholderTextColor = "#ffffff"
-              selectionColor="#fff"
-              keyboardType="email-address"
-         />
+          <Item floatingLabel last>
+              <Label style={{color:"white"}}>First Name</Label>
+              <Input onChangeText={this.fnChange}/>
+            </Item>
             <Item floatingLabel last>
-              <Label>Last Name</Label>
+              <Label style={{color:"white"}}>Last Name</Label>
               <Input onChangeText={this.lnChange}/>
             </Item>
             <Item floatingLabel last>
-              <Label> Email</Label>
+              <Label style={{color:"white"}}> Email</Label>
               <Input onChangeText={this.emailChange} />
             </Item>
             <Item floatingLabel last>
-              <Label>Mobile </Label>
+              <Label style={{color:"white"}}>Mobile </Label>
               <Input onChangeText={this.mobileChange}/>
             </Item>
             <Item floatingLabel last>
-              <Label>Password</Label>
+              <Label style={{color:"white"}}>Password</Label>
               <Input  onChangeText={this.passwordChange}/>
             </Item>
             <Item floatingLabel last>
-              <Label>Confirm Password</Label>
+              <Label style={{color:"white"}}>Confirm Password</Label>
               <Input onChangeText={this.cpasswordChange}/>
             </Item>
             <Item floatingLabel last>
-              <Label>Address</Label>
+              <Label style={{color:"white"}}>Address</Label>
               <Input onChangeText={this.addressChange}/>
             </Item>
-            <Button block style={{ marginTop: "6%" }} onPress={this.onSignIn}>
+            <Button block style={{ marginTop: "6%",backgroundColor:"#1c313a" }} onPress={this.onSignIn}>
               <Text>Update Profile</Text>
             </Button>
             <Text>

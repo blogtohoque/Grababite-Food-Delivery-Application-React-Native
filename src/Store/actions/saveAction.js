@@ -1,5 +1,5 @@
 import { statement } from "@babel/template";
-import {SAVE_CITY,SAVE_VENDOR,ADD_ITEM,ADD_QUANTITY,DECREASE_QUANTITY,DELETE_ITEM,SAVE_USERNAME} from './actionTypes';
+import {SAVE_CITY,SAVE_VENDOR,ADD_ITEM,ADD_QUANTITY,DECREASE_QUANTITY,DELETE_ITEM,SAVE_USERNAME,SAVE_USERDETAIL} from './actionTypes';
 export const saveCity =(cityName) =>{
     return {
         type: SAVE_CITY,
@@ -60,6 +60,17 @@ export const saveUserName = (username) =>
     return {
         type: SAVE_USERNAME,
         userName:username
+    };
+
+};
+export const saveUserDetail = (userdetail) =>
+{
+ //   console.log('action page');
+//    console.log(userdetail);
+    return {
+        type: SAVE_USERDETAIL,
+        payload:userdetail
+
     };
 
 };

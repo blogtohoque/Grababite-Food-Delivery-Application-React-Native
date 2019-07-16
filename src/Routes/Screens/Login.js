@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { StyleSheet,Image,Modal, TouchableHighlight, View, Alert,  } from "react-native";
-import {saveUserName} from '../../Store/actions/index';
+import {saveUserName,saveUserDetail} from '../../Store/actions/index';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
   Container,
@@ -62,7 +62,7 @@ class Login extends Component {
     
     var x=this.state.name;
     var y=this.state.password;
-    axios.post('http://192.168.10.8:8000/getuser',
+    axios.post('http://192.168.10.4:8000/getuser',
     {
             name:x,
             password:y
@@ -71,13 +71,17 @@ class Login extends Component {
                   var check=Response.data;
                   
         //console.log(Response.data);
-
+            
+        console.log(check);
+        
             var fn;
-            var dude = check.split(" ");
-            var token=dude[1];
-            var  fname=dude[0];
-            var key;
-  //          console.log(this.props);
+     //       var dude = check.split(" ");
+     //       var token=dude[1];
+//            var  fname=dude[0];
+  //          var arrays=dude[2];
+                var key;
+         //   console.log(arrays);
+
   //          console.log(typeof fname);
 
    //         console. log(fname[0])
@@ -95,12 +99,22 @@ class Login extends Component {
      //   }    
 
  //        console.log(" First name is " + fn);
+    
+            if(typeof(check) === 'string'){
+                    
+              this.setState({msg:"don't"});
+              alert("Wrong Password");
+                    
+    
+            }
+            else{
 
-            
-            if(dude[0]==="do"){
-                    
-                    
-    //redux sa conncet           this.props.OnLogin();   
+
+              
+    //         debugger;
+  //            this.props.navigation.navigate('Dashboard');
+                 
+                    //redux sa conncet           this.props.OnLogin();   
     //idk                setAuthorizationToken(token);
  //                  this.setState({msg:check});
  //                   this.setState({open:true});
@@ -114,10 +128,20 @@ class Login extends Component {
           
           var full_name = await AsyncStorage.getItem('fullName');
           this.props.onLoginClick(full_name);
-        
-        // var full_name = AsyncStorage.getItem('fullName');
+
+          /* 
+          trying to get user data
+        var c= JSON.stringify(check)
+        console.log("C DATA");
+     
+        console.log(c);
+     
+          this.props.onLoginDetail(c);
+   */
+   
+   
+          // var full_name = AsyncStorage.getItem('fullName');
       //  store.dispatch({type:'FULL_NAME',name:x});
-    //  console.log(x);
           // this.props.onLoginClick(full_name);
        
        
@@ -130,10 +154,6 @@ class Login extends Component {
 
 
 
-            }
-            else{
-                    this.setState({msg:"don't"});
-                    alert("Wrong Password");
             }
 
     })
@@ -266,8 +286,12 @@ const mapStateToProps=state=>{
  
   };
 };
-const mapDispatchToProps = {
-  onLoginClick: saveUserName
+const mapDispatchToProps =(dispatch)=> {
+      return{
+      onLoginClick: (x)=>dispatch(saveUserName(x)),
+      onLoginDetail: (y)=>dispatch(saveUserDetail(y))
+    };
+
 };
 export default connect(mapStateToProps,mapDispatchToProps)(Login);
 //connect(mapStateToProps,mapDispatchToProps)
