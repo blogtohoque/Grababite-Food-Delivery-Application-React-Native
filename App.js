@@ -28,6 +28,7 @@ import {createSwitchNavigator, createAppContainer ,createDrawerNavigator, create
 import Icon from 'react-native-vector-icons/Ionicons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import CheckoutPage from './src/Routes/Screens/Checkout';
+import OrderDetails from './src/Routes/Test/OrderDetails';
   
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -347,6 +348,13 @@ const AppDrawerNavigator = createDrawerNavigator({
       drawerLabel: () => null
  },
     screen:CheckoutPage,
+    
+  },
+  OrderDetails:{
+    navigationOptions:{
+      drawerLabel: () => null
+ },
+    screen:OrderDetails,
     
   },
  

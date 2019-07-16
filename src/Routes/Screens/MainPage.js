@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux'
 //import {saveCity,saveUserName} from '../../Store/actions/index';
-import {saveCity,saveUserName} from '../../Store/actions/index';
+import {saveCity,saveUserName,saveUserDetail} from '../../Store/actions/index';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icons from 'react-native-vector-icons/Ionicons';
 import {TouchableOpacity,Image, ActivityIndicator,  StyleSheet } from 'react-native';
 import {
   Container,
   Content,
-  
   Button,
   Left,
   Right,
@@ -22,6 +21,7 @@ import {
  Card,
  CardItem
 } from "native-base";
+import axios from 'axios';
 //import Carousel from 'react-native-snap-carousel';
 //import startMainTabs from "../mainTabs/startMainTabs";
 //import {createDrawerNavigator} from 'react-navigation';
@@ -46,12 +46,13 @@ class MainPage extends Component {
 
   state={
     gotdata:[],tokencheck:"", loader: true
+    ,gotdataa:[]
   }
   
 
   componentDidMount= async ()=>{
    // this.setState({loader:false});  
-    fetch('http://192.168.10.4:8000/city')
+    fetch('http://192.168.10.7:8000/city')
         .then(res=> res.json())
         .then(gotdata=>this.setState({gotdata}))
         .catch(error=>{
@@ -75,10 +76,32 @@ class MainPage extends Component {
     if(full_name===null)
     {
 
-    }else{
-      this.props.onLoginClick(full_name);
     }
-      
+    else
+    {
+                this.props.onLoginClick(full_name);
+              
+                
+                var x=full_name;
+            //    console.log('Hello');
+           //     console.log(full_name)
+                axios.post('http://192.168.10.7:8000/checkEmail',
+                {
+                        name:x,
+                })
+                .then((Response) =>{
+                  var check=Response.data;
+          //        console.log('check boy');
+           //       console.log(check);
+
+                  this.props.onLoginDetail(check);
+                })
+                .catch(error=>{
+              
+                    console.log(error.data)
+                })
+
+    }  
    // this.setState({
   //    tokencheck:full_name
  //   });
@@ -86,10 +109,6 @@ class MainPage extends Component {
  //  console.log(full_name);
 }
   
-
-
-
-
   onSideBar = () => {
   //  this.props.navigation.openDrawer;
   };
@@ -121,13 +140,45 @@ class MainPage extends Component {
 };
   render() {
 
-      console.log('Main Page props')
-    console.log(this.props)
+   //   console.log('Main Page props')
+  //  console.log(this.props)
     
 
 
     return (
       <Container style={{width:"100%", backgroundColor:'white'}}>
+
+
+
+<Button 
+          onPress={ async ()=>{
+           await AsyncStorage.removeItem('fullName');
+          this.props.navigation.navigate('Dashboard');
+     //     this.props.onLoginClick("");
+      //    this.props.navigator.push({
+     //     screen: "awesome-places.AuthScreen",
+     //     title: "Authentication"
+     //      });
+           }}>
+          <Text>Logout</Text></Button>
+          
+          <TouchableOpacity>
+           <Icon size={30} name="ios-trash" color="red"/>
+          </TouchableOpacity>
+          <Text>Grab A Bite  Logged in user is {this.props.userName}</Text>
+    
+          {this.props.Hello ? this.props.Hello.map(strResult=>(
+            <View>
+            <Text>  {strResult.email} OR {strResult.firstName} </Text>
+            </View>
+          )
+          
+          ):null
+          
+          }
+
+
+    
 {/*     
           {this.state.loader ? <ActivityIndicator
           
@@ -190,31 +241,7 @@ class MainPage extends Component {
 
           
 
-          <Button 
-          onPress={ async ()=>{
-           await AsyncStorage.removeItem('fullName');
-          this.props.navigation.navigate('Dashboard');
-     //     this.props.onLoginClick("");
-      //    this.props.navigator.push({
-     //     screen: "awesome-places.AuthScreen",
-     //     title: "Authentication"
-     //      });
-           }}>
-          <Text>Logout</Text></Button>
           
-          <TouchableOpacity>
-           <Icon size={30} name="ios-trash" color="red"/>
-          </TouchableOpacity>
-          <Text>Grab A Bite  Logged in user is {this.props.userName}</Text>
-          {this.props.Hello ? this.props.Hello.map(strResult=>(
-            <View>
-            <Text>  {strResult.email} OR {strResult.firstName} </Text>
-            </View>
-          )
-          
-          ):null
-          
-          }
           
         </Content>
         
@@ -232,7 +259,8 @@ const mapStateToProps=state=>{
 const mapDispatchToProps = dispatch=>{
   return{
     onCityAdd:(cityName) =>dispatch(saveCity(cityName)),
-    onLoginClick:(x)     =>dispatch(saveUserName(x))
+    onLoginClick:(x)     =>dispatch(saveUserName(x)),
+    onLoginDetail: (y)=>dispatch(saveUserDetail(y))
     
   };
 

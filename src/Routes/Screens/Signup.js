@@ -1,30 +1,26 @@
-import React, { Component } from "react";
-import axios from 'axios';
+import React, { Component } from 'react';
 import {
-  Container,
-  Header,
-  Title,
-  Content,
-  Footer,
-  FooterTab,
-  Button,
-  Left,
-  Right,
-  Body,
+  StyleSheet,
   Text,
-  Form,
-  Item,
-  Input,
-  Label,
-  CheckBox,
-  ListItem
-} from "native-base";
-import Icon from 'react-native-vector-icons/Ionicons';
+  View,
+  StatusBar ,
+  TextInput,
+  TouchableOpacity
+} from 'react-native';
+import axios from 'axios'
+
+import Logo from './Logo';
+
+
+
 
 export default class Signup extends Component {
+  static navigationOptions = {
+    header:null
+  };
+
   state={
-    cOn:true,
-    vOn:false,
+
     fname:"",
     lname:"",
     email:"",
@@ -39,70 +35,9 @@ export default class Signup extends Component {
     var today = new Date(), date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     this.setState({Date:date});
   }
-  fnChange=(val)=>{
-      this.setState({
-        fname:val
-      })
-  }
-  lnChange=(val)=>{
-    this.setState({
-      lname:val
-    })
-  }
-  emailChange=(val)=>{
-    this.setState({
-      email:val
-    })
-  }
-  mobileChange=(val)=>{
-    this.setState({
-      mobile:val
-    })
-  }
-  passwordChange=(val)=>{
-    this.setState({
-      Password:val
-    })
-  }
-  cpasswordChange=(val)=>{
-    this.setState({
-      cPassword:val
-    })
-  }
-  customerCheck=()=>{
-        var v=this.state.vOn   //false
-        var c=this.state.cOn   //true
 
-      this.setState(
-        {
-          cOn:v,
-          vOn:c
-        }
-      )
-      if(this.state.cOn==true)
-      {
-        this.setState(
-          {
-            role:"Vendor"
-          }
-        )
-      }
-      else{
-        this.setState(
-          {
-            role:"Customer"
-          }
-        )
-
-      }      
-  }
-  addressChange=(val)=>{
-    this.setState({
-      Address:val
-    })
-  }
   onSignIn=()=>{
-    var a = this.state.fname;
+        var a = this.state.fname;
         var b = this.state.lname;
         var c = this.state.Password;
         var d = this.state.cPassword;
@@ -112,129 +47,179 @@ export default class Signup extends Component {
         var h = this.state.Address;
         var i = this.state.Date;
         if(c===d){
-          axios.post("http://192.168.10.4:8000/signup",
-            {
-                 firstname:a,
-                 lastname:b,
-                 password:c,
-                 mobile:e,
-                 email:f,
-                 role:g,
-                Address:h,
-                Date:i
-            }
-            )
-            .then(Response=>{
-    
-                var check = Response.data;
-                if(check === "do")
-                {
-                     
-                     console.log(Response.data);
-                 //    this.props.navigator.push({
-               //       screen: "awesome-places.AuthScreen",
-             //         title: "Grab A Bite"
-           //         });
+                axios.post("http://192.168.10.7:8000/signup",
+                  {
+                      firstname:a,
+                      lastname:b,
+                      password:c,
+                      mobile:e,
+                      email:f,
+                      role:g,
+                      Address:h,
+                      Date:i
+                  }
+                  )
+                  .then(Response=>{
+          
+                      var check = Response.data;
+                      if(check === "do")
+                      {
+                          
+                          console.log(Response.data);
+                          this.props.navigation.navigate('Login');
+                          alert('Signup Successful');
 
-           this.props.navigation.navigate('Dashboard');
-
-                }
-                else{
-                    alert("SignUp Failed");
-                }
-                    
-            })
-             .catch(error=>{
-                console.log(error.Response)
-             }
-             )
-        }
-        else{
+                      }
+                      else{
+                          alert("SignUp Failed");
+                      }
+                          
+                  })
+                  .catch(error=>{
+                      console.log(error.Response)
+                  }
+                  )
+           }
+        else
+        {
             alert("password does not matches with confirm password")
         }
 
 
 
   }
+ 
+	render() {
+		return(
+			<View style={styles.container}>
 
 
-  render() {
-    return (
-      <Container style={{ width: "100%" }}>
-        <Header>
-          <Body>
-            <Title>SignUp</Title>
-          </Body>
-          <Right />
-        </Header>
-        <Content padder>
-          <Form>
-            <Item floatingLabel>
-              <Label>First Name</Label>
-              <Input onChangeText={this.fnChange} />
-            </Item>
-            <Item floatingLabel last>
-              <Label>Last Name</Label>
-              <Input onChangeText={this.lnChange}/>
-            </Item>
-            <Item floatingLabel last>
-              <Label> Email</Label>
-              <Input onChangeText={this.emailChange} />
-            </Item>
-            <Item floatingLabel last>
-              <Label>Mobile </Label>
-              <Input onChangeText={this.mobileChange}/>
-            </Item>
-            <Item floatingLabel last>
-              <Label>Password</Label>
-              <Input  onChangeText={this.passwordChange}/>
-            </Item>
-            <Item floatingLabel last>
-              <Label>Confirm Password</Label>
-              <Input onChangeText={this.cpasswordChange}/>
-            </Item>
-            <Item floatingLabel last>
-              <Label>Address</Label>
-              <Input onChangeText={this.addressChange}/>
-            </Item>
-            <ListItem>
-            <CheckBox checked={this.state.cOn} onPress={this.customerCheck} />
-            <Body>
-              <Text>Customer</Text>
-            </Body>
-          </ListItem>
-          <ListItem>
-            <CheckBox  checked={this.state.vOn} color="green" onPress={this.customerCheck}/>
-            <Body>
-              <Text>Vendor</Text>
-            </Body>
-          </ListItem>
-
-            <Button block style={{ marginTop: "6%" }} onPress={this.onSignIn}>
-              <Text>Sign In</Text>
-            </Button>
-            <Text>
-              {this.state.role}
-            {this.state.fname}
-            {this.state.lname}
-            {this.state.email}
-            {this.state.mobile}
-            {this.state.Password}
-            {this.state.cPassword}
-            {this.state.Address}
+        
+			   <Logo/>
+         <View style={styles.container2}>
+          <TextInput style={styles.inputBox} 
+              underlineColorAndroid='rgba(0,0,0,0)' 
+              placeholder="First Name"
+              placeholderTextColor = "#ffffff"
+              selectionColor="#fff"
+              keyboardType="email-address"
+              onChangeText={(ini)=>this.setState({fname:ini})}
+              
+          
+              />
+          <TextInput style={styles.inputBox} 
+              underlineColorAndroid='rgba(0,0,0,0)' 
+              placeholder="Last Name"
+              placeholderTextColor = "#ffffff"
+              onChangeText={(ini)=>this.setState({lname:ini})}
             
+              />  
+               <TextInput style={styles.inputBox} 
+              underlineColorAndroid='rgba(0,0,0,0)' 
+              placeholder="Email"
+              placeholderTextColor = "#ffffff"
+              onChangeText={(ini)=>this.setState({email:ini})}
             
-            </Text>
-          </Form>
-        </Content>
-        <Footer>
-          <FooterTab>
-            <Button full>
-              <Text>Grab A Bite</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
-    );
-  }
+              />  
+              
+               <TextInput style={styles.inputBox} 
+              underlineColorAndroid='rgba(0,0,0,0)' 
+              placeholder="Mobile"
+              placeholderTextColor = "#ffffff"
+              keyboardType = 'decimal-pad'
+              onChangeText={(ini)=>this.setState({mobile:ini})}
+            
+              />  
+               <TextInput style={styles.inputBox} 
+              underlineColorAndroid='rgba(0,0,0,0)' 
+              placeholder="Password"
+              placeholderTextColor = "#ffffff"
+              secureTextEntry = {true}
+              onChangeText={(ini)=>this.setState({Password:ini})}
+              /> 
+               <TextInput style={styles.inputBox} 
+              underlineColorAndroid='rgba(0,0,0,0)' 
+              placeholder="Confirm Password"
+              placeholderTextColor = "#ffffff"
+              secureTextEntry = {true}
+              onChangeText={(ini)=>this.setState({cPassword:ini})}
+              /> 
+               <TextInput style={styles.inputBox} 
+              underlineColorAndroid='rgba(0,0,0,0)' 
+              placeholder="Address"
+              placeholderTextColor = "#ffffff"
+              onChangeText={(ini)=>this.setState({Address:ini})}
+            
+              /> 
+               
+           <TouchableOpacity style={styles.button}>
+             <Text style={styles.buttonText} onPress ={this.onSignIn} >SignUp</Text>
+           </TouchableOpacity>     
+  		</View>
+				<View style={styles.signupTextCont}>
+					<Text style={styles.signupText}>Already have an account?</Text>
+					<TouchableOpacity onPress ={()=>this.props.navigation.navigate('Login')} > 
+                    <  Text style={styles.signupButton}> 
+                    Login
+                    </Text>
+            </TouchableOpacity>
+				</View>
+			</View>	
+			)
+	}
 }
+
+const styles = StyleSheet.create({
+  container : {
+    backgroundColor:'#455a64',
+    flex: 1,
+    alignItems:'center',
+    justifyContent :'center'
+  },
+  signupTextCont : {
+  	flexGrow: 1,
+    alignItems:'flex-end',
+    justifyContent :'center',
+    marginBottom:'5%',
+    flexDirection:'row'
+  },
+  signupText: {
+  	color:'rgba(255,255,255,0.6)',
+  	fontSize:16
+  },
+  signupButton: {
+  	color:'#ffffff',
+  	fontSize:16,
+  	fontWeight:'500'
+  },
+
+  container2 : {
+    flexGrow: 1,
+    justifyContent:'center',
+    alignItems: 'center',
+    paddingTop:0
+  },
+
+  inputBox: {
+    width:300,
+    backgroundColor:'rgba(255, 255,255,0.2)',
+    borderRadius: 25,
+    paddingHorizontal:16,
+    fontSize:16,
+    color:'#ffffff',
+    marginVertical: 5,    
+  },
+  button: {
+    width:300,
+    backgroundColor:'#1c313a',
+     borderRadius: 25,
+      marginVertical: 10,
+      paddingVertical: 13
+  },
+  buttonText: {
+    fontSize:16,
+    fontWeight:'500',
+    color:'#ffffff',
+    textAlign:'center'
+  }
+});

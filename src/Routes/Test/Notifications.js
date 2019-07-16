@@ -1,55 +1,136 @@
-import React, { Component } from 'react';
-import { Image } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Left, Body } from 'native-base';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React, { Component } from 'react'
+import { Text, View ,StyleSheet,Badge} from 'react-native';
+import Icons from 'react-native-vector-icons/Ionicons';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-export default class Notifications extends Component {
-  static navigationOptions = {
-    title:"Hello",
-  }; 
-  render() {
-    
-    return (
-      <Container>
-        <Icon 
-                                    style={{paddingLeft:10}} 
-                                    onPress={()=>{this.props.navigation.openDrawer()}}
-                                    name="md-menu" 
-                                    size={30}
-                            />
+import {connect} from 'react-redux';
 
 
-        <Header />
-        <Content>
-          <Card style={{flex: 0}}>
-            <CardItem>
-              <Left>
-                <Thumbnail source={require('../../assets/images/logo.png')} />
-                <Body>
-                  <Text>Notification 1</Text>
-                  <Text note>June 26, 2019</Text>
-                </Body>
-              </Left>
-            </CardItem>
-            <CardItem>
-              <Body>
-                <Image source={require('../../assets/images/2152.png')} style={{height: 200, width: 200, flex: 1}}/>
-                <Text>
-                 HELLO I AM USAMA M8
-                </Text>
-              </Body>
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Button transparent textStyle={{color: '#87838B'}}>
-                  <Icon name="logo-github" />
-                  <Text>1,926 stars</Text>
-                </Button>
-              </Left>
-            </CardItem>
-          </Card>
-        </Content>
-      </Container>
-    );
-  }
+import FIcon from 'react-native-vector-icons/FontAwesome';
+
+
+ class Notifications extends Component {
+
+
+
+    state = {
+        gotdata:[
+        
+            { id: 0, name: 'Zain Hassan', price:'300',OrderStatus:'pending',date:'2019-07-05',time:'02:17:54 AM' },
+            { id: 1, name: 'Bilal Zafar', price:'180',OrderStatus:'processing',date:'2019-02-05',time:'07:17:54 AM' },
+            { id: 2, name: 'Abdullah Baig', price:'100',OrderStatus:'pending',date:'2019-01-01',time:'10:17:54 AM' },
+        ]
+    }
+    render() {
+      const itemexist = this.props.count;
+    let button;
+
+    if (itemexist!="0") {
+      button = (
+                <Badge style={{backgroundColor:"orange",width:25,height:25}}>
+                <Text>{this.props.count}</Text>
+                </Badge>
+      );
+    } 
+    else {
+      
+    }
+        return (
+            <View>
+               
+
+               <View style={{backgroundColor:"#1c313a", height:50, flexDirection:"row",paddingTop:10 }}>
+                                  <Icons 
+                                                              style={{paddingLeft:10}} 
+                                                              onPress={()=>{this.props.navigation.goBack()}}
+                                                              name="md-arrow-back" 
+                                                              size={30}
+                                                              color="white"
+                                                      /> 
+                              <Text style={{paddingLeft:210,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>Notifications</Text>
+
+                              <FIcon
+                                name="cart-plus" style={{ paddingLeft:220,color:'white',paddingTop:3}} 
+                                size={30} 
+                                onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
+                                  />
+                                
+                                    {button}
+                    </View>
+
+
+             <TouchableWithoutFeedback onPress={()=>{this.props.navigation.navigate('OrderDetails')}} >
+
+                 <View>
+                                {
+                                    this.state.gotdata.map((data)=>
+                                
+                                        <View style={Styles.mainView}  key={data.id} > 
+
+
+                                                <View >
+                                                    <View style={{flexDirection:"row"}}  >
+                                                           <View>
+                                                               <Icons 
+                                                                        style={{paddingTop:1}} 
+                                                                        name="md-clock" 
+                                                                        size={45}
+                                                                        color="orange"
+                                                                />
+                                                           </View>
+
+                                                           <View style={{marginLeft:8}} >
+                                                                <Text style={{fontSize:12}} >Order {data.id}</Text>
+                                                                <Text style={{fontSize:12}} >{data.name}</Text>
+                                                                <Text style={{fontSize:12}} >Amount Rs {data.price} </Text>
+                                                           </View> 
+                                                   </View>     
+                                                </View>
+
+                                                <View >
+                                                           <Text style={{fontSize:12}} > {data.date} </Text>
+                                                           <Text style={{fontSize:12}} > {data.time} </Text>
+                                                </View>
+                                        </View>
+                                  
+                                        
+                                        )
+                                
+                                }      
+                 </View>
+            </TouchableWithoutFeedback>
+
+                  
+            </View>
+        )
+    }
 }
+
+
+const mapStateToProps=state=>{
+  return {
+    count: state.Main.count
+ 
+  };
+};
+export default connect(mapStateToProps,null)(Notifications);
+
+const Styles = StyleSheet.create({
+    
+    mainView:{
+            flexDirection:"row",
+            justifyContent:"space-between",
+            paddingHorizontal:10,
+            backgroundColor: 'white',
+            borderRadius:5,
+            marginHorizontal:10,
+            color:'white',
+            opacity:0.8,
+            fontFamily:"century-gothic",
+            marginTop:5,
+            paddingVertical:3
+            
+    }
+
+});
+  
