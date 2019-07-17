@@ -325,7 +325,7 @@ closeModal=()=>{
                               <Text style={{paddingLeft:180,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>{this.props.vendorName}</Text>
 
                               <FIcon
-                                name="cart-plus" style={{ paddingLeft:230,color:'white',paddingTop:3}} 
+                                name="cart-plus" style={{ paddingLeft:210,color:'white',paddingTop:3}} 
                                 size={30} 
                                 onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
                                   />
@@ -347,11 +347,7 @@ closeModal=()=>{
         </Header>
         <Content padder>
           
-        <Button
-          onPress={() => this.setState({ visibleModal: 'fancy' })}
-          >
-            <Text> Fancy</Text>
-        </Button>
+   
 
 
           <View>
@@ -565,3 +561,14 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
 });
+
+
+
+
+{/*
+     <Button
+          onPress={() => this.setState({ visibleModal: 'fancy' })}
+          >
+            <Text> Fancy</Text>
+        </Button>
+*/}

@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
-import { Text, View ,StyleSheet } from 'react-native'
-import Icons from 'react-native-vector-icons/Ionicons'
-import {Container} from 'native-base';
+import { Text, View ,StyleSheet } from 'react-native';
+import {Container,Badge} from 'native-base';
 
-export default class OrderDetails extends Component {
+
+import Icons from 'react-native-vector-icons/Ionicons';
+import {connect} from 'react-redux';
+
+
+import FIcon from 'react-native-vector-icons/FontAwesome';
+
+class OrderDetails extends Component {
 
     state = {
        
@@ -17,10 +23,41 @@ export default class OrderDetails extends Component {
            }
 
     render() {
+        const itemexist = this.props.count;
+    let button;
+
+    if (itemexist!="0") {
+      button = (
+                <Badge style={{backgroundColor:"orange",width:25,height:25}}>
+                <Text>{this.props.count}</Text>
+                </Badge>
+      );
+    } 
+    else {
+      
+    }
         return (
                 
             <Container>
                          
+                         <View style={{backgroundColor:"#1c313a", height:50, flexDirection:"row",paddingTop:10 }}>
+                                  <Icons 
+                                                              style={{paddingLeft:10}} 
+                                                              onPress={()=>{this.props.navigation.goBack()}}
+                                                              name="md-arrow-back" 
+                                                              size={30}
+                                                              color="white"
+                                                      /> 
+                              <Text style={{paddingLeft:210,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>Order Detail</Text>
+
+                              <FIcon
+                                name="cart-plus" style={{ paddingLeft:220,color:'white',paddingTop:3}} 
+                                size={30} 
+                                onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
+                                  />
+                                
+                                    {button}
+                    </View>       
 
 
                            
@@ -210,6 +247,14 @@ export default class OrderDetails extends Component {
     }
 }
 
+
+const mapStateToProps=state=>{
+    return {
+      count: state.Main.count
+   
+    };
+  };
+  export default connect(mapStateToProps,null)(OrderDetails);;
 const Styles = StyleSheet.create({
     
     mainView:{

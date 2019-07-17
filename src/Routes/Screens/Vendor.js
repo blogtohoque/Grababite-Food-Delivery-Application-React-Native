@@ -117,22 +117,14 @@ class Vendor extends Component {
                                     <Image source={require('../../assets/images/fm.jpg')} style={{height: 200, width: null, flex: 1}}/>
                                   </CardItem>
                                   <CardItem style={{backgroundColor:"#1c313a"}}>
-                                  <Left>
-                                    <Button transparent>
-                                      <Icon active name="thumbs-up" style={{color:"white"}} />
-                                      <Text style={{color:"white"}}>12 Likes</Text>
-                                    </Button>
-                                  </Left>
+                             
                                   <Body>
                   
                                   <Button transparent>
-                                  <Icon active name="chatbubbles" style={{color:"white"}}/>
-                                  <Text style={{color:"white"}} onPress={()=>{this.onViewClick(); this.props.onVendorAdd(item);}}>View</Text>
+                                  <Text style={{color:"white",paddingLeft:240,fontFamily:"century-gothic",fontWeight:"bold",fontSize:15}} onPress={()=>{this.onViewClick(); this.props.onVendorAdd(item);}}>View</Text>
                                        </Button>
                                   </Body>
-                                  <Right>
-                                    <Text style={{color:"white"}}>11h ago</Text>
-                                  </Right>
+                                
                                 </CardItem>
                                 </Card>               
                                 )

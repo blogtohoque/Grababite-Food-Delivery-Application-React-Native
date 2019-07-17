@@ -57,7 +57,7 @@ class Login extends Component {
                   
         //console.log(Response.data);
             
-        console.log(check);
+    //    console.log(check);
         
             var fn;
      //       var dude = check.split(" ");

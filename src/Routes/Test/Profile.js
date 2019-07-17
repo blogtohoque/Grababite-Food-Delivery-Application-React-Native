@@ -7,13 +7,13 @@ import FIcon from 'react-native-vector-icons/FontAwesome';
 
 class ProfileScreen extends Component {
     state={
-      firstName:"",
-      lastName:"",
-      email:"",
-      mobile:"",
-      cPassword:"",
-      nPassword:"",
-      address:""
+      firstName:"First Name",
+      lastName:"Last Name",
+      email:"Email",
+      mobile:"Mobile",
+      cPassword:"Current Password",
+      nPassword:"New Password",
+      address:"Address"
 
     }
 
@@ -21,15 +21,19 @@ class ProfileScreen extends Component {
       var x=this.props.Hello;
    //   console.log(x)
 
-         
-        this.setState({
-          firstName:x[0].firstName,
-          lastName:x[0].lastName,
-          email:x[0].email,
-          mobile:x[0].phoneNo,
-          address:x[0].address
-        });
+    if(x!=null)
+    {
 
+    } 
+    else{        
+              this.setState({
+                firstName:x[0].firstName,
+                lastName:x[0].lastName,
+                email:x[0].email,
+                mobile:x[0].phoneNo,
+                address:x[0].address
+              });
+      }
        
     };
  

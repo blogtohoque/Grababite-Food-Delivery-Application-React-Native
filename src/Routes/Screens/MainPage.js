@@ -147,26 +147,7 @@ class MainPage extends Component {
 
     return (
       <Container style={{width:"100%", backgroundColor:'white'}}>
-
-
-
-<Button 
-          onPress={ async ()=>{
-           await AsyncStorage.removeItem('fullName');
-          this.props.navigation.navigate('Dashboard');
-     //     this.props.onLoginClick("");
-      //    this.props.navigator.push({
-     //     screen: "awesome-places.AuthScreen",
-     //     title: "Authentication"
-     //      });
-           }}>
-          <Text>Logout</Text></Button>
-          
-          <TouchableOpacity>
-           <Icon size={30} name="ios-trash" color="red"/>
-          </TouchableOpacity>
-          <Text>Grab A Bite  Logged in user is {this.props.userName}</Text>
-    
+{/*     
           {this.props.Hello ? this.props.Hello.map(strResult=>(
             <View>
             <Text>  {strResult.email} OR {strResult.firstName} </Text>
@@ -179,7 +160,7 @@ class MainPage extends Component {
 
 
     
-{/*     
+    
           {this.state.loader ? <ActivityIndicator
           
           color = '#bc2b78'
@@ -206,22 +187,12 @@ class MainPage extends Component {
                 <Image source={require('../../assets/images/fm.jpg')} style={{height: 200, width: null, flex: 1}}/>
               </CardItem>
               <CardItem style={{backgroundColor:"#1c313a"}}>
-                <Left>
-                  <Button transparent>
-                    <Icon active name="thumbs-up"  style={{color:"white"}}/>
-                    <Text style={{color:"white"}}>12 Likes</Text>
-                  </Button>
-                </Left>
                 <Body>
-
                 <Button transparent>
-                <Icon active name="chatbubbles" style={{color:"white"}} />
-                      <Text style={{color:"white"}} onPress={()=>{this.onViewClick(print.name); this.props.onCityAdd(print.name);}}>View</Text>
+                      <Text style={{color:"white",paddingLeft:240,fontFamily:"century-gothic",fontWeight:"bold",fontSize:15}} onPress={()=>{this.onViewClick(print.name); this.props.onCityAdd(print.name);}}>View</Text>
                     </Button>
                 </Body>
-                <Right>
-                  <Text style={{color:"white"}}>11h ago</Text>
-                </Right>
+            
               </CardItem>
           
               </Card>
@@ -239,6 +210,22 @@ class MainPage extends Component {
 
 
 
+<Button 
+          onPress={ async ()=>{
+           await AsyncStorage.removeItem('fullName');
+          this.props.navigation.navigate('Dashboard');
+     //     this.props.onLoginClick("");
+      //    this.props.navigator.push({
+     //     screen: "awesome-places.AuthScreen",
+     //     title: "Authentication"
+     //      });
+           }}>
+          <Text>Logout</Text></Button>
+          
+          <TouchableOpacity>
+           <Icon size={30} name="ios-trash" color="red"/>
+          </TouchableOpacity>
+          <Text>Grab A Bite  Logged in user is {this.props.userName}</Text>
           
 
           

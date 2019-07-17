@@ -7,12 +7,14 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,Button,Image,alert,TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, View,Image,alert,TouchableOpacity} from 'react-native';
 import {
   Container,
   Header,
  Body,
  Content,
+ Text,
+ Button
 } from "native-base";
 import MainPage from './src/Routes/Screens/MainPage';
 import LOGIN from './src/Routes/Screens/Login';
@@ -205,6 +207,37 @@ const DashboardStackNavigator= createStackNavigator({
   }
 
 });
+
+
+const full_name = AsyncStorage.getItem('fullName');
+                  let button;
+
+                  if (full_name=="") {
+
+                    button = (
+                                          <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Login')}}><Text >Login</Text></TouchableOpacity>
+                                               
+                              
+                                          );
+                  } 
+                  else {
+                  //  const full_name = await AsyncStorage.getItem('fullName');
+                       
+                  button = (
+                              <Button 
+                              onPress={ async ()=>{
+                              await AsyncStorage.removeItem('fullName');
+                              this.props.navigation.navigate('Login');
+                              
+                              //     this.props.onLoginClick("");
+                          //    this.props.navigator.push({
+                          //     screen: "awesome-places.AuthScreen",
+                          //     title: "Authentication"
+                          //      });
+                              }}>
+                              <Text>Logout</Text></Button>
+                  )
+                  }
 const customDrawerContentComponenet=(props)=>(
   <Container>
     <Header style={{
@@ -229,6 +262,21 @@ const customDrawerContentComponenet=(props)=>(
     <Content style={{   backgroundColor:'white', opacity:0.7
    }}>
       <DrawerItems {...props}  /> 
+
+
+   {/*button*/}
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
     </Content>
   </Container>
 );

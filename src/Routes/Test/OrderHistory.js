@@ -119,7 +119,7 @@ const mapStateToProps=state=>{
  
   };
 };
-export default connect(mapStateToProps,null)(OrderHistory);;
+export default connect(mapStateToProps,null)(OrderHistory);
 
 const Styles = StyleSheet.create({
     
