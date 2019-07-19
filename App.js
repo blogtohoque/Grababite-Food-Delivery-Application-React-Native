@@ -16,6 +16,8 @@ import {
  Text,
  Button
 } from "native-base";
+import Hello from './DrawerNavigation/t';
+import customDrawerContentComponentt from './DrawerNavigation/customDrawerContentComponent';
 import MainPage from './src/Routes/Screens/MainPage';
 import LOGIN from './src/Routes/Screens/Login';
 import Notifications from './src/Routes/Test/Notifications';
@@ -47,7 +49,7 @@ class App extends Component {
   render() {
     return (
       <Provider store ={store}>
-      <AppContainer/>
+      <AppContainer />
       </Provider>
 
       
@@ -208,36 +210,6 @@ const DashboardStackNavigator= createStackNavigator({
 
 });
 
-
-const full_name = AsyncStorage.getItem('fullName');
-                  let button;
-
-                  if (full_name=="") {
-
-                    button = (
-                                          <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Login')}}><Text >Login</Text></TouchableOpacity>
-                                               
-                              
-                                          );
-                  } 
-                  else {
-                  //  const full_name = await AsyncStorage.getItem('fullName');
-                       
-                  button = (
-                              <Button 
-                              onPress={ async ()=>{
-                              await AsyncStorage.removeItem('fullName');
-                              this.props.navigation.navigate('Login');
-                              
-                              //     this.props.onLoginClick("");
-                          //    this.props.navigator.push({
-                          //     screen: "awesome-places.AuthScreen",
-                          //     title: "Authentication"
-                          //      });
-                              }}>
-                              <Text>Logout</Text></Button>
-                  )
-                  }
 const customDrawerContentComponenet=(props)=>(
   <Container>
     <Header style={{
@@ -257,6 +229,8 @@ const customDrawerContentComponenet=(props)=>(
         }}
         source={require('./src/assets/images/logo.png')}
         />
+        
+
       </Body>
     </Header>
     <Content style={{   backgroundColor:'white', opacity:0.7
@@ -267,8 +241,7 @@ const customDrawerContentComponenet=(props)=>(
    {/*button*/}
    
    
-   
-   
+ <Hello {...props}/>
    
    
    
@@ -410,7 +383,7 @@ const AppDrawerNavigator = createDrawerNavigator({
 },{
   initialRouteName:'Dashboard',
   
-  contentComponent:customDrawerContentComponenet,
+  contentComponent:customDrawerContentComponentt,
   contentOptions:{
    // drawerBackgroundColor:"transparent",
     labelStyle:{

@@ -40,7 +40,7 @@ class Vendor extends Component {
   };
   componentDidMount=()=>{
    
-    fetch('http://192.168.10.7:8000/city')
+    fetch('http://192.168.1.28:8000/city')
     .then(res=> res.json())
     .then(gotdata=>this.setState({gotdata}));
    
@@ -60,6 +60,7 @@ class Vendor extends Component {
       button = (
                 <Badge style={{backgroundColor:"orange",width:25,height:25}}>
                 <Text>{this.props.count}</Text>
+               
                 </Badge>
       );
     } 

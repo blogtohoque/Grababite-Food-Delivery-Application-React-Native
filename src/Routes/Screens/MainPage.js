@@ -41,7 +41,9 @@ class MainPage extends Component {
               width:24
             }} 
         />
-    )
+    ),
+    drawerLabel:()=> null,
+   
   }
 
   state={
@@ -52,7 +54,7 @@ class MainPage extends Component {
 
   componentDidMount= async ()=>{
    // this.setState({loader:false});  
-    fetch('http://192.168.10.7:8000/city')
+    fetch('http://192.168.1.28:8000/city')
         .then(res=> res.json())
         .then(gotdata=>this.setState({gotdata}))
         .catch(error=>{
@@ -85,7 +87,7 @@ class MainPage extends Component {
                 var x=full_name;
             //    console.log('Hello');
            //     console.log(full_name)
-                axios.post('http://192.168.10.7:8000/checkEmail',
+                axios.post('http://192.168.1.28:8000/checkEmail',
                 {
                         name:x,
                 })
@@ -209,7 +211,7 @@ class MainPage extends Component {
 
 
 
-
+{/* 
 <Button 
           onPress={ async ()=>{
            await AsyncStorage.removeItem('fullName');
@@ -228,7 +230,7 @@ class MainPage extends Component {
           <Text>Grab A Bite  Logged in user is {this.props.userName}</Text>
           
 
-          
+    */}      
           
         </Content>
         

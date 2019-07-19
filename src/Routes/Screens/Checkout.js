@@ -19,10 +19,11 @@ import {
   ListItem,
   Thumbnail,
   View,Icon,
-  CheckBox
+  CheckBox,
 } from "native-base";
 import Icons from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
+import axios from 'axios';
  class Checkout extends Component {
   state={
     v8: 0,
@@ -31,7 +32,19 @@ import Modal from "react-native-modal";
     cOn:true,
     vOn:false,
     role:"Cash on Delivery",
+    date:"",
+    Time:"",
+    address:"",
+    delfees:""
   };
+  componentDidMount=()=>{
+    setInterval(()=>{
+      this.setState({
+          date :new Date().toLocaleDateString(),
+          Time:new Date().toLocaleTimeString()
+      })
+  },1000)
+  }
 
   cashCheck=()=>{
     var v=this.state.vOn   //false
@@ -190,7 +203,97 @@ import Modal from "react-native-modal";
 
 
 
+  placeOrder=()=>{
+    var x=this.props.Hello;
+  //  console.log(datee);
+    var add= x[0].address;
+    var defees=this.props.defees
+  
+    
+    
 
+
+
+    var datee=this.state.date;
+    var orderedtime=this.state.Time;
+
+    var subtotal=this.props.stotal;
+   // var dFees=;
+    var total=this.props.totall;
+    var fooddetails=this.props.hex;    
+    var OrderStatus="Pending";
+
+    Alert.alert(
+      'Order',
+      "Your order has been placed, you'll get confirmation in a while.",
+      [
+       
+        {text: 'OK', onPress: () => this.props.navigation.navigate('Dashboard')},
+      ],
+      {cancelable: false},
+    );
+    console.log(add);
+    console.log(datee);
+    console.log(orderedtime);
+    console.log(subtotal);
+    console.log(defees);
+    console.log(total);
+    console.log(fooddetails);
+    console.log(OrderStatus)
+ //Order foodDetail(foodid,quantity,vendorname,etc)  Date, SubTotal 
+ //DeliveryFees Total OrderStatus OrderedTime Recievedtime Address oid 
+      //reci
+ //username
+   
+//address phone no   date timing, orderstatus
+
+
+{/* 
+
+axios.post("http://192.168.1.28:8000/Checkout",
+    {
+        Address:add,
+         date:datee,
+         otime:orderedtime,
+         subtotal:subtotal,
+         dfees:defees,
+         totals:total,
+         fdetail:fooddetails,
+         ostatus:OrderStatus
+
+    }
+    )
+    .then(Response=>{
+
+        var check = Response.data;
+        if(check === "do")
+        {
+          Alert.alert(
+            'Order',
+            "Your order has been placed, you'll get confirmation in a while.",
+            [
+             
+              {text: 'OK', onPress: () => this.props.navigation.navigate('Dashboard')},
+            ],
+            {cancelable: false},
+          );
+             console.log(Response.data);
+        }
+        else{
+            alert("Order Failed");
+        }
+            
+    })
+     .catch(error=>{
+        console.log(error.Response);
+        console.log('kuti');
+     }
+     )
+
+    */} 
+      
+
+  }
 
 
 
@@ -358,9 +461,11 @@ import Modal from "react-native-modal";
          <View>
 
                       
-                      <Button warning style={{width:580,height:40,marginTop:15,borderRadius:10,marginLeft:10,backgroundColor:"#1c313a",paddingLeft:185}}>
-                        <Text style={{fontFamily:"century-gothic"}}>PLACE MY ORDER</Text>
-                      </Button>
+                      <Button warning 
+                      style={{width:580,height:40,marginTop:15,borderRadius:10,marginLeft:10,backgroundColor:"#1c313a",paddingLeft:185} }
+                      onPress={this.placeOrder}
+                      
+                      ><Text style={{fontFamily:"century-gothic"}} >PLACE MY ORDER</Text></Button>
 
       </View>
 
@@ -456,7 +561,8 @@ mapStateToProps=state=>{
     dfees:state.Main.deliveryFees,
     totall:state.Main.total,
     VendorName:state.Main.vendor,
-    count: state.Main.count
+    count: state.Main.count,
+    Hello: state.Main.userDetail
   };
 }
 mapDispatchToProps=dispatch=>{
