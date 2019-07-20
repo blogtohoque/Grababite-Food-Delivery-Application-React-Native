@@ -113,6 +113,7 @@ import FIcon from 'react-native-vector-icons/FontAwesome';
 }
 
 
+
 const mapStateToProps=state=>{
   return {
     count: state.Main.count

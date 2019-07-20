@@ -47,7 +47,7 @@ class Login extends Component {
     
     var x=this.state.name;
     var y=this.state.password;
-    axios.post('http://192.168.1.28:8000/getuser',
+    axios.post('http://192.168.10.4:8000/getuser',
     {
             name:x,
             password:y
@@ -57,7 +57,7 @@ class Login extends Component {
                   
         //console.log(Response.data);
             
-    //    console.log(check);
+        console.log(check);
         
             var fn;
      //       var dude = check.split(" ");
@@ -189,10 +189,13 @@ class Login extends Component {
                       </TouchableOpacity>     
                       </View>
 <View>
-  <Text>
-  {this.state.name}
-  {this.state.password}
-  </Text>
+  {/* 
+          <Text>
+          {this.state.name}
+          {this.state.password}
+          </Text>
+
+  */}
 </View>
                
                       <View style={styles.signupTextCont}>

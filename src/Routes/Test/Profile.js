@@ -19,13 +19,9 @@ class ProfileScreen extends Component {
 
     componentDidMount=()=>{ 
       var x=this.props.Hello;
-   //   console.log(x)
+      console.log(x)
 
-    if(x!=null)
-    {
-
-    } 
-    else{        
+           
               this.setState({
                 firstName:x[0].firstName,
                 lastName:x[0].lastName,
@@ -33,24 +29,60 @@ class ProfileScreen extends Component {
                 mobile:x[0].phoneNo,
                 address:x[0].address
               });
-      }
+      
        
     };
+    updateProfile=()=>{
+      var a = this.state.firstName;
+      var b = this.state.lastName;
+      var c = this.state.cPassword;
+      var d = this.state.nPassword;
+      var e = this.state.mobile;
+      var h = this.state.address;
+      var em = this.state.email;
+      var DBOLDPASS = this.state.databaseOldPass;
+     
+      if(c===DBOLDPASS){
+     //   console.log("dataabse wala pass "+DBOLDPASS+" old pass jo likha ha "+c+"Emailllll "+ em)
+              axios.post("http://192.168.10.4:8000/updateProfileDelivery",
+                {
+                    firstname:a,
+                    lastname:b,
+                    password:d,
+                    email:em,
+                    mobile:e,
+                    Address:h,
+               
+                }
+                )
+                .then(Response=>{
+        
+                    var check = Response.data;
+                    if(check === "do")
+                    {
+                        
+                        alert('Your Profile Updated Successfuly');
+                        this.props.navigation.navigate('Dashboard');
+                    }
+                    else{
+                        alert("Error Updating Profile");
+                    }
+                        
+                })
+                .catch(error=>{
+                    console.log(error.Response)
+                }
+                )
+         }
+      else
+      {
+          alert("Your Old password is wrong")
+      }
+
+    }
  
     render() {
-      const itemexist = this.props.count;
-      let button;
-  
-      if (itemexist!="0") {
-        button = (
-                  <Badge style={{backgroundColor:"orange",width:25,height:25}}>
-                  <Text>{this.props.count}</Text>
-                  </Badge>
-        );
-      } 
-      else {
-        
-      }
+      
         return (
       
             <View style={styles.container} >
@@ -71,7 +103,7 @@ class ProfileScreen extends Component {
                                     onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
                                       />
                                     
-                                        {button}
+                                        
                         </View>
 
 
@@ -155,7 +187,7 @@ class ProfileScreen extends Component {
                               /> 
                               
                           <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText}>Update</Text>
+                            <Text style={styles.buttonText} onPress={this.updateProfile}>Update</Text>
                           </TouchableOpacity>  
                                 
                           

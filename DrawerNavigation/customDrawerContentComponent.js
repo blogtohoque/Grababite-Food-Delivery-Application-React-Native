@@ -48,12 +48,12 @@ export default class customDrawerContentComponent extends Component
               <DrawerItems {...this.props}  /> 
         
         
-           {/*button*/}
+           {/*button
            
            
          <Hello {...this.props}/>
            
-           
+           */}
            
            
            

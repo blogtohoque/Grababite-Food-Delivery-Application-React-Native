@@ -235,15 +235,16 @@ const customDrawerContentComponenet=(props)=>(
     </Header>
     <Content style={{   backgroundColor:'white', opacity:0.7
    }}>
+
       <DrawerItems {...props}  /> 
 
 
-   {/*button*/}
+   {/*button
    
    
  <Hello {...props}/>
    
-   
+   */}
    
    
    
@@ -383,7 +384,7 @@ const AppDrawerNavigator = createDrawerNavigator({
 },{
   initialRouteName:'Dashboard',
   
-  contentComponent:customDrawerContentComponentt,
+  contentComponent:customDrawerContentComponenet,
   contentOptions:{
    // drawerBackgroundColor:"transparent",
     labelStyle:{

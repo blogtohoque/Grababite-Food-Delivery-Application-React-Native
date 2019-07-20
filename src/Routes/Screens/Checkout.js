@@ -167,7 +167,7 @@ import axios from 'axios';
                     <View style={{paddingTop:20, paddingLeft:10,paddingBottom:20}}>
                                     <Button 
                                     style={{backgroundColor:"#1c313a"}}
-                                    ><Text 
+                                    ><Text onPress={() => this.setState({ visibleModal: null })}
                                     style={{width:400,height:60,color:"white",fontWeight:"400",fontSize:15,fontFamily:"century-gothic",paddingLeft:185,marginTop:35}}
                                     >DONE</Text></Button>      
 
@@ -207,7 +207,8 @@ import axios from 'axios';
     var x=this.props.Hello;
   //  console.log(datee);
     var add= x[0].address;
-    var defees=this.props.defees
+    var custid=x[0]._id;
+    var defees=this.props.dfees
   
     
     
@@ -223,15 +224,7 @@ import axios from 'axios';
     var fooddetails=this.props.hex;    
     var OrderStatus="Pending";
 
-    Alert.alert(
-      'Order',
-      "Your order has been placed, you'll get confirmation in a while.",
-      [
-       
-        {text: 'OK', onPress: () => this.props.navigation.navigate('Dashboard')},
-      ],
-      {cancelable: false},
-    );
+    
     console.log(add);
     console.log(datee);
     console.log(orderedtime);
@@ -246,51 +239,82 @@ import axios from 'axios';
  //username
    
 //address phone no   date timing, orderstatus
-
-
-{/* 
-
-axios.post("http://192.168.1.28:8000/Checkout",
+axios.post("http://192.168.10.4:8000/maxID",
     {
-        Address:add,
-         date:datee,
-         otime:orderedtime,
-         subtotal:subtotal,
-         dfees:defees,
-         totals:total,
-         fdetail:fooddetails,
-         ostatus:OrderStatus
 
-    }
-    )
-    .then(Response=>{
-
-        var check = Response.data;
-        if(check === "do")
-        {
-          Alert.alert(
-            'Order',
-            "Your order has been placed, you'll get confirmation in a while.",
-            [
-             
-              {text: 'OK', onPress: () => this.props.navigation.navigate('Dashboard')},
-            ],
-            {cancelable: false},
-          );
-             console.log(Response.data);
-        }
-        else{
-            alert("Order Failed");
-        }
-            
     })
-     .catch(error=>{
-        console.log(error.Response);
-        console.log('kuti');
-     }
-     )
+    .then(Responses=>{
+      var check =Responses.data;
+      if(typeof(check) === 'string'){
+                    
+        alert("Wrong Data");
+              
 
-    */} 
+      }
+      else{
+        //  console.log(datee);
+          var oid= check[0].oID;
+          oid=oid+1;
+          console.log(oid);
+
+        
+axios.post("http://192.168.10.4:8000/Checkout",
+{
+    Address:add,
+     date:datee,
+     otime:orderedtime,
+     subtotal:subtotal,
+     dfees:defees,
+     totals:total,
+     fdetail:fooddetails,
+     ostatus:OrderStatus,
+     oid:oid,
+     custid:custid
+}
+)
+.then(Response=>{
+
+    var check = Response.data;
+//     var dude = check.split(" ");
+    //       var token=dude[1];
+//            var  fname=dude[0];
+    console.log(check);
+    console.log('hello');
+  //  console.log(dude[1]);
+    if(check === "do")
+    {
+      Alert.alert(
+        'Order',
+        "Your order has been placed, you'll get confirmation in a while.",
+        [
+         
+          {text: 'OK', onPress: () => this.props.navigation.navigate('Dashboard')},
+        ],
+        {cancelable: false},
+      );
+         console.log(Response.data);
+    }
+    else{
+        alert("Order Failed");
+    }
+        
+})
+ .catch(error=>{
+    console.log(error.Response);
+    console.log('kuti');
+ }
+ )
+
+
+
+
+
+
+
+      }
+    })
+
+
       
 
   }
