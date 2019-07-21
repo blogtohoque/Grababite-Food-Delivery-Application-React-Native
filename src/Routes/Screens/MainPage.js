@@ -211,7 +211,6 @@ class MainPage extends Component {
 
 
 
-{/** 
 <Button 
           onPress={ async ()=>{
            await AsyncStorage.removeItem('fullName');
@@ -229,7 +228,7 @@ class MainPage extends Component {
           </TouchableOpacity>
           <Text>Grab A Bite  Logged in user is {this.props.userName}</Text>
           
-*/}
+
          
           
         </Content>

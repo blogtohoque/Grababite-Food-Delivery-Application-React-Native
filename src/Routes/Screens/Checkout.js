@@ -35,7 +35,12 @@ import axios from 'axios';
     date:"",
     Time:"",
     address:"",
-    delfees:""
+    delfees:"",
+    cfirstName:"",
+    clastName:"",
+    cemail:"",
+    cmobile:"",
+    caddress:""
   };
   componentDidMount=()=>{
     setInterval(()=>{
@@ -43,7 +48,18 @@ import axios from 'axios';
           date :new Date().toLocaleDateString(),
           Time:new Date().toLocaleTimeString()
       })
-  },1000)
+  },1000);
+
+    var x=this.props.Hello;
+    this.setState({
+      cfirstName:x[0].firstName,
+      clastName:x[0].lastName,
+      cemail:x[0].email,
+      cmobile:x[0].phoneNo,
+      caddress:x[0].address
+    });
+
+
   }
 
   cashCheck=()=>{
@@ -118,14 +134,27 @@ import axios from 'axios';
                                 <Text style={{paddingTop:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>First Name</Text> 
 
                                 <Item regular style={{width:180,height:40,marginTop:8,borderRadius:10}}>
-                                  <Input placeholder='First Name' />
+                                  <Input 
+
+                                  value={this.state.cfirstName} 
+                                  keyboardType="email-address"
+                              onChangeText={(inp)=>{
+                                  this.setState({cfirstName:inp})
+                              }}         
+                                  />
                                 </Item>  
                       </View>       
                       <View style={{flexDirection:"column",paddingRight:60}}>
                                   <Text style={{paddingTop:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>Last Name</Text>
                       
                                   <Item regular style={{width:180,height:40,marginTop:8,borderRadius:10}}>
-                                    <Input placeholder='Last Name' />
+                                    <Input  
+                                    value={this.state.clastName}
+                                    onChangeText={(inp)=>{
+                                      this.setState({clastName:inp})
+                                  }}
+                                    />
+
                                   </Item>
                       
                       
@@ -137,7 +166,12 @@ import axios from 'axios';
               <View style={{flexDirection:"column"}}>
                       <Text style={{paddingTop:10, paddingLeft:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>Address</Text>
                       <Item regular style={{width:400,height:40,marginTop:8,borderRadius:10,marginLeft:10}}>
-                                    <Input placeholder='Address' />
+                                    <Input 
+                                    value={this.state.caddress} 
+                                    onChangeText={(inp)=>{
+                                      this.setState({caddress:inp})
+                                  }}
+                                    />
                       </Item>
 
 
@@ -157,7 +191,12 @@ import axios from 'axios';
               <View style={{flexDirection:"column"}}>
                       <Text style={{paddingTop:10, paddingLeft:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>Phone No</Text>
                       <Item regular style={{width:400,height:40,marginTop:8,borderRadius:10,marginLeft:10}}>
-                                    <Input placeholder='Phone No' />
+                                    <Input 
+                                    value={this.state.cmobile}
+                                    onChangeText={(inp)=>{
+                                      this.setState({cmobile:inp})
+                                  }}
+                                     />
                       </Item>
 
 
@@ -167,6 +206,7 @@ import axios from 'axios';
                     <View style={{paddingTop:20, paddingLeft:10,paddingBottom:20}}>
                                     <Button 
                                     style={{backgroundColor:"#1c313a"}}
+                                    onPress={() => this.setState({ visibleModal: null })}
                                     ><Text onPress={() => this.setState({ visibleModal: null })}
                                     style={{width:400,height:60,color:"white",fontWeight:"400",fontSize:15,fontFamily:"century-gothic",paddingLeft:185,marginTop:35}}
                                     >DONE</Text></Button>      
