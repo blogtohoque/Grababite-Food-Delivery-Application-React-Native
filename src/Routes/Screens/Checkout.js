@@ -279,7 +279,7 @@ import axios from 'axios';
  //username
    
 //address phone no   date timing, orderstatus
-axios.post("http://192.168.10.4:8000/maxID",
+axios.post("http://192.168.1.28:8000/maxID",
     {
 
     })
@@ -298,7 +298,7 @@ axios.post("http://192.168.10.4:8000/maxID",
           console.log(oid);
 
         
-axios.post("http://192.168.10.4:8000/Checkout",
+axios.post("http://192.168.1.28:8000/Checkout",
 {
     Address:add,
      date:datee,

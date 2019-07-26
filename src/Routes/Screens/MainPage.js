@@ -54,7 +54,7 @@ class MainPage extends Component {
 
   componentDidMount= async ()=>{
    // this.setState({loader:false});  
-    fetch('http://192.168.10.4:8000/city')
+    fetch('http://192.168.1.28:8000/city')
         .then(res=> res.json())
         .then(gotdata=>this.setState({gotdata}))
         .catch(error=>{
@@ -87,7 +87,7 @@ class MainPage extends Component {
                 var x=full_name;
             //    console.log('Hello');
            //     console.log(full_name)
-                axios.post('http://192.168.10.4:8000/checkEmail',
+                axios.post('http://192.168.1.28:8000/checkEmail',
                 {
                         name:x,
                 })
