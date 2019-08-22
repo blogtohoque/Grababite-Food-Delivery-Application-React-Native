@@ -8,6 +8,7 @@ import {TouchableOpacity,Image, ActivityIndicator,  StyleSheet } from 'react-nat
 import {
   Container,
   Content,
+  Header,
   Button,
   Left,
   Right,
@@ -19,14 +20,34 @@ import {
   Icon,
   View,
  Card,
- CardItem
+ CardItem,
+ Spinner 
 } from "native-base";
 import axios from 'axios';
+import InteractiveCard  from 'react-native-interactive-card';
 //import Carousel from 'react-native-snap-carousel';
 //import startMainTabs from "../mainTabs/startMainTabs";
 //import {createDrawerNavigator} from 'react-navigation';
 //import homeScreen from '../../Screens/Auth/HomeScreen';
 //import settingScreen from '../../Screens/Auth/SettingScreen';
+
+const cardOptions = { overlayOpacity : 1 };
+const contentOptions = { enterFrom: "right" };
+const headerStyle = {
+	backgroundColor: "#68E9FF", padding: 30, 
+	marginBottom: 10, borderRadius: 5 
+};
+const textStyle = {
+	fontSize: 40, opacity: 0.6,
+	textAlign: 'center', fontWeight: 'bold'
+};
+const contentStyle = {
+	width: "90%", padding: 50, 
+	backgroundColor: "#E85F53"
+};
+
+
+
 class MainPage extends Component {
   constructor(props) {
     super(props); 
@@ -47,16 +68,25 @@ class MainPage extends Component {
   }
 
   state={
-    gotdata:[],tokencheck:"", loader: true
-    ,gotdataa:[]
+    gotdata:[],tokencheck:""
+    ,gotdataa:[],
+    recievedData:false,
   }
+
+  
   
 
   componentDidMount= async ()=>{
    // this.setState({loader:false});  
-    fetch('http://192.168.1.28:8000/city')
+    fetch('http://192.168.10.8:8000/city')
         .then(res=> res.json())
-        .then(gotdata=>this.setState({gotdata}))
+        .then(gotdata=>this.setState({gotdata})
+        
+        
+        ).then(async()=>{
+        await  this.setState({recievedData:true});
+        
+        })
         .catch(error=>{
           console.log("Error in retrieving data from Backend. ");
    //       console.log(loader);
@@ -87,7 +117,7 @@ class MainPage extends Component {
                 var x=full_name;
             //    console.log('Hello');
            //     console.log(full_name)
-                axios.post('http://192.168.1.28:8000/checkEmail',
+                axios.post('http://192.168.10.8:8000/checkEmail',
                 {
                         name:x,
                 })
@@ -144,7 +174,58 @@ class MainPage extends Component {
 
    //   console.log('Main Page props')
   //  console.log(this.props)
+    let showData;
+    if(this.state.recievedData===true)
+    {
+      showData=(
+
+         this.state.gotdata ? this.state.gotdata.map(print  => {
+              
+          return (
+            <Card>
+            <CardItem key={print.id} style={{backgroundColor:"#1c313a"    } }>
+            <Left>
+              <Thumbnail source={require('../../assets/images/logo.png')} />
+              <Body >
+                <Text style={{color:"white"}}>{print.name}</Text>
+                <Text note style={{color:"white"}}>Grab A Bite</Text>
+              </Body>
+            </Left>
+          </CardItem>
+          <CardItem cardBody>
+            <Image source={require('../../assets/images/fm.jpg')} style={{height: 200, width: null, flex: 1}}/>
+          </CardItem>
+          <CardItem style={{backgroundColor:"#1c313a"}}>
+            <Body>
+            <Button transparent>
+                  <Text style={{color:"white",paddingLeft:240,fontFamily:"century-gothic",fontWeight:"bold",fontSize:15}} onPress={()=>{this.onViewClick(print.name); this.props.onCityAdd(print.name);}}>View</Text>
+                </Button>
+            </Body>
+        
+          </CardItem>
+      
+          </Card>
+      
+      
+      
+      
+      
+          )
+        }
+      ):null
     
+
+
+      )
+    } 
+    else{
+      showData=(
+        <View>
+           <Spinner color='red' />
+
+        </View>
+      )
+    }   
 
 
     return (
@@ -171,42 +252,17 @@ class MainPage extends Component {
 */}
           <Content padder>
 
+        
+        {showData}
 
-          { this.state.gotdata ? this.state.gotdata.map(print  => {
-              
-              return (
-                <Card>
-                <CardItem key={print.id} style={{backgroundColor:"#1c313a"    } }>
-                <Left>
-                  <Thumbnail source={require('../../assets/images/logo.png')} />
-                  <Body >
-                    <Text style={{color:"white"}}>{print.name}</Text>
-                    <Text note style={{color:"white"}}>Grab A Bite</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-              <CardItem cardBody>
-                <Image source={require('../../assets/images/fm.jpg')} style={{height: 200, width: null, flex: 1}}/>
-              </CardItem>
-              <CardItem style={{backgroundColor:"#1c313a"}}>
-                <Body>
-                <Button transparent>
-                      <Text style={{color:"white",paddingLeft:240,fontFamily:"century-gothic",fontWeight:"bold",fontSize:15}} onPress={()=>{this.onViewClick(print.name); this.props.onCityAdd(print.name);}}>View</Text>
-                    </Button>
-                </Body>
-            
-              </CardItem>
-          
-              </Card>
-          
-          
-          
-          
-          
-              )
-            }
-          ):null
-        }
+
+
+
+
+
+
+
+    
 
 
 
