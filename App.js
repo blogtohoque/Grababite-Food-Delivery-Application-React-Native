@@ -174,7 +174,7 @@ const DashboardStackNavigator= createStackNavigator({
     headerTitle: 'GRAB A BITE', 
     headerTintColor: 'white',
     headerTitleStyle:{
-      paddingLeft:180, color:'white',fontFamily:"century-gothic",fontWeight:"500"
+      paddingLeft:'25%', color:'white',fontFamily:"century-gothic",fontWeight:"500"
     },
     headerStyle: {
       backgroundColor: '#1c313a',
