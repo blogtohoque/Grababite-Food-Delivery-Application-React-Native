@@ -7,13 +7,17 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,Button,Image,alert,TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, View,Image,alert,TouchableOpacity} from 'react-native';
 import {
   Container,
   Header,
  Body,
  Content,
+ Text,
+ Button
 } from "native-base";
+import Hello from './DrawerNavigation/t';
+import customDrawerContentComponentt from './DrawerNavigation/customDrawerContentComponent';
 import MainPage from './src/Routes/Screens/MainPage';
 import LOGIN from './src/Routes/Screens/Login';
 import Notifications from './src/Routes/Test/Notifications';
@@ -28,6 +32,7 @@ import {createSwitchNavigator, createAppContainer ,createDrawerNavigator, create
 import Icon from 'react-native-vector-icons/Ionicons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import CheckoutPage from './src/Routes/Screens/Checkout';
+import OrderDetails from './src/Routes/Test/OrderDetails';
   
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -39,11 +44,12 @@ import configureStore from './src/Store/configureStore'
 const store =configureStore();
  const c="Login";
 
+ //state.Main.count 
 class App extends Component {
   render() {
     return (
       <Provider store ={store}>
-      <AppContainer/>
+      <AppContainer />
       </Provider>
 
       
@@ -194,7 +200,7 @@ const DashboardStackNavigator= createStackNavigator({
         <FIcon name="cart-plus" style={{ paddingRight:30}} size={30} color="white"
         onPress={()=>{navigation.navigate('TripleJugarNavigation')}}
         />
- 
+         
 
       )
       
@@ -203,6 +209,7 @@ const DashboardStackNavigator= createStackNavigator({
   }
 
 });
+
 const customDrawerContentComponenet=(props)=>(
   <Container>
     <Header style={{
@@ -222,11 +229,28 @@ const customDrawerContentComponenet=(props)=>(
         }}
         source={require('./src/assets/images/logo.png')}
         />
+        
+
       </Body>
     </Header>
     <Content style={{   backgroundColor:'white', opacity:0.7
    }}>
+
       <DrawerItems {...props}  /> 
+
+
+   {/*button
+   
+   
+ <Hello {...props}/>
+   
+   */}
+   
+   
+   
+   
+   
+   
     </Content>
   </Container>
 );
@@ -346,6 +370,13 @@ const AppDrawerNavigator = createDrawerNavigator({
       drawerLabel: () => null
  },
     screen:CheckoutPage,
+    
+  },
+  OrderDetails:{
+    navigationOptions:{
+      drawerLabel: () => null
+ },
+    screen:OrderDetails,
     
   },
  

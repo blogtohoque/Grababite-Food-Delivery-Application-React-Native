@@ -1,191 +1,261 @@
-import React, { Component } from "react";
-import axios from 'axios';
-import {
-  Container,
-  Content,
-  Button,
-  
-  Text,
-  Form,
-  Item,
-  Input,
-  Label,
-} from "native-base";
-import Icon from 'react-native-vector-icons/Ionicons';
+import React, { Component } from 'react';
+import { Text, View ,StyleSheet, StatusBar, TextInput, TouchableOpacity, Image  } from 'react-native';
+import Icons from 'react-native-vector-icons/Ionicons';
+import {connect} from 'react-redux';
+import FIcon from 'react-native-vector-icons/FontAwesome';
 
-export default class Profile extends Component {
-  static navigationOptions = {
-    title:"Hello",
-  }; 
-  state={
-    cOn:true,
-    vOn:false,
-    fname:"",
-    lname:"",
-    email:"",
-    mobile:"",
-    Password:"",
-    cPassword:"",
-    role:"Customer",
-    Address:"",
-    Date:""
-  };
-  componentDidMount=()=>{
-    var today = new Date(), date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    this.setState({Date:date});
-  }
-  fnChange=(val)=>{
-      this.setState({
-        fname:val
-      })
-  }
-  lnChange=(val)=>{
-    this.setState({
-      lname:val
-    })
-  }
-  emailChange=(val)=>{
-    this.setState({
-      email:val
-    })
-  }
-  mobileChange=(val)=>{
-    this.setState({
-      mobile:val
-    })
-  }
-  passwordChange=(val)=>{
-    this.setState({
-      Password:val
-    })
-  }
-  cpasswordChange=(val)=>{
-    this.setState({
-      cPassword:val
-    })
-  }
-  addressChange=(val)=>{
-    this.setState({
-      Address:val
-    })
-  }
-  onSignIn=()=>{
-    var a = this.state.fname;
-        var b = this.state.lname;
-        var c = this.state.Password;
-        var d = this.state.cPassword;
-        var e = this.state.mobile;
-        var f = this.state.email;
-        var g = this.state.role;
-        var h = this.state.Address;
-        var i = this.state.Date;
-        if(c===d){
-          axios.post("http://192.168.10.14:8000/signup",
-            {
-                 firstname:a,
-                 lastname:b,
-                 password:c,
-                 mobile:e,
-                 email:f,
-                 role:g,
-                Address:h,
-                Date:i
-            }
-            )
-            .then(Response=>{
-    
-                var check = Response.data;
-                if(check === "do")
+
+class ProfileScreen extends Component {
+    state={
+      firstName:"First Name",
+      lastName:"Last Name",
+      email:"Email",
+      mobile:"Mobile",
+      cPassword:"Current Password",
+      nPassword:"New Password",
+      address:"Address"
+
+    }
+
+    componentDidMount=()=>{ 
+      var x=this.props.Hello;
+      console.log(x)
+
+           
+              this.setState({
+                firstName:x[0].firstName,
+                lastName:x[0].lastName,
+                email:x[0].email,
+                mobile:x[0].phoneNo,
+                address:x[0].address
+              });
+      
+       
+    };
+    updateProfile=()=>{
+      var a = this.state.firstName;
+      var b = this.state.lastName;
+      var c = this.state.cPassword;
+      var d = this.state.nPassword;
+      var e = this.state.mobile;
+      var h = this.state.address;
+      var em = this.state.email;
+      var DBOLDPASS = this.state.databaseOldPass;
+     
+      if(c===DBOLDPASS){
+     //   console.log("dataabse wala pass "+DBOLDPASS+" old pass jo likha ha "+c+"Emailllll "+ em)
+              axios.post("http://192.168.10.8:8000/updateProfileDelivery",
                 {
-                     
-                     console.log(Response.data);
-                 //    this.props.navigator.push({
-               //       screen: "awesome-places.AuthScreen",
-             //         title: "Grab A Bite"
-           //         });
-
-           this.props.navigation.navigate('Dashboard');
-
+                    firstname:a,
+                    lastname:b,
+                    password:d,
+                    email:em,
+                    mobile:e,
+                    Address:h,
+               
                 }
-                else{
-                    alert("SignUp Failed");
+                )
+                .then(Response=>{
+        
+                    var check = Response.data;
+                    if(check === "do")
+                    {
+                        
+                        alert('Your Profile Updated Successfuly');
+                        this.props.navigation.navigate('Dashboard');
+                    }
+                    else{
+                        alert("Error Updating Profile");
+                    }
+                        
+                })
+                .catch(error=>{
+                    console.log(error.Response)
                 }
-                    
-            })
-             .catch(error=>{
-                console.log(error.Response)
-             }
-             )
-        }
-        else{
-            alert("password does not matches with confirm password")
-        }
+                )
+         }
+      else
+      {
+          alert("Your Old password is wrong")
+      }
+
+    }
+ 
+    render() {
+      
+        return (
+      
+            <View style={styles.container} >
+
+                        <View style={{backgroundColor:"#1c313a", height:50, flexDirection:"row",paddingTop:10 }}>
+                                      <Icons 
+                                                                  style={{paddingLeft:10}} 
+                                                                  onPress={()=>{this.props.navigation.goBack()}}
+                                                                  name="md-arrow-back" 
+                                                                  size={30}
+                                                                  color="white"
+                                                          /> 
+                                  <Text style={{paddingLeft:210,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>My Profile</Text>
+
+                                  <FIcon
+                                    name="cart-plus" style={{ paddingLeft:210,color:'white',paddingTop:3}} 
+                                    size={30} 
+                                    onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
+                                      />
+                                    
+                                        
+                        </View>
 
 
+          <View style={{ 
+                      paddingTop:90,
+                      justifyContent:'center',
+                      alignItems: 'center'
+              }}>
+                                <View style={styles.container2}>
+                                            <Image
+                                            style={{width: 50, height: 50,borderRadius:25}}
+                                            source={require('../../assets/images/logo.png')}
+                                            />
+                                            <Text style={styles.logoText}>Grab A Bite</Text>	
+                                </View>
 
-  }
+                          <TextInput style={styles.inputBox} 
+                              underlineColorAndroid='rgba(0,0,0,0)' 
+                              value={this.state.firstName}
+                              placeholderTextColor = "#ffffff"
+                              selectionColor="#fff"
+                              keyboardType="email-address"
+                              onChangeText={(inp)=>{
+                                  this.setState({firstName:inp})
+                              }}
+                              
+                        />
 
+                          <TextInput style={styles.inputBox} 
+                              underlineColorAndroid='rgba(0,0,0,0)' 
+                              value={this.state.lastName}
+                              placeholderTextColor = "#ffffff"
+                              onChangeText={(inp)=>{
+                                this.setState({lastName:inp})
+                            }}
+                          />  
 
-  render() {
-    return (
-      <Container style={{ width: "100%" }}>
-       <Icon 
-                                    style={{paddingLeft:10}} 
-                                    onPress={()=>{this.props.navigation.openDrawer()}}
-                                    name="md-menu" 
-                                    size={30}
-                            />
-       
-       
-        <Content padder>
-          <Form>
-            <Item floatingLabel>
-              <Label>First Name</Label>
-              <Input onChangeText={this.fnChange} />
-            </Item>
-            <Item floatingLabel last>
-              <Label>Last Name</Label>
-              <Input onChangeText={this.lnChange}/>
-            </Item>
-            <Item floatingLabel last>
-              <Label> Email</Label>
-              <Input onChangeText={this.emailChange} />
-            </Item>
-            <Item floatingLabel last>
-              <Label>Mobile </Label>
-              <Input onChangeText={this.mobileChange}/>
-            </Item>
-            <Item floatingLabel last>
-              <Label>Password</Label>
-              <Input  onChangeText={this.passwordChange}/>
-            </Item>
-            <Item floatingLabel last>
-              <Label>Confirm Password</Label>
-              <Input onChangeText={this.cpasswordChange}/>
-            </Item>
-            <Item floatingLabel last>
-              <Label>Address</Label>
-              <Input onChangeText={this.addressChange}/>
-            </Item>
-            <Button block style={{ marginTop: "6%" }} onPress={this.onSignIn}>
-              <Text>Update Profile</Text>
-            </Button>
-            <Text>
-              {this.state.role}
-            {this.state.fname}
-            {this.state.lname}
-            {this.state.email}
-            {this.state.mobile}
-            {this.state.Password}
-            {this.state.cPassword}
-            {this.state.Address}
-            
-            
-            </Text>
-          </Form>
-        </Content>
-    
-      </Container>
-    );
-  }
+                              <TextInput style={styles.inputBox} 
+                              underlineColorAndroid='rgba(0,0,0,0)' 
+                              value={this.state.email}
+                              placeholderTextColor = "#ffffff"
+                              onChangeText={(inp)=>{
+                                this.setState({email:inp})
+                            }}
+                              />  
+                              
+                              <TextInput style={styles.inputBox} 
+                              underlineColorAndroid='rgba(0,0,0,0)' 
+                              value={this.state.mobile}
+                              placeholderTextColor = "#ffffff"
+                              keyboardType = 'decimal-pad'
+                              onChangeText={(inp)=>{
+                                this.setState({mobile:inp})
+                            }}
+                              />  
+                              <TextInput style={styles.inputBox} 
+                              underlineColorAndroid='rgba(0,0,0,0)' 
+                              placeholder="Current Password"
+                              placeholderTextColor = "#ffffff"
+                              secureTextEntry = {true}
+                              onChangeText={(inp)=>{
+                                this.setState({cPassword:inp})
+                            }}
+                              /> 
+                              <TextInput style={styles.inputBox} 
+                              underlineColorAndroid='rgba(0,0,0,0)' 
+                              placeholder="New Password"
+                              placeholderTextColor = "#ffffff"
+                              secureTextEntry = {true}
+                              onChangeText={(inp)=>{
+                                this.setState({nPassword:inp})
+                            }}
+                              /> 
+                              <TextInput style={styles.inputBox} 
+                              underlineColorAndroid='rgba(0,0,0,0)' 
+                              value={this.state.address}
+                              placeholderTextColor = "#ffffff"
+                              onChangeText={(inp)=>{
+                                this.setState({address:inp})
+                            }}
+                              /> 
+                              
+                          <TouchableOpacity style={styles.button}>
+                            <Text style={styles.buttonText} onPress={this.updateProfile}>Update</Text>
+                          </TouchableOpacity>  
+                                
+                          
+           </View>            
+               
+            </View>
+   
+        )
+    }
 }
+
+
+
+const mapStateToProps=state=>{
+  return {
+    count: state.Main.count,
+    Hello: state.Main.userDetail
+ 
+  };
+};
+export default connect(mapStateToProps,null)(ProfileScreen);
+
+const styles = StyleSheet.create({
+  container : {
+    flex:1,
+    
+    backgroundColor:'#455a64',
+  
+  },
+
+  inputBox: {
+    width:300,
+    backgroundColor:'rgba(255, 255,255,0.2)',
+    borderRadius: 25,
+    paddingHorizontal:16,
+    fontSize:16,
+    color:'#ffffff',
+    marginVertical: 5,
+    
+    
+  },
+  button: {
+    width:300,
+    backgroundColor:'#1c313a',
+     borderRadius: 25,
+      marginVertical: 10,
+      paddingVertical: 13
+  },
+
+  buttonText: {
+    fontSize:16,
+    fontWeight:'500',
+    color:'#ffffff',
+    textAlign:'center'
+  },
+
+
+  container2: {
+    justifyContent:'flex-end',
+    alignItems: 'center'
+  },
+  logoText : {
+    marginTop: 15,
+    fontSize:18,
+    color:'rgba(255, 255, 255, 0.7)',
+    fontFamily:"century-gothic",
+    fontWeight:"bold"
+
+}
+  
+});

@@ -19,10 +19,11 @@ import {
   ListItem,
   Thumbnail,
   View,Icon,
-  CheckBox
+  CheckBox,
 } from "native-base";
 import Icons from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
+import axios from 'axios';
  class Checkout extends Component {
   state={
     v8: 0,
@@ -31,7 +32,35 @@ import Modal from "react-native-modal";
     cOn:true,
     vOn:false,
     role:"Cash on Delivery",
+    date:"",
+    Time:"",
+    address:"",
+    delfees:"",
+    cfirstName:"",
+    clastName:"",
+    cemail:"",
+    cmobile:"",
+    caddress:""
   };
+  componentDidMount=()=>{
+    setInterval(()=>{
+      this.setState({
+          date :new Date().toLocaleDateString(),
+          Time:new Date().toLocaleTimeString()
+      })
+  },1000);
+
+    var x=this.props.Hello;
+    this.setState({
+      cfirstName:x[0].firstName,
+      clastName:x[0].lastName,
+      cemail:x[0].email,
+      cmobile:x[0].phoneNo,
+      caddress:x[0].address
+    });
+
+
+  }
 
   cashCheck=()=>{
     var v=this.state.vOn   //false
@@ -105,14 +134,27 @@ import Modal from "react-native-modal";
                                 <Text style={{paddingTop:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>First Name</Text> 
 
                                 <Item regular style={{width:180,height:40,marginTop:8,borderRadius:10}}>
-                                  <Input placeholder='First Name' />
+                                  <Input 
+
+                                  value={this.state.cfirstName} 
+                                  keyboardType="email-address"
+                              onChangeText={(inp)=>{
+                                  this.setState({cfirstName:inp})
+                              }}         
+                                  />
                                 </Item>  
                       </View>       
                       <View style={{flexDirection:"column",paddingRight:60}}>
                                   <Text style={{paddingTop:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>Last Name</Text>
                       
                                   <Item regular style={{width:180,height:40,marginTop:8,borderRadius:10}}>
-                                    <Input placeholder='Last Name' />
+                                    <Input  
+                                    value={this.state.clastName}
+                                    onChangeText={(inp)=>{
+                                      this.setState({clastName:inp})
+                                  }}
+                                    />
+
                                   </Item>
                       
                       
@@ -124,7 +166,12 @@ import Modal from "react-native-modal";
               <View style={{flexDirection:"column"}}>
                       <Text style={{paddingTop:10, paddingLeft:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>Address</Text>
                       <Item regular style={{width:400,height:40,marginTop:8,borderRadius:10,marginLeft:10}}>
-                                    <Input placeholder='Address' />
+                                    <Input 
+                                    value={this.state.caddress} 
+                                    onChangeText={(inp)=>{
+                                      this.setState({caddress:inp})
+                                  }}
+                                    />
                       </Item>
 
 
@@ -144,7 +191,12 @@ import Modal from "react-native-modal";
               <View style={{flexDirection:"column"}}>
                       <Text style={{paddingTop:10, paddingLeft:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>Phone No</Text>
                       <Item regular style={{width:400,height:40,marginTop:8,borderRadius:10,marginLeft:10}}>
-                                    <Input placeholder='Phone No' />
+                                    <Input 
+                                    value={this.state.cmobile}
+                                    onChangeText={(inp)=>{
+                                      this.setState({cmobile:inp})
+                                  }}
+                                     />
                       </Item>
 
 
@@ -154,7 +206,8 @@ import Modal from "react-native-modal";
                     <View style={{paddingTop:20, paddingLeft:10,paddingBottom:20}}>
                                     <Button 
                                     style={{backgroundColor:"#1c313a"}}
-                                    ><Text 
+                                    onPress={() => this.setState({ visibleModal: null })}
+                                    ><Text onPress={() => this.setState({ visibleModal: null })}
                                     style={{width:400,height:60,color:"white",fontWeight:"400",fontSize:15,fontFamily:"century-gothic",paddingLeft:185,marginTop:35}}
                                     >DONE</Text></Button>      
 
@@ -190,7 +243,121 @@ import Modal from "react-native-modal";
 
 
 
+  placeOrder=()=>{
+    var x=this.props.Hello;
+  //  console.log(datee);
+    var add= x[0].address;
+    var custid=x[0]._id;
+    var defees=this.props.dfees
+  
+    
+    
 
+
+
+    var datee=this.state.date;
+    var orderedtime=this.state.Time;
+
+    var subtotal=this.props.stotal;
+   // var dFees=;
+    var total=this.props.totall;
+    var fooddetails=this.props.hex;    
+    var OrderStatus="Pending";
+
+    
+    console.log(add);
+    console.log(datee);
+    console.log(orderedtime);
+    console.log(subtotal);
+    console.log(defees);
+    console.log(total);
+    console.log(fooddetails);
+    console.log(OrderStatus)
+ //Order foodDetail(foodid,quantity,vendorname,etc)  Date, SubTotal 
+ //DeliveryFees Total OrderStatus OrderedTime Recievedtime Address oid 
+      //reci
+ //username
+   
+//address phone no   date timing, orderstatus
+axios.post("http://192.168.10.8:8000/maxID",
+    {
+
+    })
+    .then(Responses=>{
+      var check =Responses.data;
+      if(typeof(check) === 'string'){
+                    
+        alert("Wrong Data");
+              
+
+      }
+      else{
+        //  console.log(datee);
+          var oid= check[0].oID;
+          oid=oid+1;
+          console.log(oid);
+
+        
+axios.post("http://192.168.10.8:8000/Checkout",
+{
+    Address:add,
+     date:datee,
+     otime:orderedtime,
+     subtotal:subtotal,
+     dfees:defees,
+     totals:total,
+     fdetail:fooddetails,
+     ostatus:OrderStatus,
+     oid:oid,
+     custid:custid
+}
+)
+.then(Response=>{
+
+    var check = Response.data;
+//     var dude = check.split(" ");
+    //       var token=dude[1];
+//            var  fname=dude[0];
+    console.log(check);
+    console.log('hello');
+  //  console.log(dude[1]);
+    if(check === "do")
+    {
+      Alert.alert(
+        'Order',
+        "Your order has been placed, you'll get confirmation in a while.",
+        [
+         
+          {text: 'OK', onPress: () => this.props.navigation.navigate('Dashboard')},
+        ],
+        {cancelable: false},
+      );
+         console.log(Response.data);
+    }
+    else{
+        alert("Order Failed");
+    }
+        
+})
+ .catch(error=>{
+    console.log(error.Response);
+    console.log('kuti');
+ }
+ )
+
+
+
+
+
+
+
+      }
+    })
+
+
+      
+
+  }
 
 
 
@@ -358,9 +525,11 @@ import Modal from "react-native-modal";
          <View>
 
                       
-                      <Button warning style={{width:580,height:40,marginTop:15,borderRadius:10,marginLeft:10,backgroundColor:"#1c313a",paddingLeft:185}}>
-                        <Text style={{fontFamily:"century-gothic"}}>PLACE MY ORDER</Text>
-                      </Button>
+                      <Button warning 
+                      style={{width:580,height:40,marginTop:15,borderRadius:10,marginLeft:10,backgroundColor:"#1c313a",paddingLeft:185} }
+                      onPress={this.placeOrder}
+                      
+                      ><Text style={{fontFamily:"century-gothic"}} >PLACE MY ORDER</Text></Button>
 
       </View>
 
@@ -456,7 +625,8 @@ mapStateToProps=state=>{
     dfees:state.Main.deliveryFees,
     totall:state.Main.total,
     VendorName:state.Main.vendor,
-    count: state.Main.count
+    count: state.Main.count,
+    Hello: state.Main.userDetail
   };
 }
 mapDispatchToProps=dispatch=>{

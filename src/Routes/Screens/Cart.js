@@ -239,10 +239,10 @@ mapStateToProps=state=>{
   return{
     hex:state.Main.cart,
     stotal:state.Main.subTotal,
-    dfees:state.Main.deliveryFees,
     totall:state.Main.total,
     VendorName:state.Main.vendor,
-    count: state.Main.count
+    dfees:state.Main.deliveryFees
+
   };
 }
 mapDispatchToProps=dispatch=>{

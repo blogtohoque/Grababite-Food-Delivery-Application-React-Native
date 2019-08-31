@@ -2,8 +2,8 @@ import React, { Component } from "react";
 //import { navigator } from "react-native-navigation";
 import {connect} from 'react-redux';
 import axios from 'axios';
-import { StyleSheet,Image,Modal, TouchableHighlight, View, Alert,  } from "react-native";
-import {saveUserName} from '../../Store/actions/index';
+import { StyleSheet,Image,Modal, TouchableHighlight, View, Alert, StatusBar,TextInput,TouchableOpacity  } from "react-native";
+import {saveUserName,saveUserDetail} from '../../Store/actions/index';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
   Container,
@@ -22,6 +22,8 @@ import {
   Label
 } from "native-base";
 import Icon from 'react-native-vector-icons/Ionicons';
+import Logo from './Logo';
+
 
 class Login extends Component {
   static navigationOptions = {
@@ -30,11 +32,7 @@ class Login extends Component {
   state={
       name:"",
       password:"",
-      modalVisible: false
   };
-  setModalVisible(visible) {
-    this.setState({modalVisible: visible});
-  }
   createAccountHandler = () => {
   //  this.props.navigator.push({
   //    screen: "awesome-places.Signup",
@@ -44,21 +42,8 @@ class Login extends Component {
   
   };
 
-  nameChangeHandler=(val)=>{
-      this.setState(
-        {
-          name:val
-        }
-      );
-  }
-  passwordChangeHandler=(val)=>{
-    this.setState(
-      {
-        password:val
-      }
-    );
-  }
-  onLogin = async () => {
+
+  PostData = async () => {
     
     var x=this.state.name;
     var y=this.state.password;
@@ -71,13 +56,17 @@ class Login extends Component {
                   var check=Response.data;
                   
         //console.log(Response.data);
-
+            
+        console.log(check);
+        
             var fn;
-            var dude = check.split(" ");
-            var token=dude[1];
-            var  fname=dude[0];
-            var key;
-  //          console.log(this.props);
+     //       var dude = check.split(" ");
+     //       var token=dude[1];
+//            var  fname=dude[0];
+  //          var arrays=dude[2];
+                var key;
+         //   console.log(arrays);
+
   //          console.log(typeof fname);
 
    //         console. log(fname[0])
@@ -95,12 +84,22 @@ class Login extends Component {
      //   }    
 
  //        console.log(" First name is " + fn);
+    
+            if(typeof(check) === 'string'){
+                    
+              this.setState({msg:"don't"});
+              alert("Wrong Password");
+                    
+    
+            }
+            else{
 
-            
-            if(dude[0]==="do"){
-                    
-                    
-    //redux sa conncet           this.props.OnLogin();   
+
+              
+    //         debugger;
+  //            this.props.navigation.navigate('Dashboard');
+                 
+                    //redux sa conncet           this.props.OnLogin();   
     //idk                setAuthorizationToken(token);
  //                  this.setState({msg:check});
  //                   this.setState({open:true});
@@ -114,10 +113,19 @@ class Login extends Component {
           
           var full_name = await AsyncStorage.getItem('fullName');
           this.props.onLoginClick(full_name);
-        
-        // var full_name = AsyncStorage.getItem('fullName');
+
+   //       trying to get user data
+//        var c= JSON.stringify(check)
+//        console.log("C DATA");
+     
+    //    console.log(c);
+     
+          this.props.onLoginDetail(check);
+   
+   
+   
+          // var full_name = AsyncStorage.getItem('fullName');
       //  store.dispatch({type:'FULL_NAME',name:x});
-    //  console.log(x);
           // this.props.onLoginClick(full_name);
        
        
@@ -130,10 +138,6 @@ class Login extends Component {
 
 
 
-            }
-            else{
-                    this.setState({msg:"don't"});
-                    alert("Wrong Password");
             }
 
     })
@@ -154,109 +158,114 @@ class Login extends Component {
   //  console.log(this.props)
     return (
       
-      <Container style={{ width: "100%" }}>
-        <Header style={{ backgroundColor:"#900C3F"}}>
-          <Body>
-            <Title style={styles.titlepad} >Login  </Title>
-          </Body>
-          <Right />
-        </Header>
-        <Content padder>
-      {/*   <Image source={require('../../assets/images/hehe.png')} style={{width:15,height:15}} />
-*/}
-          <Form>
-            <Item floatingLabel>
-              <Label>Username</Label>
-              <Input onChangeText={this.nameChangeHandler} />
-            </Item>
-            <Item floatingLabel last>
-              <Label>Password</Label>
-              <Input onChangeText={(event)=>this.passwordChangeHandler(event)} />
-            </Item>
-           
-            <Button block style={{ marginTop: 20 , backgroundColor:"#900C3F"}} onPress={()=>this.onLogin()}>
-              <Text>Login</Text>
-            </Button>
-            <View style={{marginTop: 22}}>
-        <Modal
-     //   style={{transitionDelay:"2s"}}
-          style={styles.hehe}
-          
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
-          <View style={{marginTop: 22}}>
-            <View>
-              <Text>Hello World!</Text>
+                            <View style={styles.container}>
+                            <StatusBar
+                      backgroundColor="#1c313a"
+                      barStyle="light-content"
+                      /> 
+                      <Logo/>
+                      <View style={styles.container1} >
+                      <TextInput style={styles.inputBox} 
+                      underlineColorAndroid='rgba(0,0,0,0)' 
+                      placeholder="Email"
+                      placeholderTextColor = "#ffffff"
+                      selectionColor="#fff"
+                      keyboardType="email-address"
+                      onChangeText = {(inp)=>this.setState({name:inp})  }
 
-              <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
-        </Modal>
 
-        <TouchableHighlight
-          onPress={() => {
-            this.setModalVisible(true);
-          }}>
-          <Text padder style={{ marginLeft: 220, marginTop: 20 }} >Forgot Password?</Text>
-        </TouchableHighlight>
-        </View>
-            <Text
-              padder
-              style={{ marginLeft: 180, marginTop: 25, fontFamily: 'Century Gothic' }}
-              onPress={this.createAccountHandler}
-            >
-              New user? Create an account
-            </Text>
-            <Text>
+                      />
+                      <TextInput style={styles.inputBox} 
+                      underlineColorAndroid='rgba(0,0,0,0)' 
+                      placeholder="Password"
+                      secureTextEntry={true}
+                      placeholderTextColor = "#ffffff"
+                      onChangeText = {(inp)=>this.setState({password:inp})}
 
-                {this.state.name}
+                      />  
 
-            </Text>
-            <Text>
+                      <TouchableOpacity style={styles.button} onPress = {this.PostData} >
+                      <Text style={styles.buttonText}>Login</Text>
+                      </TouchableOpacity>     
+                      </View>
+<View>
+  {/* 
+          <Text>
+          {this.state.name}
+          {this.state.password}
+          </Text>
 
-                {this.state.password} 
+  */}
+</View>
+               
+                      <View style={styles.signupTextCont}>
+                      <Text style={styles.signupText}>Don't have an account yet?</Text>
+                      <TouchableOpacity onPress ={()=>{this.props.navigation.navigate('SignUp')}} ><Text style={styles.signupButton}> Signup</Text></TouchableOpacity>
 
-            </Text>
-            <Text>
+                      </View>
 
-              username is {this.props.userName}
-
-            </Text>
-            
-          </Form>
-         
-        </Content>
-        <Footer>
-          <FooterTab>
-            <Button full style={{ backgroundColor:"#900C3F"}}>
-              <Text>Grab A Bite</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
+                      </View>
     );
   }
 };
 
 const styles = StyleSheet.create({
-  titlepad: {
-      paddingLeft: 20
+  container : {
+    backgroundColor:'#455a64',
+    flex: 1,
+    alignItems:'center',
+    paddingTop:'10%'
+    
+    
   },
-  hehe:{
-    color:'green',backgroundColor:'red' ,
-  
+  signupTextCont : {
+  	flexGrow: 1,
+    alignItems:'flex-end',
+    justifyContent :'center',
+    paddingVertical:'10%',
+    flexDirection:'row'
+  },
+  signupText: {
+  	color:'rgba(255,255,255,0.6)',
+  	fontSize:16
+  },
+  signupButton: {
+  	color:'#ffffff',
+  	fontSize:16,
+  	fontWeight:'500'
+  },
+  container1 : {
+    flexGrow: 1,
+    justifyContent:'center',
+    alignItems: 'center',
+    paddingTop:60
+  },
+
+  inputBox: {
+    width:300,
+    backgroundColor:'rgba(255, 255,255,0.2)',
+    borderRadius: 25,
+    paddingHorizontal:16,
+    fontSize:16,
+    color:'#ffffff',
+    marginVertical: 10,
+    
+    
+  },
+  button: {
+    width:300,
+    backgroundColor:'#1c313a',
+     borderRadius: 25,
+      marginVertical: 10,
+      paddingVertical: 13
+  },
+  buttonText: {
+    fontSize:16,
+    fontWeight:'500',
+    color:'#ffffff',
+    textAlign:'center'
   }
-
-
+  
 });
 
 const mapStateToProps=state=>{
@@ -266,8 +275,12 @@ const mapStateToProps=state=>{
  
   };
 };
-const mapDispatchToProps = {
-  onLoginClick: saveUserName
+const mapDispatchToProps =(dispatch)=> {
+      return{
+      onLoginClick: (x)=>dispatch(saveUserName(x)),
+      onLoginDetail: (y)=>dispatch(saveUserDetail(y))
+    };
+
 };
 export default connect(mapStateToProps,mapDispatchToProps)(Login);
 //connect(mapStateToProps,mapDispatchToProps)

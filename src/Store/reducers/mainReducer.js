@@ -1,9 +1,10 @@
-import {SAVE_CITY,SAVE_VENDOR,ADD_ITEM, ADD_QUANTITY,DECREASE_QUANTITY, DELETE_ITEM,SAVE_USERNAME} from '../actions/actionTypes'
+import {SAVE_CITY,SAVE_VENDOR,ADD_ITEM, ADD_QUANTITY,DECREASE_QUANTITY, DELETE_ITEM,SAVE_USERNAME,SAVE_USERDETAIL} from '../actions/actionTypes'
 const initialState={
     city:"City",
     vendor:"Vendor",
 
     cart:[],
+    userDetail:[],
     subTotal:0,
     deliveryFees:100,
     total:0,
@@ -130,7 +131,13 @@ const reducer =(state= initialState, action)=>
                 ...state,
                 userName: action.userName
             };
-        
+        case SAVE_USERDETAIL:
+         //   console.log('SAVE USERDETAIL MAIN')
+          //  console.log(action.userDetail)
+            return{
+                ...state,
+                userDetail: action.payload
+            };
             
             
         default: 

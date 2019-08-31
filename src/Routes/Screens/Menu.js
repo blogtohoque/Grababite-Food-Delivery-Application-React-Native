@@ -314,37 +314,26 @@ closeModal=()=>{
 
     return (
       <Container style={{ width: "100%" }}>
-        <View style={{backgroundColor:"#1c313a", height:50, flexDirection:"row",paddingTop:10 }}>
-        <Icons 
-                                    style={{paddingLeft:10}} 
-                                    onPress={()=>{this.props.navigation.goBack()}}
-                                    name="md-arrow-back" 
-                                    size={30}
-                                    color="white"
-                            /> 
-     <Text style={{paddingLeft:180,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>{this.props.vendorName}</Text>
+                    <View style={{backgroundColor:"#1c313a", height:50, flexDirection:"row",paddingTop:10 }}>
+                                  <Icons 
+                                                              style={{paddingLeft:10}} 
+                                                              onPress={()=>{this.props.navigation.goBack()}}
+                                                              name="md-arrow-back" 
+                                                              size={30}
+                                                              color="white"
+                                                      /> 
+                              <Text style={{paddingLeft:180,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>{this.props.vendorName}</Text>
 
-     <FIcon
-      name="cart-plus" style={{ paddingLeft:230,color:'white',paddingTop:3}} 
-      size={30} 
-      onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
-        />
-       
-          {button}
-
-
-    
-         
-         
-         
-       
-          
- 
+                              <FIcon
+                                name="cart-plus" style={{ paddingLeft:210,color:'white',paddingTop:3}} 
+                                size={30} 
+                                onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
+                                  />
+                                
+                                    {button}
+                    </View>
 
 
-
-        
-     </View>
           <Header searchBar rounded style={{backgroundColor: '#1c313a'}}>
           <Item>
             <Icon name="ios-search" />
@@ -358,11 +347,7 @@ closeModal=()=>{
         </Header>
         <Content padder>
           
-        <Button
-          onPress={() => this.setState({ visibleModal: 'fancy' })}
-          >
-            <Text> Fancy</Text>
-        </Button>
+   
 
 
           <View>
@@ -576,3 +561,14 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
 });
+
+
+
+
+{/*
+     <Button
+          onPress={() => this.setState({ visibleModal: 'fancy' })}
+          >
+            <Text> Fancy</Text>
+        </Button>
+*/}

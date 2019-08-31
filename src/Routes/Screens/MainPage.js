@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux'
 //import {saveCity,saveUserName} from '../../Store/actions/index';
-import {saveCity,saveUserName} from '../../Store/actions/index';
+import {saveCity,saveUserName,saveUserDetail} from '../../Store/actions/index';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icons from 'react-native-vector-icons/Ionicons';
 import {TouchableOpacity,Image, ActivityIndicator,  StyleSheet } from 'react-native';
 import {
   Container,
   Content,
-  
+  Header,
   Button,
   Left,
   Right,
@@ -20,13 +20,34 @@ import {
   Icon,
   View,
  Card,
- CardItem
+ CardItem,
+ Spinner 
 } from "native-base";
+import axios from 'axios';
+import InteractiveCard  from 'react-native-interactive-card';
 //import Carousel from 'react-native-snap-carousel';
 //import startMainTabs from "../mainTabs/startMainTabs";
 //import {createDrawerNavigator} from 'react-navigation';
 //import homeScreen from '../../Screens/Auth/HomeScreen';
 //import settingScreen from '../../Screens/Auth/SettingScreen';
+
+const cardOptions = { overlayOpacity : 1 };
+const contentOptions = { enterFrom: "right" };
+const headerStyle = {
+	backgroundColor: "#68E9FF", padding: 30, 
+	marginBottom: 10, borderRadius: 5 
+};
+const textStyle = {
+	fontSize: 40, opacity: 0.6,
+	textAlign: 'center', fontWeight: 'bold'
+};
+const contentStyle = {
+	width: "90%", padding: 50, 
+	backgroundColor: "#E85F53"
+};
+
+
+
 class MainPage extends Component {
   constructor(props) {
     super(props); 
@@ -41,19 +62,31 @@ class MainPage extends Component {
               width:24
             }} 
         />
-    )
+    ),
+    drawerLabel:()=> null,
+   
   }
 
   state={
-    gotdata:[],tokencheck:"", loader: true
+    gotdata:[],tokencheck:""
+    ,gotdataa:[],
+    recievedData:false,
   }
+
+  
   
 
   componentDidMount= async ()=>{
    // this.setState({loader:false});  
     fetch('http://192.168.10.8:8000/city')
         .then(res=> res.json())
-        .then(gotdata=>this.setState({gotdata}))
+        .then(gotdata=>this.setState({gotdata})
+        
+        
+        ).then(async()=>{
+        await  this.setState({recievedData:true});
+        
+        })
         .catch(error=>{
           console.log("Error in retrieving data from Backend. ");
    //       console.log(loader);
@@ -75,10 +108,32 @@ class MainPage extends Component {
     if(full_name===null)
     {
 
-    }else{
-      this.props.onLoginClick(full_name);
     }
-      
+    else
+    {
+                this.props.onLoginClick(full_name);
+              
+                
+                var x=full_name;
+            //    console.log('Hello');
+           //     console.log(full_name)
+                axios.post('http://192.168.10.8:8000/checkEmail',
+                {
+                        name:x,
+                })
+                .then((Response) =>{
+                  var check=Response.data;
+          //        console.log('check boy');
+           //       console.log(check);
+
+                  this.props.onLoginDetail(check);
+                })
+                .catch(error=>{
+              
+                    console.log(error.data)
+                })
+
+    }  
    // this.setState({
   //    tokencheck:full_name
  //   });
@@ -86,10 +141,6 @@ class MainPage extends Component {
  //  console.log(full_name);
 }
   
-
-
-
-
   onSideBar = () => {
   //  this.props.navigation.openDrawer;
   };
@@ -120,9 +171,79 @@ class MainPage extends Component {
     );
 };
   render() {
+
+   //   console.log('Main Page props')
+  //  console.log(this.props)
+    let showData;
+    if(this.state.recievedData===true)
+    {
+      showData=(
+
+         this.state.gotdata ? this.state.gotdata.map(print  => {
+              
+          return (
+            <Card>
+            <CardItem key={print.id} style={{backgroundColor:"#1c313a"    } }>
+            <Left>
+              <Thumbnail source={require('../../assets/images/logo.png')} />
+              <Body >
+                <Text style={{color:"white"}}>{print.name}</Text>
+                <Text note style={{color:"white"}}>Grab A Bite</Text>
+              </Body>
+            </Left>
+          </CardItem>
+          <CardItem cardBody>
+            <Image source={require('../../assets/images/fm.jpg')} style={{height: 200, width: null, flex: 1}}/>
+          </CardItem>
+          <CardItem style={{backgroundColor:"#1c313a"}}>
+            <Body>
+            <Button transparent>
+                  <Text style={{color:"white",paddingLeft:240,fontFamily:"century-gothic",fontWeight:"bold",fontSize:15}} onPress={()=>{this.onViewClick(print.name); this.props.onCityAdd(print.name);}}>View</Text>
+                </Button>
+            </Body>
+        
+          </CardItem>
+      
+          </Card>
+      
+      
+      
+      
+      
+          )
+        }
+      ):null
+    
+
+
+      )
+    } 
+    else{
+      showData=(
+        <View>
+           <Spinner color='red' />
+
+        </View>
+      )
+    }   
+
+
     return (
       <Container style={{width:"100%", backgroundColor:'white'}}>
 {/*     
+          {this.props.Hello ? this.props.Hello.map(strResult=>(
+            <View>
+            <Text>  {strResult.email} OR {strResult.firstName} </Text>
+            </View>
+          )
+          
+          ):null
+          
+          }
+
+
+    
+    
           {this.state.loader ? <ActivityIndicator
           
           color = '#bc2b78'
@@ -131,60 +252,22 @@ class MainPage extends Component {
 */}
           <Content padder>
 
-
-          { this.state.gotdata ? this.state.gotdata.map(print  => {
-              
-              return (
-                <Card>
-                <CardItem key={print.id} style={{backgroundColor:"#1c313a"    } }>
-                <Left>
-                  <Thumbnail source={require('../../assets/images/logo.png')} />
-                  <Body >
-                    <Text style={{color:"white"}}>{print.name}</Text>
-                    <Text note style={{color:"white"}}>Grab A Bite</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-              <CardItem cardBody>
-                <Image source={require('../../assets/images/fm.jpg')} style={{height: 200, width: null, flex: 1}}/>
-              </CardItem>
-              <CardItem style={{backgroundColor:"#1c313a"}}>
-                <Left>
-                  <Button transparent>
-                    <Icon active name="thumbs-up"  style={{color:"white"}}/>
-                    <Text style={{color:"white"}}>12 Likes</Text>
-                  </Button>
-                </Left>
-                <Body>
-
-                <Button transparent>
-                <Icon active name="chatbubbles" style={{color:"white"}} />
-                      <Text style={{color:"white"}} onPress={()=>{this.onViewClick(print.name); this.props.onCityAdd(print.name);}}>View</Text>
-                    </Button>
-                </Body>
-                <Right>
-                  <Text style={{color:"white"}}>11h ago</Text>
-                </Right>
-              </CardItem>
-          
-              </Card>
-          
-          
-          
-          
-          
-              )
-            }
-          ):null
-        }
+        
+        {showData}
 
 
 
 
 
-          
 
-          <Button 
+
+
+    
+
+
+
+
+<Button 
           onPress={ async ()=>{
            await AsyncStorage.removeItem('fullName');
           this.props.navigation.navigate('Dashboard');
@@ -201,6 +284,9 @@ class MainPage extends Component {
           </TouchableOpacity>
           <Text>Grab A Bite  Logged in user is {this.props.userName}</Text>
           
+
+         
+          
         </Content>
         
       </Container>
@@ -210,14 +296,15 @@ class MainPage extends Component {
 const mapStateToProps=state=>{
   return {
     cityname:state.Main.city,
-    userName:state.Main.userName
- 
+    userName:state.Main.userName,
+    Hello: state.Main.userDetail
   };
 };
 const mapDispatchToProps = dispatch=>{
   return{
     onCityAdd:(cityName) =>dispatch(saveCity(cityName)),
-    onLoginClick:(x)     =>dispatch(saveUserName(x))
+    onLoginClick:(x)     =>dispatch(saveUserName(x)),
+    onLoginDetail: (y)=>dispatch(saveUserDetail(y))
     
   };
 
