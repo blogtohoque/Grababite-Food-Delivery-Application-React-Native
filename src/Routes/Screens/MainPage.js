@@ -68,8 +68,9 @@ class MainPage extends Component {
   }
 
   state={
-    gotdata:[],tokencheck:""
-    ,gotdataa:[],
+    gotdata:[],
+    tokencheck:"",
+    gotdataa:[],
     recievedData:false,
   }
 
@@ -80,13 +81,9 @@ class MainPage extends Component {
    // this.setState({loader:false});  
     fetch('http://192.168.10.8:8000/city')
         .then(res=> res.json())
-        .then(gotdata=>this.setState({gotdata})
-        
-        
-        ).then(async()=>{
-        await  this.setState({recievedData:true});
-        
-        })
+        .then(gotdata=>this.setState({gotdata}))
+        .then(async()=>{
+        await  this.setState({recievedData:true});})
         .catch(error=>{
           console.log("Error in retrieving data from Backend. ");
    //       console.log(loader);
@@ -197,9 +194,13 @@ class MainPage extends Component {
           </CardItem>
           <CardItem style={{backgroundColor:"#1c313a"}}>
             <Body>
-            <Button transparent>
-                  <Text style={{color:"white",paddingLeft:240,fontFamily:"century-gothic",fontWeight:"bold",fontSize:15}} onPress={()=>{this.onViewClick(print.name); this.props.onCityAdd(print.name);}}>View</Text>
+
+             
+                <Button transparent>
+                  <Text style={{color:"white",paddingLeft:'46%',fontFamily:"century-gothic",fontWeight:"bold",fontSize:15}} onPress={()=>{this.onViewClick(print.name); this.props.onCityAdd(print.name);}}>View</Text>
                 </Button>
+             
+                
             </Body>
         
           </CardItem>
@@ -221,7 +222,7 @@ class MainPage extends Component {
     else{
       showData=(
         <View>
-           <Spinner color='red' />
+           <Spinner color='grey' />
 
         </View>
       )

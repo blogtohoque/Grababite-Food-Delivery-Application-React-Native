@@ -63,7 +63,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
                                     size={30}
                                     color="white"
                             /> 
-     <Text style={{paddingLeft:220,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>BASKET </Text>
+     <Text style={{paddingLeft:'32%',paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>BASKET </Text>
 
      
      </View>
@@ -115,7 +115,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
          <Text>Estimated Delivery Time: 30 Minutes</Text>
          </View>
 
-         <Text style={{color:"#1c313a",  opacity:0.6, fontSize:38}}>- - - - - - - - - - - - - - - - - - - - - - - - - - - - -</Text>
+         <Text style={{color:"#1c313a",  opacity:0.6, fontSize:30}}>- - - - - - - - - - - - - - - - - - - - -</Text>
 
            
             
@@ -192,7 +192,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
          
     </View>            
     
-            <Text style={{color:"#1c313a",  opacity:0.6, fontSize:38}}>- - - - - - - - - - - - - - - - - - - - - - - - - - - - -</Text>
+            <Text style={{color:"#1c313a",  opacity:0.6, fontSize:30}}>- - - - - - - - - - - - - - - - - - - - -</Text>
            <View >
                     <View style={{justifyContent:"space-between",flexDirection:"row",paddingHorizontal:15,paddingVertical:5}}>
                         <Text> Subtotal: </Text>  
@@ -206,7 +206,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
                             
                     </View>                        
 
-                    <Text style={{color:"#1c313a",  opacity:0.6, fontSize:38}}>- - - - - - - - - - - - - - - - - - - - - - - - - - - - -</Text>
+                    <Text style={{color:"#1c313a",  opacity:0.6, fontSize:30}}>- - - - - - - - - - - - - - - - - - - - -</Text>
            
 
                     <View style={{justifyContent:"space-between",flexDirection:"row",paddingHorizontal:15}}>

@@ -106,25 +106,29 @@ closeModal=()=>{
       <View style={{backgroundColor:"#1c313a", height:40}}>
        
                   <View style={{
-                    flexDirection:"row", justifyContent:"space-between",marginRight:210 ,fontSize:30,
-                    paddingTop:5, paddingVertical:10
+                    flexDirection:"row", justifyContent:"space-between",fontSize:30,
+                    paddingTop:5, paddingVertical:10,paddingHorizontal:'5%'
                     
                     }}>
                     
-                      
-                        <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
-                                        <Text style={{color:"white",fontFamily:"century-gothic"}}> 
-                                        Cancel
-                                          </Text>
-                        </TouchableOpacity>
+                      <View>
+                          <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
+                                            <Text style={{color:"white",fontFamily:"century-gothic"}}> 
+                                              Cancel
+                                              </Text>
+                            </TouchableOpacity>
+                      </View>
+                     
                     
                       
                       
                       
                     
                     
+                    <View>
+                           <Text style={{color:"white",fontFamily:"century-gothic"}}>Menu Item</Text>
+                    </View>
                     
-                    <Text style={{color:"white",fontFamily:"century-gothic"}}>Menu Item</Text>
                   
                   
                   </View>
@@ -322,10 +326,10 @@ closeModal=()=>{
                                                               size={30}
                                                               color="white"
                                                       /> 
-                              <Text style={{paddingLeft:180,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>{this.props.vendorName}</Text>
+                              <Text style={{paddingLeft:'25%',paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>{this.props.vendorName}</Text>
 
                               <FIcon
-                                name="cart-plus" style={{ paddingLeft:210,color:'white',paddingTop:3}} 
+                                name="cart-plus" style={{ paddingLeft:'30%',color:'white',paddingTop:3}} 
                                 size={30} 
                                 onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
                                   />

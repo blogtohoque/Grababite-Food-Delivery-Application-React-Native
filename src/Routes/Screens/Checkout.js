@@ -365,7 +365,7 @@ axios.post("http://192.168.10.8:8000/Checkout",
   render() {
     return (
       <Container style={{ width: "100%" }}>
-        <View style={{backgroundColor:"#1c313a", height:50, flexDirection:"row",paddingTop:10 }}>
+        <View style={{backgroundColor:"#1c313a", height:50,paddingTop:10,flexDirection:'row' }}>
         <Icons 
                                     style={{paddingLeft:10}} 
                                     onPress={()=>{this.props.navigation.goBack()}}
@@ -373,7 +373,7 @@ axios.post("http://192.168.10.8:8000/Checkout",
                                     size={30}
                                     color="white"
                             /> 
-     <Text style={{paddingLeft:220,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>REVIEW ORDER</Text>
+     <Text style={{paddingLeft:'25%',paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>REVIEW ORDER</Text>
 
      
      </View>
@@ -399,7 +399,7 @@ axios.post("http://192.168.10.8:8000/Checkout",
 
       <View style={{padding:10}}>
                         <TouchableOpacity  onPress={() => this.setState({ visibleModal: 'fancy' })} >
-                                        <Text style={{color:"#1c313a",fontFamily:"century-gothic",fontWeight:"500", fontSize:20,justifyContent:"center",paddingLeft:200, paddingTop:15,opacity:0.6 }}> 
+                                        <Text style={{color:"#1c313a",fontFamily:"century-gothic",fontWeight:"500", fontSize:20,justifyContent:"center",paddingLeft:'28%', paddingTop:15,opacity:0.6 }}> 
                                         + Add Address
                                         </Text>
                         </TouchableOpacity>
@@ -526,7 +526,7 @@ axios.post("http://192.168.10.8:8000/Checkout",
 
                       
                       <Button warning 
-                      style={{width:580,height:40,marginTop:15,borderRadius:10,marginLeft:10,backgroundColor:"#1c313a",paddingLeft:185} }
+                      style={{width:'80%',height:40,marginTop:15,borderRadius:10,marginHorizontal:'10%',backgroundColor:"#1c313a",paddingHorizontal:'20%'} }
                       onPress={this.placeOrder}
                       
                       ><Text style={{fontFamily:"century-gothic"}} >PLACE MY ORDER</Text></Button>
