@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 import {saveCity,saveUserName,saveUserDetail} from '../../Store/actions/index';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icons from 'react-native-vector-icons/Ionicons';
-import {TouchableOpacity,Image, ActivityIndicator,  StyleSheet } from 'react-native';
+import {TouchableOpacity,Image, ActivityIndicator,  StyleSheet,ImageBackground,Dimensions } from 'react-native';
+import Carousel from 'simple-carousel-react-native';
 import {
   Container,
   Content,
@@ -160,7 +161,7 @@ class MainPage extends Component {
     
 
   };
-  _renderItem ({item, index}) {
+  _renderItem = ({item, index}) => {
     return (
         <View style={styles.slide}>
             <Text style={styles.title}>{ item.title }</Text>
@@ -176,29 +177,41 @@ class MainPage extends Component {
     {
       showData=(
 
-         this.state.gotdata ? this.state.gotdata.map(print  => {
-              
-          return (
-            <Card>
-            <CardItem key={print.id} style={{backgroundColor:"#1c313a"    } }>
-            <Left>
-              <Thumbnail source={require('../../assets/images/logo.png')} />
-              <Body >
-                <Text style={{color:"white"}}>{print.name}</Text>
-                <Text note style={{color:"white"}}>Grab A Bite</Text>
-              </Body>
-            </Left>
-          </CardItem>
-          <CardItem cardBody>
+<Carousel
+  color='#00FFFF'
+  showScroll={ true }
+  color={'rgba(255, 255, 255,0.9)'}
+  dimmedColor={'black'}
+  backgroundColor={'transparent'}
+  bubbleWidth={15}
+  bubleHeight={15}
+  showScroll={false}
+   >
+
+  {
+    this.state.gotdata? this.state.gotdata.map(print=>{
+      return(
+          <Card >
+          
+          <CardItem cardBody style={{borderTopLeftRadius:25,borderTopRightRadius:25,borderWidth:0}} >
             <Image source={require('../../assets/images/fm.jpg')} style={{height: 200, width: null, flex: 1}}/>
           </CardItem>
-          <CardItem style={{backgroundColor:"#1c313a"}}>
-            <Body>
 
-             
-                <Button transparent>
-                  <Text style={{color:"white",paddingLeft:'46%',fontFamily:"century-gothic",fontWeight:"bold",fontSize:15}} onPress={()=>{this.onViewClick(print.name); this.props.onCityAdd(print.name);}}>View</Text>
+          <CardItem>
+
+                       <View><Text style={{color:'black',fontSize:11}}> Food From {print.name}'s Best Vendors. </Text></View>
+
+          </CardItem>
+
+          <CardItem style={{backgroundColor:'white',borderBottomLeftRadius:25,borderBottomRightRadius:25,borderWidth:0}}>
+            <Body style={{borderWidth:0}} >
+
+             <View style={{backgroundColor:'rgb(179, 0, 0)',width:'100%'}} >
+                 <Button transparent style={{width:'100%',paddingLeft:'10%',paddingRight:'10%'}} >
+                  <Text style={{color:'white',paddingLeft:'46%',fontFamily:"Brush Script Std,cursive",fontWeight:"bold",fontSize:15}} onPress={()=>{this.onViewClick(print.name); this.props.onCityAdd(print.name);}}>View</Text>
                 </Button>
+             </View>
+               
              
                 
             </Body>
@@ -206,16 +219,12 @@ class MainPage extends Component {
           </CardItem>
       
           </Card>
-      
-      
-      
-      
-      
-          )
-        }
-      ):null
-    
-
+      )
+    }):null
+  }
+  
+  
+ </Carousel>
 
       )
     } 
@@ -250,11 +259,14 @@ class MainPage extends Component {
           color = '#bc2b78'
           size = "large"
           style = {styles.activityIndicator}/> :null}
+          
 */}
-          <Content padder>
+
+<ImageBackground source ={require('../../../images/phoneimg1.jpg')} style={{width:'100%',height:'100%'}} >
+<Content padder style={{backgroundColor:'rgba(0,0,0,0.5)'}} >
 
         
-        {showData}
+{showData}
 
 
 
@@ -263,32 +275,35 @@ class MainPage extends Component {
 
 
 
-    
 
 
 
 
-<Button 
-          onPress={ async ()=>{
-           await AsyncStorage.removeItem('fullName');
-          this.props.navigation.navigate('Dashboard');
-     //     this.props.onLoginClick("");
-      //    this.props.navigator.push({
-     //     screen: "awesome-places.AuthScreen",
-     //     title: "Authentication"
-     //      });
-           }}>
-          <Text>Logout</Text></Button>
-          
-          <TouchableOpacity>
-           <Icon size={30} name="ios-trash" color="red"/>
-          </TouchableOpacity>
-          <Text>Grab A Bite  Logged in user is {this.props.userName}</Text>
-          
 
-         
-          
-        </Content>
+{/*<Button 
+  onPress={ async ()=>{
+   await AsyncStorage.removeItem('fullName');
+  this.props.navigation.navigate('Dashboard');
+//     this.props.onLoginClick("");
+//    this.props.navigator.push({
+//     screen: "awesome-places.AuthScreen",
+//     title: "Authentication"
+//      });
+   }}>
+  <Text>Logout</Text></Button>
+  
+  <TouchableOpacity>
+   <Icon size={30} name="ios-trash" color="red"/>
+  </TouchableOpacity>
+  <Text>Grab A Bite  Logged in user is {this.props.userName}</Text>
+  
+
+  */ }
+  
+</Content>
+
+</ImageBackground>
+        
         
       </Container>
     );
@@ -316,6 +331,15 @@ export default connect(mapStateToProps,mapDispatchToProps)(MainPage);
 
 
 const styles = StyleSheet.create ({
+  tr:{
+    flex: 1,
+    transform: [
+      
+      { translateX: - Dimensions.get('window').width * 0.24 },
+      { rotateY: '30deg'},
+
+    ],
+  },
   container: {
      flex: 1,
      justifyContent: 'center',

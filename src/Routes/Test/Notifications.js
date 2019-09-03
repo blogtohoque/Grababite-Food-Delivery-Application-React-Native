@@ -39,18 +39,18 @@ import FIcon from 'react-native-vector-icons/FontAwesome';
             <View>
                
 
-               <View style={{backgroundColor:"#1c313a", height:50, flexDirection:"row",paddingTop:10 }}>
+               <View style={{backgroundColor:"#fff3e0", height:50, flexDirection:"row",paddingTop:10 }}>
                                   <Icons 
                                                               style={{paddingLeft:10}} 
                                                               onPress={()=>{this.props.navigation.goBack()}}
                                                               name="md-arrow-back" 
                                                               size={30}
-                                                              color="white"
+                                                              color='rgb(179, 0, 0)'
                                                       /> 
-                              <Text style={{paddingLeft:210,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>Notifications</Text>
+                              <Text style={{paddingLeft:'25%',paddingTop:5, color:'rgb(179, 0, 0)',fontFamily:"Brush Script Std,cursive",fontWeight:"bold",fontSize:20}}>Notifications</Text>
 
                               <FIcon
-                                name="cart-plus" style={{ paddingLeft:220,color:'white',paddingTop:3}} 
+                                name="cart-plus" style={{ paddingLeft:220,color:'rgb(179, 0, 0)',paddingTop:3}} 
                                 size={30} 
                                 onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
                                   />
@@ -126,7 +126,7 @@ const Styles = StyleSheet.create({
             marginHorizontal:10,
             color:'white',
             opacity:0.8,
-            fontFamily:"century-gothic",
+            fontFamily:"Brush Script Std,cursive",
             marginTop:5,
             paddingVertical:3
             

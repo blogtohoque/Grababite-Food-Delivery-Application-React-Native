@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 import NumericInput from 'react-native-numeric-input';
 import {addQuantity,decreaseQuantity,deleteItem} from '../../Store/actions/index';
-import {Alert,  StyleSheet, TouchableHighlight,TouchableOpacity } from "react-native";
+import {Alert,  StyleSheet, TouchableHighlight,TouchableOpacity,ImageBackground } from "react-native";
 import {
   Container,
   Content,
@@ -55,19 +55,20 @@ import Icons from 'react-native-vector-icons/Ionicons';
   render() {
     return (
       <Container style={{ width: "100%" }}>
-        <View style={{backgroundColor:"#1c313a", height:50, flexDirection:"row",paddingTop:10 }}>
+        <ImageBackground source ={require('../../../images/phoneimg1.jpg')} style={{width:'100%',height:"100%"}} >
+        <View style={{backgroundColor:"#fff3e0", height:50, flexDirection:"row",paddingTop:10 }}>
         <Icons 
                                     style={{paddingLeft:10}} 
                                     onPress={()=>{this.props.navigation.goBack()}}
                                     name="md-arrow-back" 
                                     size={30}
-                                    color="white"
+                                    color='rgb(179, 0, 0)'
                             /> 
-     <Text style={{paddingLeft:'32%',paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>BASKET </Text>
+     <Text style={{paddingLeft:'32%',paddingTop:5, color:'rgb(179, 0, 0)',fontFamily: "Brush Script Std,cursive",fontWeight:"bold",fontSize:20}}>BASKET </Text>
 
      
      </View>
-     <View style={{backgroundColor:"#1c313a", height:40, opacity:0.6}}>
+  {/*   <View style={{backgroundColor:'rgba(0,0,0,0.8)', height:40,}}>
        
        <View style={{
          flexDirection:"row", fontSize:30,
@@ -76,11 +77,11 @@ import Icons from 'react-native-vector-icons/Ionicons';
          }}>
          
            
-             <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
-                             <Text style={{color:"black",fontFamily:"century-gothic",fontWeight:"500", fontSize:20, paddingLeft:13,paddingTop:3 }}> 
+          <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
+                             <Text style={{color:'rgb(179, 0, 0)',fontFamily: "Brush Script Std,cursive",fontWeight:"500", fontSize:20, paddingLeft:13,paddingTop:3 }}> 
                              Food
                                </Text>
-             </TouchableOpacity>
+        </TouchableOpacity>
          
            
            
@@ -94,7 +95,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
 
          
          
-</View>
+</View>*/}
 
 
 
@@ -105,17 +106,19 @@ import Icons from 'react-native-vector-icons/Ionicons';
 
 
 
-        <Content padder>
+        <Content padder style={{backgroundColor:"rgba(0,0,0,0.5)"}} >
         
+<View style={{backgroundColor:'white',borderRadius:15,paddingTop:20}} >
+
 
          <View style={{paddingHorizontal:15}}>
-          <Text style={{color:"black",fontFamily:"century-gothic",fontWeight:"500", fontSize:20 }}>
+          <Text style={{color:'rgb(179, 0, 0)',fontFamily: "Brush Script Std,cursive", fontSize:15 }}>
           {this.props.VendorName}
           </Text>
-         <Text>Estimated Delivery Time: 30 Minutes</Text>
+         <Text style={{color:'rgb(179, 0, 0)'}} >Estimated Delivery Time: 30 Minutes</Text>
          </View>
 
-         <Text style={{color:"#1c313a",  opacity:0.6, fontSize:30}}>- - - - - - - - - - - - - - - - - - - - -</Text>
+         <Text style={{color:'rgb(179, 0, 0)',  opacity:0.6, fontSize:30}}>- - - - - - - - - - - - - - - - - - -</Text>
 
            
             
@@ -124,8 +127,6 @@ import Icons from 'react-native-vector-icons/Ionicons';
             {this.props.hex.map(strResult=>(
               <View key={strResult.id} style={{flexDirection:"row",justifyContent:"space-between",paddingHorizontal:15}} >
 
-
-                    <View style={{flexDirection:"row",paddingVertical:5}} >
                            
                               <View>
                                   <NumericInput
@@ -143,12 +144,12 @@ import Icons from 'react-native-vector-icons/Ionicons';
                                                               }
                                                     
                                                     } 
-                                                    totalWidth={50}
-                                                    totalHeight={25}
+                                                    totalWidth={80}
+                                                    totalHeight={30}
                                                     textColor='black' 
                                                     iconStyle={{ color: 'white' }}
-                                                    rightButtonBackgroundColor='#1c313a'
-                                                    leftButtonBackgroundColor='#1c313a' />
+                                                    rightButtonBackgroundColor='rgb(179, 0, 0)'
+                                                    leftButtonBackgroundColor='rgb(179, 0, 0)' />
 
                                           </View>
                               {/*
@@ -164,65 +165,66 @@ import Icons from 'react-native-vector-icons/Ionicons';
                                               
                                               */}  
                                                       <View>
-                                                            <Text>  {strResult.name} ( {strResult.vendorName} )</Text>
+                                                            <Text style={{color:'rgb(179, 0, 0)',fontSize:11}} >  {strResult.name} ( {strResult.vendorName} )</Text>
                                                       </View>
                                                       
-                                </View>
+                           
 
-                                <View style={{flexDirection:"row"}} >
 
                                     <View>
-                                          <Text >PKR {strResult.price}</Text>
+                                          <Text style={{color:'rgb(179, 0, 0)',fontSize:11}} >PKR {strResult.price}</Text>
                                     </View>
                                       
                                       <View>
-                                            <Icon name="ios-trash" onPress={()=>this.props.onDeleteClick(strResult.id,strResult.price,strResult.quantity)} style={{ color: "#1c313a" }}
-                                                  size={15}       
-                                                  color="#1c313a"
+                                            <Icon name="ios-trash" onPress={()=>this.props.onDeleteClick(strResult.id,strResult.price,strResult.quantity)} style={{ color: 'rgb(179, 0, 0)' }}
+                                                  size={11}       
+                                                 
                                             
                                                   
                                             />
                                       </View>
                                      
                                       
-                                </View>
+                                
 
               </View>
             ))}
          
     </View>            
     
-            <Text style={{color:"#1c313a",  opacity:0.6, fontSize:30}}>- - - - - - - - - - - - - - - - - - - - -</Text>
+            <Text style={{color:'rgb(179, 0, 0)',  opacity:0.6, fontSize:30}}>- - - - - - - - - - - - - - - - - - -</Text>
            <View >
                     <View style={{justifyContent:"space-between",flexDirection:"row",paddingHorizontal:15,paddingVertical:5}}>
-                        <Text> Subtotal: </Text>  
-                        <Text> PKR {this.props.stotal}</Text> 
+                        <Text style={{color:'rgb(179, 0, 0)',fontSize:11}} > Subtotal: </Text>  
+                        <Text style={{color:'rgb(179, 0, 0)',fontSize:11}} > PKR {this.props.stotal}</Text> 
                           
                     </View>                        
 
                     <View style={{justifyContent:"space-between",flexDirection:"row",paddingHorizontal:15}}>
-                          <Text> Delivery Fee: </Text>  
-                          <Text> PKR {this.props.dfees}</Text> 
+                          <Text style={{color:'rgb(179, 0, 0)',fontSize:11}} > Delivery Fee: </Text>  
+                          <Text style={{color:'rgb(179, 0, 0)',fontSize:11}}> PKR {this.props.dfees}</Text> 
                             
                     </View>                        
 
-                    <Text style={{color:"#1c313a",  opacity:0.6, fontSize:30}}>- - - - - - - - - - - - - - - - - - - - -</Text>
+                    <Text style={{color:'rgb(179, 0, 0)',  opacity:0.6, fontSize:30}}>- - - - - - - - - - - - - - - - - - -</Text>
            
 
                     <View style={{justifyContent:"space-between",flexDirection:"row",paddingHorizontal:15}}>
-                          <Text style={{color:"#1c313a",fontWeight:"bold"}}> Total: </Text>  
-                          <Text style={{color:"#1c313a", fontWeight:"bold"}}> PKR {this.props.totall}</Text> 
+                          <Text style={{color:'rgb(179, 0, 0)',fontWeight:"bold",fontSize:11}}> Total: </Text>  
+                          <Text style={{color:'rgb(179, 0, 0)', fontWeight:"bold",fontSize:11}}> PKR {this.props.totall}</Text> 
                             
                     </View>                        
           </View>            
       <View style={{paddingTop:15}}>                                         
-          <Button full style={{backgroundColor:"#1c313a"}}>
-            <Text onPress={()=>{this.props.navigation.navigate('CheckoutPage')}} style={{color:"white",fontFamily:"century-gothic",fontWeight:"300", fontSize:25}}>GO TO CHECKOUT</Text>
+          <Button full style={{backgroundColor:'rgb(179, 0, 0)'}}>
+            <Text onPress={()=>{this.props.navigation.navigate('CheckoutPage')}} style={{color:'white',fontFamily: "Brush Script Std,cursive", fontSize:20}}>GO TO CHECKOUT</Text>
          </Button>
           
       </View>
+      </View>
+      
         </Content>
-        <Text>{this.props.VendorName} Cart</Text>
+        </ImageBackground>
       </Container>
     );
   }

@@ -5,11 +5,14 @@ import {
   View,
   StatusBar ,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from 'react-native';
 import axios from 'axios'
 
 import Logo from './Logo';
+import { Container } from 'native-base';
+import { Content } from 'react-native-interactive-card';
 
 
 
@@ -91,7 +94,14 @@ export default class Signup extends Component {
  
 	render() {
 		return(
-			<View style={styles.container}>
+      <Container style={styles.container} >
+
+     <ImageBackground source={require('../../../images/phoneimg1.jpg')} style={{width:'100%',height:'100%'}} >
+
+    
+		
+<Content >
+
 
 
         
@@ -100,7 +110,7 @@ export default class Signup extends Component {
           <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="First Name"
-              placeholderTextColor = "#ffffff"
+              placeholderTextColor = 'rgb(179, 0, 0)'
               selectionColor="#fff"
               keyboardType="email-address"
               onChangeText={(ini)=>this.setState({fname:ini})}
@@ -110,14 +120,14 @@ export default class Signup extends Component {
           <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Last Name"
-              placeholderTextColor = "#ffffff"
+              placeholderTextColor = 'rgb(179, 0, 0)'
               onChangeText={(ini)=>this.setState({lname:ini})}
             
               />  
                <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Email"
-              placeholderTextColor = "#ffffff"
+              placeholderTextColor = 'rgb(179, 0, 0)'
               onChangeText={(ini)=>this.setState({email:ini})}
             
               />  
@@ -125,7 +135,7 @@ export default class Signup extends Component {
                <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Mobile"
-              placeholderTextColor = "#ffffff"
+              placeholderTextColor = 'rgb(179, 0, 0)'
               keyboardType = 'decimal-pad'
               onChangeText={(ini)=>this.setState({mobile:ini})}
             
@@ -133,21 +143,21 @@ export default class Signup extends Component {
                <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Password"
-              placeholderTextColor = "#ffffff"
+              placeholderTextColor = 'rgb(179, 0, 0)'
               secureTextEntry = {true}
               onChangeText={(ini)=>this.setState({Password:ini})}
               /> 
                <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Confirm Password"
-              placeholderTextColor = "#ffffff"
+              placeholderTextColor = 'rgb(179, 0, 0)'
               secureTextEntry = {true}
               onChangeText={(ini)=>this.setState({cPassword:ini})}
               /> 
                <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Address"
-              placeholderTextColor = "#ffffff"
+              placeholderTextColor ='rgb(179, 0, 0)'
               onChangeText={(ini)=>this.setState({Address:ini})}
             
               /> 
@@ -164,7 +174,9 @@ export default class Signup extends Component {
                     </Text>
             </TouchableOpacity>
 				</View>
-			</View>	
+        </Content>
+        </ImageBackground>
+        </Container>
 			)
 	}
 }
@@ -202,16 +214,16 @@ const styles = StyleSheet.create({
 
   inputBox: {
     width:300,
-    backgroundColor:'rgba(255, 255,255,0.2)',
+    backgroundColor:'rgba(255, 255,255,0.4)',
     borderRadius: 25,
     paddingHorizontal:16,
-    fontSize:16,
+    fontSize:13,
     color:'#ffffff',
     marginVertical: 5,    
   },
   button: {
     width:300,
-    backgroundColor:'#1c313a',
+    backgroundColor:'rgba(179, 0, 0,0.4)',
      borderRadius: 25,
       marginVertical: 10,
       paddingVertical: 13

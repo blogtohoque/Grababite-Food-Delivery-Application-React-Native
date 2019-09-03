@@ -95,7 +95,7 @@ class ProfileScreen extends Component {
                                                                   size={30}
                                                                   color="white"
                                                           /> 
-                                  <Text style={{paddingLeft:210,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>My Profile</Text>
+                                  <Text style={{paddingLeft:210,paddingTop:5, color:'white',fontFamily:"Brush Script Std,cursive",fontWeight:"bold",fontSize:20}}>My Profile</Text>
 
                                   <FIcon
                                     name="cart-plus" style={{ paddingLeft:210,color:'white',paddingTop:3}} 
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     fontSize:18,
     color:'rgba(255, 255, 255, 0.7)',
-    fontFamily:"century-gothic",
+    fontFamily:"Brush Script Std,cursive",
     fontWeight:"bold"
 
 }

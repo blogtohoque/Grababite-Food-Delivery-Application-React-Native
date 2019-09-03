@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Alert, Image, StyleSheet,TouchableOpacity,TextInput } from "react-native";
+import { Alert, Image, StyleSheet,TouchableOpacity,TextInput,ImageBackground} from "react-native";
 import {connect} from 'react-redux';
 import {addItem} from '../../Store/actions/index';
 import {
@@ -102,8 +102,8 @@ closeModal=()=>{
 }
 
   renderModalContent = (namefood,pricefood,descriptionfood,_idfood,vendorNamefood) => (
-    <View style={styles.content}>
-      <View style={{backgroundColor:"#1c313a", height:40}}>
+    <Container  style={styles.content}>
+      <View style={{backgroundColor:'rgb(179, 0, 0)', height:40}}>
        
                   <View style={{
                     flexDirection:"row", justifyContent:"space-between",fontSize:30,
@@ -113,7 +113,7 @@ closeModal=()=>{
                     
                       <View>
                           <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
-                                            <Text style={{color:"white",fontFamily:"century-gothic"}}> 
+                                            <Text style={{color:"white",fontFamily:"Brush Script Std,cursive"}}> 
                                               Cancel
                                               </Text>
                             </TouchableOpacity>
@@ -126,7 +126,7 @@ closeModal=()=>{
                     
                     
                     <View>
-                           <Text style={{color:"white",fontFamily:"century-gothic"}}>Menu Item</Text>
+                           <Text style={{color:"white",fontFamily:"Brush Script Std,cursive"}}>Menu Item</Text>
                     </View>
                     
                   
@@ -137,28 +137,28 @@ closeModal=()=>{
                     
                     
       </View>
-      <View style={{flexDirection:"column"}}>
-       <Text style={{color:"black",fontWeight:"500",fontSize:20,fontFamily:"century-gothic",paddingLeft:10,paddingVertical:7}}>{this.state.name}</Text>
-       <Text style={{color:"black",fontWeight:"300",fontSize:15,fontFamily:"century-gothic",paddingLeft:10,paddingVertical:7}}>PKR{this.state.price}</Text>
-       <Text style={{color:"black",fontWeight:"100",fontSize:15,fontFamily:"century-gothic",paddingLeft:10,paddingVertical:7}}>{this.state.description}</Text>
+      <Content padder style={{flexDirection:"column"}}>
+       <Text style={{color:'rgb(179, 0, 0)',fontSize:15,fontFamily:"Brush Script Std,cursive",paddingLeft:10,paddingVertical:'1%'}}>{this.state.name}</Text>
+       <Text style={{color:'rgb(179, 0, 0)',fontSize:11,fontFamily:"Brush Script Std,cursive",paddingLeft:10,paddingVertical:'1%'}}>PKR{this.state.price}</Text>
+       <Text style={{color:'rgb(179, 0, 0)',fontSize:11,fontFamily:"Brush Script Std,cursive",paddingLeft:10,paddingVertical:'1%'}}>{this.state.description}</Text>
                  
-                    <Text  style={{color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic",paddingLeft:10,paddingVertical:15}}>Choose Your Drink</Text>
+                    <Text  style={{color:'rgb(179, 0, 0)',fontWeight:"500",fontSize:15,fontFamily:"Brush Script Std,cursive",paddingLeft:10,paddingVertical:'2%'}}>Choose Your Drink</Text>
                     <List>
                           <ListItem>
                                   <CheckBox checked={this.state.cOn} onPress={this.customerCheck} />
                                   <Body>
-                                  <Text>Coca Cola</Text>
+                                  <Text style={{fontSize:12,color:'rgb(179, 0, 0)'}}>Coca Cola</Text>
                                   </Body>
                           </ListItem>
                           <ListItem>
                                 <CheckBox  checked={this.state.vOn}  onPress={this.customerCheck}/>
                                 <Body>
-                                <Text>Sprite</Text>
+                                <Text  style={{fontSize:11,color:'rgb(179, 0, 0)'}}>Sprite</Text>
                                 </Body>
                           </ListItem>
                           
                     </List>
-                    <Text style={{color:"black",fontWeight:"100",fontSize:15,fontFamily:"century-gothic",paddingLeft:10,paddingVertical:15}}>Special Instruction</Text>
+                    <Text style={{color:'rgb(179, 0, 0)',fontWeight:"100",fontSize:15,fontFamily:"Brush Script Std,cursive",paddingLeft:10,paddingVertical:'2%'}}>Special Instruction</Text>
                     <TextInput
                       editable = {true}
                       maxLength = {80}
@@ -168,9 +168,10 @@ closeModal=()=>{
                     />
 
                       
-                    <View style={{paddingHorizontal:10,paddingVertical:10, flexDirection:"row", justifyContent:"space-between" }}>
+                    <View style={{paddingHorizontal:10,paddingVertical:'2%'}}>
+ 
 
-                                    <NumericInput
+                            <NumericInput
                                     initValue={this.state.v8}
                                     value={this.state.v8}
                                     onChange={
@@ -204,26 +205,29 @@ closeModal=()=>{
                                     totalHeight={40}
                                     textColor='black' 
                                     iconStyle={{ color: 'white' }}
-                                    rightButtonBackgroundColor='#1c313a'
-                                    leftButtonBackgroundColor='#1c313a' />
-
-                                    <Button onPress={()=>{
+                                    rightButtonBackgroundColor='rgb(179, 0, 0)'
+                                    leftButtonBackgroundColor= 'rgb(179, 0, 0)' />
+ 
+                                    
+                                <Button onPress={()=>{
                                       this.closeModal(),
                                       this.props.onPlusClick(this.state.name,this.state.price,this.state.description,this.state._id,this.props.vendorName)
 
                                     
-                                    }} style={{backgroundColor:"#1c313a"}}><Text style={{color:"white",fontWeight:"300",fontSize:15,fontFamily:"century-gothic"}}>ADD TO BASKET</Text></Button>
+                                    }} style={{backgroundColor:'rgb(179, 0, 0)',marginTop:'2%'}}><Text style={{color:"white",fontWeight:"300",fontSize:15,fontFamily:"Brush Script Std,cursive"}}>ADD TO BASKET</Text></Button>
                                     {/*this.props.onPlusClick(this.state.name,this.state.price,this.state.description,this.state._id,this.props.vendorName,this.state.v8) */}
+
+                       
                 </View> 
 
 
 
 
 
-      </View>
+      </Content>
         
        
-    </View>
+    </Container>
   );
   plusClickHandler=(name,price,description,_id,vendorName)=>{
     this.setState({
@@ -318,18 +322,21 @@ closeModal=()=>{
 
     return (
       <Container style={{ width: "100%" }}>
-                    <View style={{backgroundColor:"#1c313a", height:50, flexDirection:"row",paddingTop:10 }}>
+        <ImageBackground source={require('../../../images/phoneimg1.jpg')} style={{width:'100%',height:'100%'}} >
+
+
+        <View style={{backgroundColor:"#fff3e0", height:50, flexDirection:"row",paddingTop:10 }}>
                                   <Icons 
                                                               style={{paddingLeft:10}} 
                                                               onPress={()=>{this.props.navigation.goBack()}}
                                                               name="md-arrow-back" 
                                                               size={30}
-                                                              color="white"
+                                                              color='rgb(179, 0, 0)'
                                                       /> 
-                              <Text style={{paddingLeft:'25%',paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>{this.props.vendorName}</Text>
+                              <Text style={{paddingLeft:'30%',paddingTop:5, color:'rgb(179, 0, 0)',fontFamily:"Brush Script Std, cursive",fontSize:18,fontWeight:'bold'}}>{this.props.vendorName}</Text>
 
                               <FIcon
-                                name="cart-plus" style={{ paddingLeft:'30%',color:'white',paddingTop:3}} 
+                                name="cart-plus" style={{ paddingLeft:'20%',color:'rgb(179, 0, 0)',paddingTop:3}} 
                                 size={30} 
                                 onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
                                   />
@@ -338,18 +345,22 @@ closeModal=()=>{
                     </View>
 
 
-          <Header searchBar rounded style={{backgroundColor: '#1c313a'}}>
+        <Header searchBar rounded style={{backgroundColor: '#fff3e0'}}>
           <Item>
-            <Icon name="ios-search" />
-            <Input placeholder="Search Food" />
-            <IC name="utensils" size={20} style={{paddingRight:15}}/>
+            <Icon style={{color:'rgb(179, 0, 0)'}} name="ios-search" />
+            <Input placeholderTextColor={'rgb(179, 0, 0)'} placeholder="Search Food" />
+            <IC color={'rgb(179, 0, 0)'} name="utensils" size={20} style={{paddingRight:15}}/>
         
           </Item>
           <Button transparent>
             <Text>Search</Text>
           </Button>
         </Header>
-        <Content padder>
+
+
+        
+
+        <Content padder style={{backgroundColor:'rgba(0,0,0,0.5)'}} >
           
    
 
@@ -371,21 +382,21 @@ closeModal=()=>{
                         return (
                                     <Card thumbnail>
           
-                                    <CardItem key={key} style={{backgroundColor:"#1c313a"}}>
+                                    <CardItem key={key} style={{backgroundColor:"#fff3e0"}}>
                                   <Left>
                                     <Thumbnail source={require('../../assets/images/logo.png')} />
                                     <Body>
-                                    <Text style={{color:"white"}}>{abc.name}</Text>
-                                      <Text style={{color:"white"}} note numberOfLines={1}>
+                                    <Text style={{color:'rgb(179, 0, 0)',fontSize:12}}>{abc.name}</Text>
+                                      <Text style={{color:'rgb(179, 0, 0)',fontSize:12}} note numberOfLines={1}>
                                         {abc.description}
                                       </Text>
-                                      <Text style={{color:"white"}}>Rs{abc.price} </Text>
+                                      <Text style={{color:'rgb(179, 0, 0)',fontSize:12}}>Rs{abc.price} </Text>
                                   
                                     </Body>
                                   </Left>
                                   <Right>
                                   <Button transparent>
-                                          <Icons  name="ios-add-circle-outline" size={30} style={{color:"white"}} onPress={()=>{this.plusClickHandler(abc.name,abc.price,abc.description,abc._id,this.props.vendorName)}} /> 
+                                          <Icons  name="ios-add-circle-outline" size={30} style={{color:'rgb(179, 0, 0)'}} onPress={()=>{this.plusClickHandler(abc.name,abc.price,abc.description,abc._id,this.props.vendorName)}} /> 
                                           {/*this.Alertme(abc.name,abc.price,abc.description,abc._id,this.props.vendorName),this.props.onPlusClick(abc.name,abc.price,abc.description,abc._id,this.props.vendorName) */}
                                           </Button>
 
@@ -456,8 +467,8 @@ closeModal=()=>{
 
           <Modal
                                       isVisible={this.state.visibleModal === 'fancy'}
-                                      backdropColor="#B4B3DB"
-                                      backdropOpacity={0.8}
+                                      backdropColor="rgba(0,0,0,0.8)"
+                                     // backdropOpacity={0.8}
                                       animationIn="zoomInDown"
                                       animationOut="zoomOutUp"
                                       animationInTiming={600}
@@ -485,6 +496,11 @@ closeModal=()=>{
         </Content>
         
         
+      
+
+        </ImageBackground>
+      
+                   
       </Container>
     );
   }
@@ -511,11 +527,15 @@ mapDispatchToProps=(dispatch)=>{
 export default connect(mapStateToProps,mapDispatchToProps)(Menu);
 
 const styles = StyleSheet.create({
+  /*overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.5)'
+  },*/
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   content: {
     backgroundColor: 'white',

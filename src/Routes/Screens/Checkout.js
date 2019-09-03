@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 import NumericInput from 'react-native-numeric-input';
 import {addQuantity,decreaseQuantity,deleteItem} from '../../Store/actions/index';
-import {Alert,  StyleSheet, TouchableHighlight,TouchableOpacity,TextInput } from "react-native";
+import {Alert,  StyleSheet, TouchableHighlight,TouchableOpacity,TextInput,ImageBackground } from "react-native";
 import {
   Container,
   Content,
@@ -97,18 +97,19 @@ import axios from 'axios';
   
   }
   renderModalContent = () => (
-    <View style={styles.content}>
-      <View style={{backgroundColor:"#1c313a", height:40}}>
+  <Container style ={styles.content} >
+
+      <View style={{backgroundColor:'rgb(179, 0, 0)', height:40}}>
        
                   <View style={{
-                    flexDirection:"row", justifyContent:"space-between",marginRight:210 ,fontSize:30,
-                    paddingTop:5, paddingVertical:10,paddingLeft:10
+                    flexDirection:"row", justifyContent:"space-between",fontSize:30,
+                    paddingTop:5, paddingVertical:10,paddingHorizontal:'5%'
                     
                     }}>
                     
                       
                         <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
-                                        <Text style={{color:"white",fontFamily:"century-gothic"}}> 
+                                        <Text style={{color:"white",fontFamily:"Brush Script Std,cursive"}}> 
                                         Cancel
                                           </Text>
                         </TouchableOpacity>
@@ -119,7 +120,7 @@ import axios from 'axios';
                     
                     
                     
-                    <Text style={{color:"white",fontFamily:"century-gothic"}}>Address</Text>
+                    <Text style={{color:"white",fontFamily:"Brush Script Std,cursive"}}>Address</Text>
                   
                   
                   </View>
@@ -128,31 +129,37 @@ import axios from 'axios';
                     
                     
       </View>
-      <View >
-              <View style={{flexDirection:"row",justifyContent:"space-between",paddingHorizontal:10}}>
-                      <View style={{flexDirection:"column"}}>      
-                                <Text style={{paddingTop:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>First Name</Text> 
+      <Content padder>
+     
+              <View style={{flexDirection:"row",justifyContent:"space-between",paddingHorizontal:'2%',width:'100%' }}>
 
-                                <Item regular style={{width:180,height:40,marginTop:8,borderRadius:10}}>
+                      <View style={{flexDirection:"column",width:'50%',marginRight:'3%'}}>      
+                                <Text style={{paddingTop:'5%',color:'rgb(179, 0, 0)',fontWeight:'500',fontSize:14,fontFamily:"Brush Script Std,cursive"}}>First Name</Text> 
+
+                                <Item regular style={{marginTop:'4%',borderRadius:10,width:'100%'}}>
                                   <Input 
 
-                                  value={this.state.cfirstName} 
-                                  keyboardType="email-address"
-                              onChangeText={(inp)=>{
-                                  this.setState({cfirstName:inp})
-                              }}         
+                                            value={this.state.cfirstName} 
+                                            keyboardType="email-address"
+                                            onChangeText={(inp)=>{
+                                            this.setState({cfirstName:inp})
+                                            
+                                        }}     
+                                        style={{width:'100%',fontSize:11}}
+                                           
                                   />
                                 </Item>  
                       </View>       
-                      <View style={{flexDirection:"column",paddingRight:60}}>
-                                  <Text style={{paddingTop:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>Last Name</Text>
+                      <View style={{flexDirection:"column",width:'50%'}}>
+                                  <Text style={{paddingTop:'5%',color:'rgb(179, 0, 0)',fontWeight:'500',fontSize:14,fontFamily:"Brush Script Std,cursive"}}>Last Name</Text>
                       
-                                  <Item regular style={{width:180,height:40,marginTop:8,borderRadius:10}}>
+                                  <Item regular style={{marginTop:'4%',borderRadius:10,width:'100%'}}>
                                     <Input  
-                                    value={this.state.clastName}
-                                    onChangeText={(inp)=>{
-                                      this.setState({clastName:inp})
+                                              value={this.state.clastName}
+                                              onChangeText={(inp)=>{
+                                              this.setState({clastName:inp})
                                   }}
+                                 style={{width:'100%',fontSize:11}}
                                     />
 
                                   </Item>
@@ -163,24 +170,25 @@ import axios from 'axios';
                    
               </View>
 
-              <View style={{flexDirection:"column"}}>
-                      <Text style={{paddingTop:10, paddingLeft:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>Address</Text>
-                      <Item regular style={{width:400,height:40,marginTop:8,borderRadius:10,marginLeft:10}}>
+              <View style={{flexDirection:"column",width:'90%'}}>
+                      <Text style={{paddingTop:'5%',color:'rgb(179, 0, 0)',fontWeight:'500',fontSize:14,fontFamily:"Brush Script Std,cursive"}}>Address</Text>
+                      <Item regular style={{marginTop:'4%',borderRadius:10,width:'100%'}}>
                                     <Input 
                                     value={this.state.caddress} 
                                     onChangeText={(inp)=>{
                                       this.setState({caddress:inp})
                                   }}
+                                  style={{width:'100%',fontSize:11}}
                                     />
                       </Item>
 
 
               </View>      
 
-              <View style={{flexDirection:"column"}}>
-                      <Text style={{paddingTop:10, paddingLeft:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>Area</Text>
-                      <Item regular style={{width:400,height:40,marginTop:8,borderRadius:10,marginLeft:10}}>
-                                    <Input placeholder='Area' />
+              <View style={{flexDirection:"column",width:'90%'}}>
+                      <Text style={{paddingTop:'5%',color:'rgb(179, 0, 0)',fontWeight:'500',fontSize:14,fontFamily:"Brush Script Std,cursive"}}>Area</Text>
+                      <Item regular style={{marginTop:'4%',borderRadius:10,width:'100%'}}>
+                                    <Input style={{fontSize:11}} placeholder='Area' />
                                     <Icons style={{paddingRight:10}} size={20} active name='md-pin' />
                                     
                       </Item>
@@ -188,14 +196,15 @@ import axios from 'axios';
 
               </View>      
 
-              <View style={{flexDirection:"column"}}>
-                      <Text style={{paddingTop:10, paddingLeft:10,color:"black",fontWeight:"500",fontSize:15,fontFamily:"century-gothic"}}>Phone No</Text>
-                      <Item regular style={{width:400,height:40,marginTop:8,borderRadius:10,marginLeft:10}}>
+              <View style={{flexDirection:"column",width:'90%'}}>
+                      <Text style={{paddingTop:'5%',color:'rgb(179, 0, 0)',fontWeight:'500',fontSize:14,fontFamily:"Brush Script Std,cursive"}}>Phone No</Text>
+                      <Item regular style={{marginTop:'4%',borderRadius:10,width:'100%'}}>
                                     <Input 
                                     value={this.state.cmobile}
                                     onChangeText={(inp)=>{
                                       this.setState({cmobile:inp})
                                   }}
+                                  style={{width:'100%'}}
                                      />
                       </Item>
 
@@ -203,12 +212,12 @@ import axios from 'axios';
               </View>
 
 
-                    <View style={{paddingTop:20, paddingLeft:10,paddingBottom:20}}>
+                    <View style={{paddingTop:'10%', paddingLeft:'5%',paddingBottom:'10%',width:'90%'}}>
                                     <Button 
-                                    style={{backgroundColor:"#1c313a"}}
+                                    style={{backgroundColor:'rgb(179, 0, 0)',width:'100%'}}
                                     onPress={() => this.setState({ visibleModal: null })}
                                     ><Text onPress={() => this.setState({ visibleModal: null })}
-                                    style={{width:400,height:60,color:"white",fontWeight:"400",fontSize:15,fontFamily:"century-gothic",paddingLeft:185,marginTop:35}}
+                                    style={{paddingLeft:'40%',paddingTop:'2%',color:'white',fontWeight:'500',fontSize:14,fontFamily:"Brush Script Std,cursive",width:'100%'}}
                                     >DONE</Text></Button>      
 
                     </View>
@@ -221,10 +230,10 @@ import axios from 'axios';
 
 
 
-      </View>
-        
+    
+        </Content> 
        
-    </View>
+      </Container>
   );
 
 
@@ -365,41 +374,41 @@ axios.post("http://192.168.10.8:8000/Checkout",
   render() {
     return (
       <Container style={{ width: "100%" }}>
-        <View style={{backgroundColor:"#1c313a", height:50,paddingTop:10,flexDirection:'row' }}>
+        <View style={{backgroundColor:'#fff3e0', height:50,paddingTop:10,flexDirection:'row' }}>
         <Icons 
                                     style={{paddingLeft:10}} 
                                     onPress={()=>{this.props.navigation.goBack()}}
                                     name="md-arrow-back" 
                                     size={30}
-                                    color="white"
+                                    color='rgb(179, 0, 0)'
                             /> 
-     <Text style={{paddingLeft:'25%',paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>REVIEW ORDER</Text>
+     <Text style={{paddingLeft:'25%',paddingTop:5, color:'rgb(179, 0, 0)',fontFamily:"Brush Script Std,cursive",fontWeight:"bold",fontSize:15}}>REVIEW ORDER</Text>
 
      
      </View>
-     <View style={{backgroundColor:"#1c313a", height:40, opacity:0.6}}>
+
+
+<Content padder>
+
+     <View style={{backgroundColor:'white'}}>
        
-       <View style={{
-         flexDirection:"row", fontSize:30,
-         
-         
-         }}>
+    
          
            
-                        <TouchableOpacity >
-                                        <Text style={{color:"black",fontFamily:"century-gothic",fontWeight:"500", fontSize:20, paddingLeft:13,paddingTop:3 }}> 
+                      
+                                        <Text style={{color:'rgb(179, 0, 0)',fontFamily:"Brush Script Std,cursive", fontSize:14, paddingLeft:13,paddingTop:3,fontWeight:'300' }}> 
                                         YOUR INFORMATION
                                           </Text>
-                        </TouchableOpacity>
+                     
                     
                   
-       </View>         
+              
       </View>
 
 
-      <View style={{padding:10}}>
+      <View style={{marginTop:'2%'}} >
                         <TouchableOpacity  onPress={() => this.setState({ visibleModal: 'fancy' })} >
-                                        <Text style={{color:"#1c313a",fontFamily:"century-gothic",fontWeight:"500", fontSize:20,justifyContent:"center",paddingLeft:'28%', paddingTop:15,opacity:0.6 }}> 
+                                        <Text style={{color:'black',fontFamily:"Brush Script Std,cursive", fontSize:13,justifyContent:"center",paddingLeft:'28%'}}> 
                                         + Add Address
                                         </Text>
                         </TouchableOpacity>
@@ -410,42 +419,39 @@ axios.post("http://192.168.10.8:8000/Checkout",
 
       <Modal
                                       isVisible={this.state.visibleModal === 'fancy'}
-                                      backdropColor="#B4B3DB"
-                                      backdropOpacity={0.8}
+                                      backdropColor="rgba(0,0,0,0.8)"
+                                     // backdropOpacity={0.8}
                                       animationIn="zoomInDown"
                                       animationOut="zoomOutUp"
                                       animationInTiming={600}
                                       animationOutTiming={600}
                                       backdropTransitionInTiming={600}
                                       backdropTransitionOutTiming={600}
-                                      style={{padding:40}}
+                                      
                                     >
                                       {this.renderModalContent()}
         </Modal>
 
 
-        <View style={{backgroundColor:"#1c313a", height:40, opacity:0.6}}>
+        <View style={{backgroundColor:'white',marginTop:'2%'}}>
        
-       <View style={{
-         flexDirection:"row", fontSize:30,
-         
-         
-         }}>
+     
          
            
-                        <TouchableOpacity >
-                                        <Text style={{color:"black",fontFamily:"century-gothic",fontWeight:"500", fontSize:20, paddingLeft:13,paddingTop:3 }}> 
+      
+                                        <Text style={{color:'rgb(179, 0, 0)',fontFamily:"Brush Script Std,cursive", fontSize:14, paddingLeft:13,fontWeight:'300'}}> 
                                         ORDER INSTRUCTIONS
                                           </Text>
-                        </TouchableOpacity>
+                      
                     
                   
-       </View>         
+             
       </View>
+
       <View>
 
-                      <Item regular style={{width:580,height:40,marginTop:15,borderRadius:10,marginLeft:10}}>
-                                    <Input placeholder="e.g Please call, don't ring the door bell   "/>
+                      <Item regular style={{width:'80%',marginTop:'2%',borderRadius:10,marginLeft:10}}>
+                                    <Input style={{fontSize:12}} placeholder="e.g Please call, don't ring the door bell   "/>
                       </Item>
 
 
@@ -454,24 +460,21 @@ axios.post("http://192.168.10.8:8000/Checkout",
 
 
 
-      <View style={{backgroundColor:"#1c313a", height:40, opacity:0.6,marginTop:10}}>
+      <View style={{backgroundColor:'white',marginTop:'2%'}}>
        
-       <View style={{
-         flexDirection:"row", fontSize:30,
-         
-         
-         }}>
+      
          
            
-                        <TouchableOpacity >
-                                        <Text style={{color:"black",fontFamily:"century-gothic",fontWeight:"500", fontSize:20, paddingLeft:13,paddingTop:3 }}> 
+                     
+                                        <Text style={{color:'rgb(179, 0, 0)',fontFamily:"Brush Script Std,cursive", fontSize:14, paddingLeft:13,fontWeight:'300'}}> 
                                         PAYMENT METHOD
                                           </Text>
-                        </TouchableOpacity>
+                    
                     
                   
-       </View>         
+             
       </View>
+
       <View>
 
 
@@ -479,13 +482,13 @@ axios.post("http://192.168.10.8:8000/Checkout",
           <ListItem>
             <CheckBox checked={this.state.cOn} onPress={this.cashCheck} />
             <Body>
-              <Text style={{fontFamily:"century-gothic",fontWeight:"300"}}>Cash on Delivery</Text>
+              <Text style={{fontFamily:"Brush Script Std,cursive",fontWeight:"300",fontSize:11}}>Cash on Delivery</Text>
             </Body>
           </ListItem>
           <ListItem>
             <CheckBox  checked={this.state.vOn}  onPress={this.cashCheck}/>
             <Body>
-              <Text style={{fontFamily:"century-gothic",fontWeight:"300"}}>Pay by Credit Card</Text>
+              <Text style={{fontFamily:"Brush Script Std,cursive",fontWeight:"300",fontSize:11}}>Pay by Credit Card</Text>
             </Body>
           </ListItem>
 
@@ -494,28 +497,25 @@ axios.post("http://192.168.10.8:8000/Checkout",
       </View>
 
 
-      <View style={{backgroundColor:"#1c313a", height:40, opacity:0.6, marginTop:10}}>
+      <View style={{backgroundColor:'white', marginTop:'2%'}}>
        
-       <View style={{
-         flexDirection:"row", fontSize:30,
-         
-         
-         }}>
+      
          
            
-                        <TouchableOpacity >
-                                        <Text style={{color:"black",fontFamily:"century-gothic",fontWeight:"500", fontSize:20, paddingLeft:13,paddingTop:3 }}> 
+                   
+                                        <Text style={{color:'rgb(179, 0, 0)',fontFamily:"Brush Script Std,cursive", fontSize:14, paddingLeft:13,fontWeight:'300'}}> 
                                         PROMO CODE
                                           </Text>
-                        </TouchableOpacity>
+                       
                     
                   
-       </View>         
+            
       </View>
+
       <View>
 
-                      <Item regular style={{width:580,height:40,marginTop:15,borderRadius:10,marginLeft:10}}>
-                                    <Input placeholder="Enter Code  "/>
+                      <Item regular style={{width:'80%',marginTop:'2%',borderRadius:10,marginLeft:10}}>
+                                    <Input style={{fontSize:11}} placeholder="Enter Code  "/>
                       </Item>
 
 
@@ -526,17 +526,17 @@ axios.post("http://192.168.10.8:8000/Checkout",
 
                       
                       <Button warning 
-                      style={{width:'80%',height:40,marginTop:15,borderRadius:10,marginHorizontal:'10%',backgroundColor:"#1c313a",paddingHorizontal:'20%'} }
+                      style={{width:'80%',height:40,marginTop:'7%',borderRadius:10,marginHorizontal:'10%',backgroundColor:'rgb(179, 0, 0)',paddingLeft:'20%'} }
                       onPress={this.placeOrder}
                       
-                      ><Text style={{fontFamily:"century-gothic"}} >PLACE MY ORDER</Text></Button>
+                      ><Text style={{fontFamily:"Brush Script Std,cursive",fontSize:12,paddingBottom:'12%',fontWeight:'300'}} >PLACE MY ORDER</Text></Button>
 
       </View>
 
 
 
+      </Content>
 
-     {/*   <Text>{this.props.VendorName} Cart</Text>         */} 
        </Container>
     );
   }

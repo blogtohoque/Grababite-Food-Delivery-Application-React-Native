@@ -48,7 +48,7 @@ class OrderDetails extends Component {
                                                               size={30}
                                                               color="white"
                                                       /> 
-                              <Text style={{paddingLeft:210,paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>Order Detail</Text>
+                              <Text style={{paddingLeft:210,paddingTop:5, color:'white',fontFamily:"Brush Script Std,cursive",fontWeight:"bold",fontSize:20}}>Order Detail</Text>
 
                               <FIcon
                                 name="cart-plus" style={{ paddingLeft:220,color:'white',paddingTop:3}} 
@@ -266,7 +266,7 @@ const Styles = StyleSheet.create({
             marginHorizontal:10,
             color:'white',
             opacity:0.8,
-            fontFamily:"century-gothic",
+            fontFamily:"Brush Script Std,cursive",
             marginTop:5,
             paddingVertical:6
             
@@ -280,7 +280,7 @@ const Styles = StyleSheet.create({
             borderRadius:5,
             borderColor:'#9ca2ad',
             backgroundColor:"white",
-            fontFamily:"century-gothic",
+            fontFamily:"Brush Script Std,cursive",
             
     },
 
@@ -291,7 +291,7 @@ const Styles = StyleSheet.create({
         borderRadius:5,
         borderColor:'#9ca2ad',
         backgroundColor:"white",
-        fontFamily:"century-gothic",
+        fontFamily:"Brush Script Std,cursive",
     },
     List3:{
         marginTop:2,
@@ -300,7 +300,7 @@ const Styles = StyleSheet.create({
         borderRadius:5,
         borderColor:'#9ca2ad',
         backgroundColor:"white",
-        fontFamily:"century-gothic",
+        fontFamily:"Brush Script Std,cursive",
     }
   
 

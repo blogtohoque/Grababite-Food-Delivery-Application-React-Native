@@ -178,12 +178,12 @@ const DashboardStackNavigator= createStackNavigator({
    return{
 
     headerTitle: 'GRAB A BITE', 
-    headerTintColor: 'white',
+    headerTintColor:'rgb(179, 0, 0)',
     headerTitleStyle:{
-      paddingLeft:'25%', color:'white',fontFamily:"century-gothic",fontWeight:"500"
+      paddingLeft:'25%', color:'rgb(179, 0, 0)',fontFamily: "Brush Script Std,cursive",fontWeight:"500",fontSize:15
     },
     headerStyle: {
-      backgroundColor: '#1c313a',
+      backgroundColor: "#fff3e0",
       
       
       
@@ -194,10 +194,10 @@ const DashboardStackNavigator= createStackNavigator({
       onPress={()=>{navigation.openDrawer()}}
       name="md-menu" 
       size={30}
-      color="white"
+      color='rgb(179, 0, 0)'
       />,
       headerRight:(
-        <FIcon name="cart-plus" style={{ paddingRight:30}} size={30} color="white"
+        <FIcon name="cart-plus" style={{ paddingRight:30}} size={30} color='rgb(179, 0, 0)'
         onPress={()=>{navigation.navigate('TripleJugarNavigation')}}
         />
          
@@ -211,28 +211,43 @@ const DashboardStackNavigator= createStackNavigator({
 });
 
 const customDrawerContentComponenet=(props)=>(
-  <Container>
+  <Container >
+    <View style={{backgroundColor:'rgb(179, 0, 0)'}} >
+
+   
     <Header style={{
       height:200,
-      backgroundColor:'#1c313a',
+      backgroundColor:'rgba(0,0,0,0.4)'
       
       }}>
-      <Body>
-        <Image
-        style={{
-          height:150,
-          width:150,
-          borderRadius:75,
-          alignSelf:"center",
-          opacity:0.7
-          
-        }}
-        source={require('./src/assets/images/logo.png')}
-        />
-        
 
-      </Body>
+
+  
+<Body  >
+       
+
+
+       <Image
+       style={{
+         height:150,
+         width:150,
+         borderRadius:75,
+         alignSelf:"center",
+         opacity:0.7
+         
+       }}
+       source={require('./src/assets/images/logo.png')}
+       />
+
+   
+
+
+       
+
+     </Body>
+    
     </Header>
+    </View>
     <Content style={{   backgroundColor:'white', opacity:0.7
    }}>
 

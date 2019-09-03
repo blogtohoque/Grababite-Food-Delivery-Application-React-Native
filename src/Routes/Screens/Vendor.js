@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
 import {saveVendor} from '../../Store/actions/index';
-import {Image,StyleSheet,TouchableOpacity} from 'react-native';
+import {Image,StyleSheet,TouchableOpacity,ImageBackground} from 'react-native';
 import {
   Container,
   Content,
@@ -58,7 +58,7 @@ class Vendor extends Component {
          
            <View>
                <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
-                                 <Text style={{color:"white",fontFamily:"century-gothic"}}> 
+                                 <Text style={{color:"white",fontFamily:"Brush Script Std,cursive"}}> 
                                    Cancel
                                    </Text>
                  </TouchableOpacity>
@@ -71,7 +71,7 @@ class Vendor extends Component {
          
          
          <View>
-                <Text style={{color:"white",fontFamily:"century-gothic"}}>Menu Item</Text>
+                <Text style={{color:'rgb(179, 0, 0)',fontFamily:"Brush Script Std,cursive"}}>Menu Item</Text>
          </View>
          
        
@@ -169,18 +169,21 @@ class Vendor extends Component {
 
     return (
       <Container style={{ width: "100%" }}>
-        <View style={{backgroundColor:"#1c313a", height:57, flexDirection:"row",paddingTop:10 }}>
+        <ImageBackground source ={require('../../../images/phoneimg1.jpg')} style={{width:'100%',height:'100%'}}>
+
+       
+        <View style={{backgroundColor:"#fff3e0", height:57, flexDirection:"row",paddingTop:10 }}>
         <Icons 
                                     style={{paddingLeft:10,paddingTop:5}} 
                                     onPress={()=>{this.props.navigation.openDrawer()}}
                                     name="md-menu" 
                                     size={30}
-                                    color="white"
+                                    color='rgb(179, 0, 0)'
                             /> 
-     <Text style={{paddingLeft:'25%',paddingTop:5, color:'white',fontFamily:"century-gothic",fontWeight:"bold",fontSize:20}}>{this.props.cityname} </Text>
+     <Text style={{paddingLeft:'25%',paddingTop:5, color:'rgb(179, 0, 0)',fontFamily:"Brush Script Std,cursive",fontWeight:"bold",fontSize:20}}>{this.props.cityname} </Text>
 
      <FIcon
-      name="cart-plus" style={{ paddingLeft:180,color:'white',paddingTop:3}} 
+      name="cart-plus" style={{ paddingLeft:'25%',color:'rgb(179, 0, 0)',paddingTop:3}} 
       size={30} 
       onPress={()=>{this.props.navigation.navigate('TripleJugarNavigation')}}
         />
@@ -189,7 +192,7 @@ class Vendor extends Component {
 
 
      </View>
-        <Content padder>
+        <Content padder style={{backgroundColor:'rgba(0,0,0,0.5)'}} >
           
           
    
@@ -203,19 +206,19 @@ class Vendor extends Component {
                                 {print.vendorNameList.map((item, key) => {
                                 return(
                                   <Card key={key}>
-                                  <CardItem key={key} style={{backgroundColor:"#1c313a"}}>
+                                  <CardItem key={key} style={{backgroundColor:"#fff3e0"}}>
                                   <Left>
                                     <Thumbnail source={require('../../assets/images/logo.png')} />
                                     <Body>
-                                      <Text style={{color:"white"}}>{item}</Text>
-                                      <Text note style={{color:"white"}}>Grab A Bite</Text>
+                                      <Text style={{color:'rgb(179, 0, 0)'}}>{item}</Text>
+                                      <Text note style={{color:'rgb(179, 0, 0)'}}>Grab A Bite</Text>
                                     </Body>
                                   </Left>
                                 </CardItem>
                                     <CardItem cardBody>
                                     <Image source={require('../../assets/images/fm.jpg')} style={{height: 200, width: null, flex: 1}}/>
                                   </CardItem>
-                                  <CardItem style={{backgroundColor:"#1c313a"}}>
+                                  <CardItem style={{backgroundColor:"#fff3e0"}}>
                              
                                   <Body>
 
@@ -227,8 +230,8 @@ class Vendor extends Component {
                                                         disabled={true}
                                                         maxStars={5}
                                                         rating={this.state.starCount}
-                                                        emptyStarColor= {'white'}
-                                                        fullStarColor = {'#ddeb60'}
+                                                        emptyStarColor= {'black'}
+                                                        fullStarColor = {'rgb(179, 0, 0)'}
                                                         starSize = {20}
                                                         starStyle ={{marginTop:13}}
 
@@ -240,13 +243,13 @@ class Vendor extends Component {
 
                                                   <View style={{marginLeft:'10%'}} >
                                                            <Button transparent>
-                                                                <Text style={{color:"white",fontFamily:"century-gothic",fontWeight:"bold",fontSize:15}} onPress={()=>{this.onViewClick(); this.props.onVendorAdd(item);}}>View</Text>
+                                                                <Text style={{color:'rgb(179, 0, 0)',fontFamily: "Brush Script Std",fontWeight:"bold",fontSize:15}} onPress={()=>{this.onViewClick(); this.props.onVendorAdd(item);}}>View</Text>
                                                            </Button>
                                                   </View>
 
                                                   <View style={{marginLeft:'9%'}}>
                                                            <Button transparent onPress={()=>{this.setState({visibleModal: 'fancy'})}}>
-                                                                <Text style={{color:"white",fontFamily:"century-gothic",fontWeight:"bold",fontSize:15,marginLeft:'5%'}} > Reviews </Text>
+                                                                <Text style={{color:'rgb(179, 0, 0)',fontFamily: "Brush Script Std",fontWeight:"bold",fontSize:15,marginLeft:'5%'}} > Reviews </Text>
                                                            </Button>
                                                   </View>
                                                   
@@ -288,7 +291,7 @@ class Vendor extends Component {
                                     >
                                       {this.renderModalContent()}
         </Modal>
-        
+        </ImageBackground>
       </Container>
     );
   }

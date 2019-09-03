@@ -2,7 +2,7 @@ import React, { Component } from "react";
 //import { navigator } from "react-native-navigation";
 import {connect} from 'react-redux';
 import axios from 'axios';
-import { StyleSheet,Image,Modal, TouchableHighlight, View, Alert, StatusBar,TextInput,TouchableOpacity  } from "react-native";
+import { StyleSheet,Image,Modal, TouchableHighlight, View, Alert, StatusBar,TextInput,TouchableOpacity,ImageBackground  } from "react-native";
 import {saveUserName,saveUserDetail} from '../../Store/actions/index';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
@@ -157,18 +157,23 @@ class Login extends Component {
    // console.log('login props')
   //  console.log(this.props)
     return (
-      
-                            <View style={styles.container}>
+      <Container style={styles.container} >
+                            
+
+                              <ImageBackground source={require('../../../images/phoneimg1.jpg')} style={{width:'100%',height:'100%'}} >
+
+                         <Content >
+                          
                             <StatusBar
-                      backgroundColor="#1c313a"
+                      backgroundColor="black"
                       barStyle="light-content"
                       /> 
-                      <Logo/>
+                      <Logo />
                       <View style={styles.container1} >
                       <TextInput style={styles.inputBox} 
                       underlineColorAndroid='rgba(0,0,0,0)' 
                       placeholder="Email"
-                      placeholderTextColor = "#ffffff"
+                      placeholderTextColor = 'rgb(179, 0, 0)'
                       selectionColor="#fff"
                       keyboardType="email-address"
                       onChangeText = {(inp)=>this.setState({name:inp})  }
@@ -179,7 +184,7 @@ class Login extends Component {
                       underlineColorAndroid='rgba(0,0,0,0)' 
                       placeholder="Password"
                       secureTextEntry={true}
-                      placeholderTextColor = "#ffffff"
+                      placeholderTextColor = 'rgb(179, 0, 0)'
                       onChangeText = {(inp)=>this.setState({password:inp})}
 
                       />  
@@ -203,27 +208,30 @@ class Login extends Component {
                       <TouchableOpacity onPress ={()=>{this.props.navigation.navigate('SignUp')}} ><Text style={styles.signupButton}> Signup</Text></TouchableOpacity>
 
                       </View>
+                      </Content>  
+                      </ImageBackground>
 
-                      </View>
+                      </Container>
     );
   }
 };
 
 const styles = StyleSheet.create({
   container : {
-    backgroundColor:'#455a64',
+   // backgroundColor:'#455a64',
     flex: 1,
     alignItems:'center',
-    paddingTop:'10%'
+    //paddingTop:'10%'
     
     
   },
   signupTextCont : {
-  	flexGrow: 1,
-    alignItems:'flex-end',
-    justifyContent :'center',
+    flexGrow: 1,
+    justifyContent:"center",
     paddingVertical:'10%',
-    flexDirection:'row'
+    flexDirection:'row',
+    alignItems:"center",
+    //marginLeft:'35%'
   },
   signupText: {
   	color:'rgba(255,255,255,0.6)',
@@ -232,18 +240,18 @@ const styles = StyleSheet.create({
   signupButton: {
   	color:'#ffffff',
   	fontSize:16,
-  	fontWeight:'500'
+    fontWeight:'500',
   },
   container1 : {
     flexGrow: 1,
     justifyContent:'center',
     alignItems: 'center',
-    paddingTop:60
+    paddingTop:50
   },
 
   inputBox: {
     width:300,
-    backgroundColor:'rgba(255, 255,255,0.2)',
+    backgroundColor:'rgba(255, 255,255,0.4)',
     borderRadius: 25,
     paddingHorizontal:16,
     fontSize:16,
@@ -254,7 +262,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width:300,
-    backgroundColor:'#1c313a',
+    backgroundColor:'rgba(179, 0, 0,0.5)',
      borderRadius: 25,
       marginVertical: 10,
       paddingVertical: 13
