@@ -122,7 +122,7 @@ class Vendor extends Component {
   }
   componentDidMount=()=>{
    
-    fetch('http://192.168.10.8:8000/city')
+    fetch('http://192.168.140.2:8000/city')
     .then(res=> res.json())
     .then(gotdata=>this.setState({gotdata}));
    

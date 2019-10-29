@@ -44,7 +44,7 @@ class ProfileScreen extends Component {
      
       if(c===DBOLDPASS){
      //   console.log("dataabse wala pass "+DBOLDPASS+" old pass jo likha ha "+c+"Emailllll "+ em)
-              axios.post("http://192.168.10.8:8000/updateProfileDelivery",
+              axios.post("http://192.168.140.2:8000/updateProfileDelivery",
                 {
                     firstname:a,
                     lastname:b,
